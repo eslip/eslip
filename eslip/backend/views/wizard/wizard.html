@@ -1,0 +1,64 @@
+<!-- STEP 0 - Language Selection -->
+<input type="hidden" id="language" name="language" data-value="selectedLang"/>
+
+<!-- Wizard -->
+<div id="wizard" class="wizard">
+	
+	<!-- STEP 1 - Create User Admin -->
+	<div id="step-1" class="stepContainer" data-template-bind='[{"attribute": "title", "value": "labels.createAdminUser"}]'>
+	
+		<h3 class="stepTitle" data-content="labels.createAdminUser"></h3>
+		<div class="contenedorCentral borderBox">
+		<form id="form1" action="" method="POST">
+			<div class="reng">
+				<label for="adminUser"><span data-content="labels.adminUser"></span>:</label>
+				<input type="text" id="adminUser" name="adminUser" data-value="settings.adminUser" />
+			</div>
+			<div class="reng">
+				<label for="adminPass"><span data-content="labels.adminPass"></span>:</label>
+				<input type="password" id="adminPass" name="adminPass" value="" />
+			</div>
+			<div class="reng">
+				<label for="adminPassConfirm"><span data-content="labels.adminPassConfirm"></span>:</label>
+				<input type="password" id="adminPassConfirm" name="adminPassConfirm" value="" />
+			</div>
+			
+		</div>
+		</form>
+	</div>
+
+	<!-- STEP 2 - General Settings -->
+	<div id="step-2" class="stepContainer" data-template-bind='[{"attribute": "title", "value": "labels.generalConfigs"}]'>
+	
+		<h3 class="stepTitle" data-content="labels.generalConfigs"></h3>
+		<div class="contenedorCentral borderBox">
+		<form id="form2" action="" method="POST">
+			<input type="hidden" id="language" name="language" data-value="selectedLang" />
+			<div class="reng">
+				<label for="siteUrl"><span data-content="labels.siteUrl"></span>:</label>
+				<input type="text" id="siteUrl" name="siteUrl" data-value="settings.siteUrl"/>
+			</div>
+			<div class="reng">
+				<label for="callbackUrl"><span data-content="labels.callbackUrl"></span>:</label>
+				<input type="text" id="callbackUrl" name="callbackUrl" data-value="settings.callbackUrl"/>
+			</div>
+			<div class="reng">
+				<label for="pluginUrl"><span data-content="labels.pluginUrl"></span>:</label>
+				<input type="text" id="pluginUrl" name="pluginUrl" data-value="settings.pluginUrl"/>
+			</div>
+		</form>
+		</div>
+	</div>
+	
+	<!-- STEP 3 - Identity Providers -->
+	<div id="step-3" class="stepContainer" data-template-bind='[{"attribute": "title", "value": "labels.idProviders"}]'>
+	
+		<h3 class="stepTitle" data-content="labels.idProviders"></h3>
+		<div class="contenedorCentral borderBox">
+			<form id="form3" action="" method="POST">
+				<div id="idProvidersContainer"></div>
+			</form>
+		</div>
+	</div>
+
+</div><!-- End Wizard Content -->

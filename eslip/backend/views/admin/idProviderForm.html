@@ -1,0 +1,85 @@
+<form id="form" action="" method="POST">
+    <input type="hidden" id="method" name="method" data-value="method"/>
+    
+    <!-- manejar el caso de new, mostrarndo el input para setear el id con un autocomplete -->
+    <input type="hidden" id="id" name="id" data-value="idProvider.id"/>    
+
+    <div class="reng">
+        <label for="name"><span data-content="labels.name"></span>:</label>
+        <input type="text" id="name" name="name" data-value="idProvider.name"/>    
+    </div>
+    <div class="reng">
+        <label for="label"><span data-content="labels.label"></span>:</label>
+        <input type="text" id="label" name="label" data-value="idProvider.label"/> 
+    </div>
+    <div class="reng">
+        <label for="active"><span data-content="labels.active"></span>:</label>
+        <select id="active" name="active">
+            <option value="0" data-content="labels.no"></option>
+            <option value="1" data-content="labels.yes"></option>
+        </select>
+    </div>
+    <div class="reng">
+        <label for="oauth"><span data-content="labels.oauth"></span>:</label>
+        <select id="oauth" name="oauth">
+            <option value="1.0">1.0</option>
+            <option value="1.0a">1.0a</option>
+            <option value="2.0">2.0</option>
+        </select>
+    </div>
+    <div class="reng">
+        <label for="requestTokenUrl"><span data-content="labels.requestTokenUrl"></span>:</label>
+        <input type="text" id="requestTokenUrl" name="requestTokenUrl" data-value="idProvider.requestTokenUrl"/>   
+    </div>
+    <div class="reng">
+        <label for="dialogUrl"><span data-content="labels.dialogUrl"></span>:</label>
+        <input type="text" id="dialogUrl" name="dialogUrl" data-value="idProvider.dialogUrl"/> 
+    </div>
+    <div class="reng">
+        <label for="accessTokenUrl"><span data-content="labels.accessTokenUrl"></span>:</label>
+        <input type="text" id="accessTokenUrl" name="accessTokenUrl" data-value="idProvider.accessTokenUrl"/>  
+    </div>
+    <div class="reng">
+        <label for="authorizationHeader"><span data-content="labels.authorizationHeader"></span>:</label>
+        <select id="authorizationHeader" name="authorizationHeader">
+            <option value="0" data-content="labels.no"></option>
+            <option value="1" data-content="labels.yes"></option>
+        </select>
+    </div>
+    <div class="reng">
+        <label for="urlParameters"><span data-content="labels.urlParameters"></span>:</label>
+        <input type="text" id="urlParameters" name="urlParameters" data-value="idProvider.urlParameters"/> 
+    </div>
+    <div class="reng">
+        <label for="clientId"><span data-content="labels.clientId"></span>:</label>
+        <input type="text" id="clientId" name="clientId" data-value="idProvider.clientId"/>    
+    </div>
+    <div class="reng">
+        <label for="clientSecret"><span data-content="labels.clientSecret"></span>:</label>
+        <input type="text" id="clientSecret" name="clientSecret" data-value="idProvider.clientSecret"/>    
+    </div>
+    <div class="reng">
+        <label for="scope"><span data-content="labels.scope"></span>:</label>
+        <input type="text" id="scope" name="scope" data-value="idProvider.scope"/>
+    </div>
+    <div class="reng">
+        <label for="hasAccessTokenExtraParameter"><span data-content="labels.hasAccessTokenExtraParameter"></span>:</label>
+        <select id="hasAccessTokenExtraParameter" name="hasAccessTokenExtraParameter">
+            <option value="0" data-content="labels.no"></option>
+            <option value="1" data-content="labels.yes"></option>
+        </select>
+    </div>
+    <div class="reng">
+        <label for="accessTokenExtraParameterName"><span data-content="labels.accessTokenExtraParameterName"></span>:</label>
+        <input type="text" id="accessTokenExtraParameterName" name="accessTokenExtraParameterName" data-value="idProvider.accessTokenExtraParameterName"/>
+    </div>
+    <div class="reng">
+        <label for="userDataUrl"><span data-content="labels.userDataUrl"></span>:</label>
+        <input type="text" id="userDataUrl" name="userDataUrl" data-value="idProvider.userDataUrl"/>
+    </div>
+    <div class="reng">
+        <label for="userDataIdKey"><span data-content="labels.userDataIdKey"></span>:</label>
+        <input type="text" id="userDataIdKey" name="userDataIdKey" data-value="idProvider.userDataIdKey"/>
+    </div>
+
+</form>
