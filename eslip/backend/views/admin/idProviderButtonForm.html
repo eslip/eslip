@@ -1,0 +1,25 @@
+<form id="form-id" action="" method="POST" enctype="multipart/form-data" target="hiddenUpload">
+    <input type="hidden" id="method" name="method" data-value="method"/>
+    
+    <!-- manejar el caso de new, mostrarndo el input para setear el id con un autocomplete -->
+    <!--input type="hidden" id="id" name="id" data-value="button.id"/-->
+    <div class="reng">
+        <label for="id"><span data-content="labels.id"></span>:</label>
+        <input type="text" id="id" name="id" data-value="button.id" class="disabled" disabled="disabled"/>    
+    </div>
+    <div class="reng">
+        <label for="logo"><span data-content="labels.logo"></span>:</label>
+        <input type="file" id="logo" name="logo" data-value="button.logo"/>
+    </div>
+    <div class="reng">
+        <label for="textColor"><span data-content="labels.textColor"></span>:</label>
+        <input type="text" id="textColor" name="textColor" class="colorPicker" data-value="button.textColor"/> 
+    </div>
+    <div class="reng">
+        <label for="backgroundColor"><span data-content="labels.backgroundColor"></span>:</label>
+        <input type="text" id="backgroundColor" name="backgroundColor" class="colorPicker" data-value="button.backgroundColor"/> 
+    </div>
+
+    <iframe id="hiddenUpload" name="hiddenUpload" class="hiddenFrame" src="">
+    </iframe>
+</form>

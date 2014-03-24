@@ -1,0 +1,32 @@
+<div class="idProvider" data-template-bind='[{"attribute": "id", "value": "id"}]'>
+	<div class="reng">
+		<!-- FALTA EL ON OFF SWITCH -->
+		<div id="switch" class="field switch" data-template-bind='[{"attribute": "active", "value": "active"},{"attribute": "provider", "value": "id"}]'>
+			<label class="cb-enable"><span>On</span></label>
+			<label class="cb-disable"><span>Off</span></label>
+			<input type="hidden" id="active" name="active[]" data-value="active" />	
+		</div>
+
+		<span class="idProviderName" data-content="name"></span>
+		<a href="javascript:;" class="vtip" title="texto de ayuda"><span class="help"></span></a>
+	</div>
+	
+	<div class="idProviderData" data-template-bind='[{"attribute": "active", "value": "active"}]'>
+		<input type="hidden" id="idProviderId" name="idProviderId[]" data-value="id" />
+		<div class="reng">
+			<label for="clientId"><span data-content="labels.clientId"></span>:</label>
+			<input type="text" id="clientId" name="clientId[]" data-value="clientId" />	
+		</div>
+		<div class="reng">
+			<label for="clientSecret"><span data-content="labels.clientSecret"></span>:</label>
+			<input type="text" id="clientSecret" name="clientSecret[]" data-value="clientSecret" />	
+		</div>
+		<div class="reng">
+			<label for="scope"><span data-content="labels.scope"></span>:</label>
+			<input type="text" id="scope" name="scope[]" data-value="scope" />
+		</div>
+	</div>
+
+	<div class="separator"></div>
+
+</div>

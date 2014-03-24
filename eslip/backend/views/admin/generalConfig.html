@@ -1,0 +1,29 @@
+<div class="block">
+    <h3 class="stepTitle" data-content="labels.generalConfigs"></h3>
+    <br/>
+    <form id="form" action="" method="POST">
+        <div class="reng">
+            <label for="siteUrl"><span data-content="labels.siteUrl"></span>:</label>
+            <input type="text" id="siteUrl" name="siteUrl" data-value="settings.siteUrl"/>
+        </div>
+        <div class="reng">
+            <label for="callbackUrl"><span data-content="labels.callbackUrl"></span>:</label>
+            <input type="text" id="callbackUrl" name="callbackUrl" data-value="settings.callbackUrl"/>
+        </div>
+        <div class="reng">
+            <label for="pluginUrl"><span data-content="labels.pluginUrl"></span>:</label>
+            <input type="text" id="pluginUrl" name="pluginUrl" data-value="settings.pluginUrl"/>
+        </div>
+        <div class="reng">
+            <label for="language"><span data-content="labels.selectLangTitle">:</label>
+            <select id="language" name="language" data-value="settings.selectedLang" data-template-bind='{"attribute": "options", "value": {"data": "languageOptions", "value":"value", "content":"content"}}'>
+            </select>
+        </div>
+    </form>
+    <div class="adminToolBar">
+        <input type="button" id="save" data-value="labels.btnSave"/>
+        <input type="button" id="cancel" data-value="labels.btnCancel"/>        
+    </div>
+    <div class="successMessage" style="display:none;" data-content="labels.messageSuccess"></div>
+    <div class="errorMessage" style="display:none;" data-content="labels.messageError"></div>
+</div>

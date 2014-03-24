@@ -1,0 +1,60 @@
+<h3 class="stepTitle" data-content="labels.idProviders"></h3>
+
+<input type="button" id="new" class="pullRight" data-value="labels.btnNew"/>
+
+<div id="tabs" class="borderBox">
+
+    <ul>
+        <li><a href="#tabs-1">Vista Estandar</a></li>
+        <li><a href="#tabs-2">Vista Avanzada</a></li>
+    </ul>
+
+    <div id="tabs-1">   
+
+        <div class="block">
+
+            <form id="form3" action="" method="POST">
+                <div id="idProvidersContainer"></div>
+            </form>
+
+            <div class="adminToolBar">
+                <input type="button" id="save" data-value="labels.btnSave"/>
+                <input type="button" id="cancel" data-value="labels.btnCancel"/>        
+            </div>
+            
+            <div class="successMessage" style="display:none;" data-content="labels.messageSuccess"></div>
+            <div class="errorMessage" style="display:none;" data-content="labels.messageError"></div>
+
+        </div>
+
+    </div>
+
+    <div id="tabs-2">
+        
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="idProviderTable">
+            <thead>
+                <tr>
+                    <th width="20%" data-content="labels.id"></th>
+                    <th width="20%" data-content="labels.name"></th>
+                    <th width="25%" data-content="labels.oauth"></th>
+                    <th width="25%" data-content="labels.active"></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <div class="adminToolBar">
+            
+            <input type="button" id="edit" data-value="labels.btnEdit"/>
+            <input type="button" id="delete" data-value="labels.btnDelete"/>
+        </div>
+
+        <div class="successMessage" style="display:none;" data-content="labels.messageSuccess"></div>
+        <div class="errorMessage" style="display:none;" data-content="labels.messageError"></div>
+
+    </div>
+  
+</div>
+            
+

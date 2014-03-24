@@ -1,0 +1,41 @@
+<div class="block">
+    <h3 class="stepTitle" data-content="labels.languagesConfig"></h3>
+    <br/>
+
+    <form id="downloadForm" action="" method="POST">
+        <div class="reng">
+            <label for="downloadLangFile"><span data-content="labels.downloadLangFile"></span>:</label>
+            <input type="button" id="downloadLangFile" data-value="labels.btnDownload"/>
+        </div>
+    </form>
+
+    <div class="reng"></div>
+
+    <div class="reng">
+        <label for=""><span data-content="labels.translateLangFile"></span></label>
+    </div>
+
+    <div class="reng"></div>
+
+    <form id="uploadForm" method="POST" enctype="multipart/form-data" target="hiddenUpload">
+        <div class="reng">
+            <label for="langFile"><span data-content="labels.uploadLangFile"></span>:</label>
+            <input type="file" name='langFile' class="file_upload">
+        </div>
+
+        <div class="reng">
+            <label for="langName"><span data-content="labels.langName"></span>:</label>
+            <input type="text" name='langName' value="">
+        </div>
+
+        <div class="reng">
+            <input type="button" id="uploadLangFile" data-value="labels.btnUpload"/>
+        </div>
+
+        <iframe id="hiddenUpload" name="hiddenUpload" class="hiddenFrame" src="">
+        </iframe>
+    </form>
+
+    <div class="successMessage" style="display:none;" data-content="labels.messageSuccess"></div>
+    <div class="errorMessage" style="display:none;" data-content="labels.messageError"></div>
+</div>

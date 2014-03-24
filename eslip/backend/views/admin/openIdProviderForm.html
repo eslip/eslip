@@ -1,0 +1,49 @@
+<form id="form" action="" method="POST">
+    <input type="hidden" id="method" name="method" data-value="method"/>
+    
+    <!-- manejar el caso de new, mostrarndo el input para setear el id con un autocomplete -->
+    <input type="hidden" id="id" name="id" data-value="idProvider.id"/>   
+
+    <div class="reng">
+        <label for="name"><span data-content="labels.name"></span>:</label>
+        <input type="text" id="name" name="name" data-value="idProvider.name"/>    
+    </div>
+    <div class="reng">
+        <label for="label"><span data-content="labels.label"></span>:</label>
+        <input type="text" id="label" name="label" data-value="idProvider.label"/> 
+    </div>
+    <div class="reng">
+        <label for="active"><span data-content="labels.active"></span>:</label>
+        <select id="active" name="active">
+            <option value="0" data-content="labels.no"></option>
+            <option value="1" data-content="labels.yes"></option>
+        </select>
+    </div>
+    <div class="reng">
+        <label for="formUrl"><span data-content="labels.formUrl"></span>:</label>
+        <input type="text" id="formUrl" name="formUrl" data-value="idProvider.formUrl"/>
+    </div>
+    <div class="reng">
+        <label for="scopeRequired"><span data-content="labels.scopeRequired"></span>:</label>
+        <input type="text" id="scopeRequired" name="scopeRequired" data-value="idProvider.scopeRequired"/>
+    </div>
+    <div class="reng">
+        <label for="scopeOptional"><span data-content="labels.scopeOptional"></span>:</label>
+        <input type="text" id="scopeOptional" name="scopeOptional" data-value="idProvider.scopeOptional"/>
+    </div>
+    <div class="reng">
+        <label for="userDataIdKey"><span data-content="labels.userDataIdKey"></span>:</label>
+        <input type="text" id="userDataIdKey" name="userDataIdKey" data-value="idProvider.userDataIdKey"/>
+    </div>
+    <div class="reng">
+        <label for="immediate"><span data-content="labels.immediate"></span>:</label>
+        <select id="immediate" name="immediate">
+            <option value="0" data-content="labels.no"></option>
+            <option value="1" data-content="labels.yes"></option>
+        </select>
+    </div>
+    <div class="reng" id="buttonStylePreview">
+        <label for="buttonStyle"><span data-content="labels.buttonPreview">:</span></label>
+        <div class="buttonStyle"></div>
+    </div>
+</form>

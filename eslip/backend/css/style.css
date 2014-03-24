@@ -1,0 +1,342 @@
+/*** General ***/
+
+.borderBox{
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+
+.pageContainer{
+	width: 800px;
+}   
+
+.separator{
+	float: left;
+	height: 15px;
+	width: 100%;
+}
+
+.pullLeft{
+	float: left;
+}
+
+.pullRight{
+	float: right;	
+}
+
+.vtip{
+	float: right;
+	padding-top: 5px;
+}
+
+.vtip .help{
+	background-image: url("../images/ayuda.png");
+	width: 16px;
+	height: 16px;
+	float: left;
+}
+
+input.disabled {
+	border: none;
+	background: none;
+}
+
+.ui-widget-content .buttonStyle .button {
+	color: white;
+	font-size: 16px;
+}
+
+/*** Admin ***/
+
+.pageContainer.admin{
+	width: 100%;
+}
+
+.adminHeader {
+	padding: 0.5em;
+}
+
+.adminHeader .title{
+	float: left;
+	margin: 0;
+}
+
+.adminContent {
+	padding: 0.5em;
+}
+
+.adminContent .menu {
+	float: left;
+	width: 10em;
+}
+
+.adminContent .content {
+	min-height: 450px;
+    margin-left: 10em;
+	overflow: auto;
+    padding: 0.5em;
+	font-size: 12px;
+}
+
+.adminContent .content .adminToolBar{
+	float: right; 
+	margin-top: 10px;
+}
+
+.adminContent .content .dataTable{
+	width: 100% !important
+}
+
+.adminContent .content .dataTable tr{
+	cursor: pointer;
+}
+
+.adminContent .content .dataTable tr:hover{
+	background-color: #CCCCCC !important;
+}
+
+.adminContent .content .dataTable tr:hover td{
+	background-color: transparent !important;
+}
+
+.adminContent .content .ui-tabs{
+	float: left;
+	width: 100%;
+}
+
+.adminContent .block {
+	width: 550px;
+	margin: 0 auto;
+}
+
+.adminFooter {
+	min-height: 30px;
+}
+
+.adminDialog{
+}
+
+.adminContent .block .reng,
+.adminDialog .reng{
+	float: left;
+	width: 100%;
+	height: 35px;
+}
+
+.adminContent .block form input,
+.adminContent .block form select,
+.adminContent .block form textarea,
+.adminDialog input,
+.adminDialog select,
+.adminDialog textarea{
+	float: right;
+	width: 350px;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+
+.adminContent .block form label,
+.adminDialog label{
+	float: left;
+	width: 150px;
+}
+
+.hiddenFrame {
+	width: 0;
+	height: 0;
+	border: 0px solid #fff;
+}
+
+.selectContainer{
+	float: right;
+	width: 350px;
+}
+
+.selectContainer .ui-icon{
+	float: right;
+	margin-top: 4px;
+	margin-right: 4px;
+	cursor: pointer;
+}
+
+.selectContainer select{
+	float: left;
+	width: 300px;
+}
+
+/*** Validate  Admin***/
+.adminContent label.error, .adminContent label.valid {
+	padding-left: 16px;
+    left: 410px;
+    position: relative;
+    top: 5px;
+	width: 16px !important;
+	height: 16px !important;
+	overflow: hidden;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+
+.adminDialog label.error {
+	display: none !important;
+}
+
+/*** Admin color picker ***/
+
+.minicolors-theme-eslip{
+	float: right;
+}
+
+.minicolors-theme-eslip .minicolors-input{
+	width: 350px;
+	padding-left: 26px;
+}
+
+.minicolors-theme-eslip .minicolors-swatch {
+	top: 5px;
+	left: 5px;
+	width: 12px;
+	height: 12px;	
+}
+.minicolors-theme-eslip.minicolors-position-right .minicolors-swatch {
+	left: auto;
+	right: 5px;
+}
+
+.minicolors-theme-eslip.minicolors-position-bottom .minicolors-panel {
+	top: 22px;
+}
+
+/*** Language Dialog ***/
+
+.ui-dialog{
+	font-size: 12px;
+}
+
+.ui-dialog #dialog-lang select{
+	margin-left: 12px;
+    margin-top: 40px;
+    width: 250px;
+}
+
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+
+/*** Wizard ***/
+
+.wizard.jw-widget .jw-steps-wrap{
+	min-height: 300px;
+}
+
+.wizard .stepContainer .stepTitle{
+	text-align: center;
+}
+
+.wizard .stepContainer .contenedorCentral{
+    margin: 0 auto;
+    width: 500px;
+	height: auto;
+	padding-top: 30px;
+	font-size: 12px;
+}
+
+.wizard .stepContainer .contenedorCentral .reng{
+	float: left;
+	width: 100%;
+	height: 30px;
+}
+
+.wizard .stepContainer .contenedorCentral label,
+.wizard .stepContainer .contenedorCentral input,
+.wizard .stepContainer .contenedorCentral select
+.wizard .stepContainer .contenedorCentral textarea{
+	float: right;
+	width: 350px;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+
+.wizard .stepContainer .contenedorCentral label{
+	float: left;
+	width: 150px;
+}
+
+#idProvidersContainer .idProvider .idProviderName,
+.wizard .stepContainer .contenedorCentral .idProvider .idProviderName{
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 30px;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+#idProvidersContainer .idProvider .idProviderData,
+.wizard .stepContainer .contenedorCentral .idProvider .idProviderData{
+    float: left;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+/*** Validate  Wizard***/
+.wizard label.error, .wizard label.valid {
+	padding-left: 16px;
+    left: 505px;
+    position: relative;
+    top: -12px;
+	width: 16px !important;
+	height: 16px !important;
+	overflow: hidden;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+
+/*** Validate ***/
+
+select.error, input.error { 
+	border: 1px solid red;
+}
+label.error{
+	background: url('../images/unchecked.gif') no-repeat;
+}
+
+label.valid {
+	background: url('../images/checked.gif') no-repeat;
+}
+
+
+/*** Messages ***/
+
+.infoMessage, .successMessage, .warningMessage, .errorMessage, .validationMessage {
+	border: 1px solid;
+	margin: 10px 0px;
+	padding:15px 10px 15px 50px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	float: left;
+}
+.infoMessage {
+	color: #00529B;
+	background-color: #BDE5F8;
+	background-image: url('../images/info.png');
+}
+.successMessage {
+	color: #4F8A10;
+	background-color: #DFF2BF;
+	background-image:url('../images/success.png');
+}
+.warningMessage {
+	color: #9F6000;
+	background-color: #FEEFB3;
+	background-image: url('../images/warning.png');
+}
+.errorMessage {
+	color: #D8000C;
+	background-color: #FFBABA;
+	background-image: url('../images/error.png');
+}

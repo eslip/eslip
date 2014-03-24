@@ -1,0 +1,24 @@
+<div class="block">
+    <h3 class="stepTitle" data-content="labels.configUser"></h3>
+    <br/>
+    <form id="form" action="" method="POST">
+        <div class="reng">
+            <label for="adminUser"><span data-content="labels.adminUser"></span>:</label>
+            <input type="text" id="adminUser" name="adminUser" data-value="settings.adminUser"/>
+        </div>
+        <div class="reng">
+            <label for="adminPass"><span data-content="labels.adminPass"></span>:</label>
+            <input type="password" id="adminPass" name="adminPass" value=""/>
+        </div>
+        <div class="reng">
+            <label for="adminPassConfirm"><span data-content="labels.adminPassConfirm"></span>:</label>
+            <input type="password" id="adminPassConfirm" name="adminPassConfirm" value=""/>
+        </div>
+    </form>
+    <div class="adminToolBar">
+        <input type="button" id="save" data-value="labels.btnSave"/>
+        <input type="button" id="cancel" data-value="labels.btnCancel"/>        
+    </div>
+    <div class="successMessage" style="display:none;" data-content="labels.messageSuccess"></div>
+    <div class="errorMessage" style="display:none;" data-content="labels.messageError"></div>
+</div>
