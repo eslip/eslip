@@ -12,12 +12,12 @@
 
 include_once("../eslip_api.php");
 
-$result = $xmlApi->getElementListByFieldValue("active", "1", "identityProvider");
+$identity_providers = $eslip->get_active_identity_providers();
 
 ?>
 
-<?php foreach ($result as $ip): ?>
+<?php foreach ($identity_providers as $ip): ?>
 
-	<a href='javascript:;' class='zocial <?php echo (string)$ip->attributes()?>' style='font-size: 14px;' onclick='clickLogin("<?php echo (string)$ip->attributes()?>")' ><?php echo (string)$ip->label?></a>
+	<a href='javascript:;' style='<?php if (isset($ip->styles->logo_url)): ?>background-image: url("<?php echo $ip->styles->logo_url ?>");<?php endif; ?> <?php if(isset($ip->styles->backgroundColor)): ?> background-color:<?php echo $ip->styles->backgroundColor; ?>; <?php endif; ?> <?php if(isset($ip->styles->textColor)): ?> color:<?php echo $ip->styles->textColor; ?>; <?php endif; ?>' class='button glow <?php echo $ip->id ?>' onclick='clickLogin("<?php echo $ip->id ?>")' ><?php echo $ip->label ?></a>
 
 <?php endforeach; ?>

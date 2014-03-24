@@ -10,6 +10,6 @@
 * @package Eslip
 */
 
-include_once('eslip_class.php');
+include_once('eslip_protocol.php');
 include_once('eslip_oauth.php');
 include_once('eslip_openid.php');

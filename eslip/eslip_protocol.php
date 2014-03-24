@@ -24,7 +24,7 @@ class EslipException extends Exception {}
 * @package Eslip
 */
 
-class Eslip {
+class eslip_protocol {
 
     /**
     * Determina si se debe abandonar la ejecución del script

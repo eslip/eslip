@@ -12,7 +12,7 @@
 * @package Eslip
 */
 
-class eslip_openid extends Eslip
+class eslip_openid extends Eslip_protocol
 {
 
     /**
@@ -90,7 +90,7 @@ class eslip_openid extends Eslip
     private $identity;
 
     /**
-    * Es el identificador reclamado.Este identificador es una URL que el usuario final dice poseer 
+    * Es el identificador reclamado. Este identificador es una URL que el usuario final dice poseer 
     * pero aún no fue verificada.
     *
     * @var string

@@ -36,6 +36,16 @@
 	float: left;
 }
 
+input.disabled {
+	border: none;
+	background: none;
+}
+
+.ui-widget-content .buttonStyle .button {
+	color: white;
+	font-size: 16px;
+}
+
 /*** Admin ***/
 
 .pageContainer.admin{
@@ -132,10 +142,27 @@
 	width: 150px;
 }
 
-.adminContent .hiddenFrame {
+.hiddenFrame {
 	width: 0;
 	height: 0;
 	border: 0px solid #fff;
+}
+
+.selectContainer{
+	float: right;
+	width: 350px;
+}
+
+.selectContainer .ui-icon{
+	float: right;
+	margin-top: 4px;
+	margin-right: 4px;
+	cursor: pointer;
+}
+
+.selectContainer select{
+	float: left;
+	width: 300px;
 }
 
 /*** Validate  Admin***/
@@ -150,6 +177,36 @@
 	box-sizing:border-box;
 	-moz-box-sizing:border-box; /* Firefox */
 	-webkit-box-sizing:border-box; /* Safari */
+}
+
+.adminDialog label.error {
+	display: none !important;
+}
+
+/*** Admin color picker ***/
+
+.minicolors-theme-eslip{
+	float: right;
+}
+
+.minicolors-theme-eslip .minicolors-input{
+	width: 350px;
+	padding-left: 26px;
+}
+
+.minicolors-theme-eslip .minicolors-swatch {
+	top: 5px;
+	left: 5px;
+	width: 12px;
+	height: 12px;	
+}
+.minicolors-theme-eslip.minicolors-position-right .minicolors-swatch {
+	left: auto;
+	right: 5px;
+}
+
+.minicolors-theme-eslip.minicolors-position-bottom .minicolors-panel {
+	top: 22px;
 }
 
 /*** Language Dialog ***/

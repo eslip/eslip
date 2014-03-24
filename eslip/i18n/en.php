@@ -35,6 +35,8 @@ define("Login", "Account Login");
 //menu
 define("ConfigUser","Usuer Settings");
 define("LanguagesConfig", "Language Settings");
+define("LoginWidget", "Login Widget");
+define("IdProvidersButtons", "Providers Buttons");
 
 //labels
 define("SiteUrl", "Site URL");
@@ -69,6 +71,10 @@ define("LangName", "Language Name");
 define("DownloadLangFile", "Download the template language file");
 define("UploadLangFile", "Upload the translated language file");
 define("TranslateLangFile", "Translate the downloaded file and rename it with the appropriate two letters ISO language code in lower case (http://reference.sitepoint.com/html/lang-codes)");
+define("Logo", "Logo");
+define("TextColor", "Text Colot");
+define("BackgroundColor", "Background Color");
+define("ButtonPreview", "Button Preview");
 
 //dataTable
 define("Procesando", "Loading...");

@@ -13,7 +13,7 @@
 * @package Eslip
 */
 
-class eslip_oauth extends Eslip
+class eslip_oauth extends Eslip_protocol
 {
     /**
     * URL del servidor OAuth para solicitar el token inicial cuando trabajamos con servidores OAuth 1.0 y 1.0a.
@@ -59,7 +59,7 @@ class eslip_oauth extends Eslip
 	/**
     * Determina si la API del proveedor de identidad con la que se está interactuando requiere a
     * la hora de realizar la peticion del token inicial que se le envien los parametros en la URL. 
-    * Esta variable solo se utiliza para serviores OAuth 1.0 ya que 2.O siempre los pasa por la URL
+    * Esta variable solo se utiliza para servidores OAuth 1.0 ya que 2.O siempre los pasa por la URL
     *
     * @var boolean 
     * @access private
@@ -69,7 +69,7 @@ class eslip_oauth extends Eslip
 
 	/**
     * Determina si la API del proveedor de identidad con la que se está interactuando requiere a
-    * la hora de realizar la peticion del token inicial que se le envien los parametros en la cabezera
+    * la hora de realizar la peticion del token inicial que se le envien los parametros en la cabecera
     * de la petición HTTP
     *
     * @var boolean 
@@ -108,7 +108,7 @@ class eslip_oauth extends Eslip
 
 	/**
     * Recursos que se desean obtener y que su propietario quien se autentica a traves del proveedor 
-    * de identitad debe autorizar para que sean concedidos
+    * de identidad debe autorizar para que sean concedidos
     *
     * @var string 
     * @access private

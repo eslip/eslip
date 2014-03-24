@@ -2,6 +2,10 @@
 // Variables Definitions
 //**********************************************************
 
+var CSS_URI = "frontend/eslip_plugin.css";
+var JS_URI = "frontend/eslip_plugin.js";
+var LOGO_URI = "../frontend/img/icons/";
+var ESLIP_DIV = "ESLIP_Plugin";
 var SERVICES_URL = "services/";
 var TEMPLATES_COMMON_DIR = "views/common/";
 var TEMPLATES_BASE_DIR = "views/admin/";
@@ -13,7 +17,10 @@ var TEMPLATES = {
 	"idProvidersStandar": TEMPLATES_COMMON_DIR + "idProviders.html",
 	"idProviderForm": TEMPLATES_BASE_DIR + "idProviderForm.html",
 	"openIdProviderForm": TEMPLATES_BASE_DIR + "openIdProviderForm.html",
-	"languagesConfig": TEMPLATES_BASE_DIR + "languagesConfig.html"
+	"languagesConfig": TEMPLATES_BASE_DIR + "languagesConfig.html",
+	"loginWidget": TEMPLATES_COMMON_DIR + "loginWidget.html",
+	"idProvidersButtons": TEMPLATES_BASE_DIR + "idProvidersButtons.html",
+	"idProviderButtonForm": TEMPLATES_BASE_DIR + "idProviderButtonForm.html"
 };
 var SERVICES = {
 	"login": "login",
@@ -30,7 +37,13 @@ var SERVICES = {
 	"deleteIdProvider" : "deleteIdProvider",
 	"getLanguagesConfigData" : "getLanguagesConfigData",
 	"uploadLangFile" : "uploadLangFile",
-	"compileLanguageFile" : "compileLanguageFile"
+	"compileLanguageFile" : "compileLanguageFile",
+	"getLoginWidgetData": "getLoginWidgetData",
+	"getIdProvidersButtonsData": "getIdProvidersButtonsData",
+	"getIdProvidersButtonsDataTable": "getIdProvidersButtonsDataTable",
+	"getIdProviderButtonData": "getIdProviderButtonData",
+	"saveIdProviderButton": "saveIdProviderButton",
+	"deleteIdProviderButton" : "deleteIdProviderButton"
 };
 
 var $loginButton;
@@ -39,6 +52,9 @@ var $content;
 var oTable;
 var oTableSettings = {};
 var selectedTab = 0;
+
+var oTableIdsButtons;
+var oTableIdsButtonsSettings = {};
 
 //**********************************************************
 // Document Ready
@@ -139,6 +155,16 @@ function initMenuOptions(){
 	$("#languagesConfig").click(function(){
 		selectMenuItem($(this));
 		loadLanguagesConfigContent();
+	});
+
+	$("#loginWidget").click(function(){
+		selectMenuItem($(this));
+		loadLoginWidgetContent();
+	});
+
+	$("#idProvidersButtons").click(function(){
+		selectMenuItem($(this));
+		loadIdProvidersButtonsContent();
 	});
 
 	$("#generalConfig").click();
@@ -313,6 +339,17 @@ function uploadLangFileCallback(hiddenUploadFrame) {
 }
 
 //**********************************************************
+// Admin Login Widget Functions
+//**********************************************************
+
+function loadLoginWidgetContent(){
+	var params = {cssUri: CSS_URI, jsUri: JS_URI, eslipDiv: ESLIP_DIV};
+	loadContent(SERVICES.getLoginWidgetData, params, TEMPLATES.loginWidget, $content, function(data){
+
+	});
+}
+
+//**********************************************************
 // Admin Id Providers Functions
 //**********************************************************
 
@@ -357,6 +394,7 @@ function loadIdProvidersContentCallback(data){
 
 	bindIdProvidersEvents(data);
 
+	initIdProvidersButtonsDialogs(data);
 }
 
 function initTabs(){
@@ -421,6 +459,7 @@ function initIdProvidersDialogs(data){
 	};
 
 	dialogEditButtons[data.labels.btnSave] = function() {
+		$( this ).find("form").find("#id").removeAttr('disabled');
 		var $data = $( this ).find("form").serialize();
 		saveOrUpdateIdProvider($data);
 		$( this ).dialog( "close" );
@@ -441,7 +480,7 @@ function initIdProvidersDialogs(data){
 	$( "#dialog-edit" ).dialog({
 		autoOpen: false,
 		resizable: false,
-		//height: 300,
+		height: 'auto',
 		width: 550,
 		modal: true,
 		buttons: dialogEditButtons
@@ -518,11 +557,22 @@ function loadIdProviderData(selectedId){
 function loadIdProviderDataCallback(data){
 	
 	updateSelectValues(data);
-
-	if( $("#method").val() == "new" ){
-		addNewIdProviderInput(data);
-	}
 	
+	var idProviderId = data.idProvider.id || $('#selectContainer').find('select#id').val();
+	buttonStylePreview(idProviderId, data.idProvider.label);
+
+	if( $( "#form" ).find("#method").val() == "new" ){
+		$( "#form" ).find("input#id").remove();
+		bindNewIdProviderEvents(data);
+	}else{
+		$( "#form" ).find("#selectContainer").remove();
+	}
+
+	$( "#form" ).find('#label').off('onkeyup').on('keyup', function(){
+		$('#buttonStylePreview').find('.buttonStyle a').text($(this).val());
+	});
+
+	$("#dialog-edit").css("overflow","auto").css("height","auto");
 	// open dialog
 	$("#dialog-edit" ).dialog( "open" );
 }
@@ -533,19 +583,280 @@ function updateSelectValues(data){
 	$("#authorizationHeader").val(data.idProvider.authorizationHeader).change();
 	$("#hasAccessTokenExtraParameter").val(data.idProvider.hasAccessTokenExtraParameter).change();
 	$("#immediate").val(data.idProvider.immediate).change();
+	$('#selectContainer').find('select#id').val(data.idProvider.id).change();
 }
 
-function addNewIdProviderInput(data){
-	var newId = '<div class="reng">'+
-					'<label for="id">'+data.labels.id+':</label>'+
-					'<input type="text" id="id" name="id" value="" />'+
-				'</div>'
-	;
-
-	$("#id").remove();
-	$("#form").prepend(newId);
+function bindNewIdProviderEvents(data){
 	
-	$( "#form" ).find("#id").autocomplete({
-		source: availableTags
+	$( "#form" ).find("#add").click( function() {
+		$("#dialog-edit-id").dialog( "option", "title", data.labels.btnNew );
+		loadIdProviderButtonData();
+	} );
+	
+	$( "#form" ).find('#edit').click( function() {
+		var selected = $( "#form" ).find("#id").val();
+		if ( selected !== "" ) {
+			$("#dialog-edit-id").dialog( "option", "title", data.labels.btnEdit );
+			loadIdProviderButtonData(selected);
+		}
+	} );
+
+	$content.off('idProviderButton.updated').on('idProviderButton.updated', function(event, data){
+		var $select = $( "#form" ).find('#selectContainer').find('select#id');
+		if ($.exists($select)){
+			var $option = $select.find('option[value="'+data.id+'"]');
+			if (!$.exists($option)){
+				$select.append('<option value="'+data.id+'">'+data.id+'</option>');
+			}
+			$select.val(data.id).change();
+		}
+	});
+
+	$( "#form" ).find('#selectContainer').find('select#id').off('change').on('change', function(){
+		buttonStylePreview($(this).val(), $( "#form" ).find('#label').val());	
+	});
+
+}
+
+function buttonStylePreview(id, label){
+	apiGet(SERVICES.getIdProviderButtonData, {id: id}, function(data){
+		var $a = '<a href="javascript:;" class="button glow " style=""></a>';
+		$a = $($a);
+		$a.text(label);
+		$a.addClass(data.button.id);
+		if (typeof data.button.logo != 'undefined' && data.button.logo != '' ){
+			$a.css('background-image', 'url(' + LOGO_URI + data.button.logo + ')');	
+		}
+		$a.css('background-color', data.button.backgroundColor);
+		$a.css('color', data.button.textColor);
+		$('#buttonStylePreview').find('.buttonStyle').html($a);
+	});
+}
+
+//**********************************************************
+// Admin Id Providers Buttons Functions
+//**********************************************************
+
+function loadIdProvidersButtonsContent(){
+	loadContent(SERVICES.getIdProvidersButtonsData, {}, TEMPLATES.idProvidersButtons, $content, loadIdProvidersButtonsContentCallback);
+}
+
+function loadIdProvidersButtonsContentCallback(data){
+	
+	initButtons();
+
+	initDataTableIdsButtons(data);
+
+	initIdProvidersButtonsDialogs(data);
+
+	bindIdProvidersButtonsEvents(data);
+}
+
+function initDataTableIdsButtons(data){
+	
+	// Add a click handler to the rows
+	$("#idProviderButtonTable tbody").click(function(event) {
+		$(oTableIdsButtons.fnSettings().aoData).each(function (){
+			$(this.nTr).removeClass('row_selected');
+		});
+		$(event.target.parentNode).addClass('row_selected');
+	});
+
+	oTableIdsButtonsSettings = {
+		"bJQueryUI": true,
+		"sPaginationType": "full_numbers",
+		"iDisplayLength": 100,
+		"bRetrieve":true,
+		"sAjaxSource": SERVICES_URL+SERVICES.getIdProvidersButtonsDataTable,
+		"bProcessing": true,
+		"bFilter": false,
+		"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+			// Add row id
+			$(nRow).attr("id",aData[0]);
+		},
+		"oLanguage": {
+			"sProcessing": data.labels.processing,
+			"sLoadingRecords": data.labels.dtsLoadingRecords,
+			"sLengthMenu": data.labels.dtsLengthMenu,
+			"sZeroRecords": data.labels.dtsZeroRecords,
+			"sInfo": data.labels.dtsInfo,
+			"sInfoEmpty": data.labels.dtsInfoEmpty,
+			"sInfoFiltered": data.labels.dtsInfoFiltered,
+			"sSearch": data.labels.dtsSearch,
+			"oPaginate": {
+				"sFirst": data.labels.dtsFirst,
+				"sPrevious": data.labels.dtsPrevious,
+				"sNext": data.labels.dtsNext,
+				"sLast": data.labels.dtsLast
+			}
+		}
+	};
+
+	oTableIdsButtons = $('#idProviderButtonTable').dataTable(oTableIdsButtonsSettings);
+}
+
+function initIdProvidersButtonsDialogs(data){
+
+	var dialogEditButtons = {};
+	var dialogConfirmButtons = {};
+	var dialogCancelButton = function() {
+		$( this ).dialog( "close" );
+	};
+
+	dialogEditButtons[data.labels.btnSave] = function() {
+		$( this ).find("form").find("#id").removeAttr('disabled');
+		
+		if ($( this ).find("form").valid()){
+			$( this ).find("form").submit();
+			$( this ).dialog( "close" );
+			$( this ).css("overflow","auto");
+		}
+	};
+
+	dialogEditButtons[data.labels.btnCancel] = dialogCancelButton;
+
+	dialogConfirmButtons[data.labels.btnConfirm] = function() {
+		var selected = fnGetSelected( oTableIdsButtons );
+		if ( selected.length !== 0 ) {
+			deleteIdProviderButton($(selected).attr("id"));
+		}
+		$( this ).dialog( "close" );
+		$( this ).css("overflow","auto");
+	};
+
+	dialogConfirmButtons[data.labels.btnCancel] = dialogCancelButton;
+
+	$( "#dialog-edit-id" ).dialog({
+		autoOpen: false,
+		resizable: false,
+		height: 350,
+		width: 550,
+		modal: true,
+		buttons: dialogEditButtons
+	});
+	
+	 $( "#dialog-confirm-id" ).dialog({
+		autoOpen: false,
+		resizable: false,
+		height:140,
+		modal: true,
+		buttons: dialogConfirmButtons
+	});
+}
+
+function bindIdProvidersButtonsEvents(data){
+	
+	$('#new').click( function() {
+		$("#dialog-edit-id" ).dialog( "option", "title", data.labels.btnNew );
+		loadIdProviderButtonData();
+	} );
+	
+	$('#edit').click( function() {
+		var selected = fnGetSelected( oTableIdsButtons );
+		if ( selected.length !== 0 ) {
+			$("#dialog-edit-id" ).dialog( "option", "title", data.labels.btnEdit );
+			loadIdProviderButtonData($(selected).attr("id"));
+		}
+	} );
+
+	$('#delete').click( function() {
+		var anSelected = fnGetSelected( oTableIdsButtons );
+		if ( anSelected.length !== 0 ) {
+			$("#dialog-confirm-id" ).dialog( "option", "title", data.labels.btnDelete );
+			$("#dialog-confirm-id" ).dialog( "open" );
+		}
+	} );
+
+}
+
+function deleteIdProviderButton(selectedId){
+	submitData(SERVICES.deleteIdProviderButton, {id: selectedId}, function(){
+		oTableIdsButtons.fnDestroy();
+		oTableIdsButtons = $('#idProviderButtonTable').dataTable(oTableIdsButtonsSettings);
+	});
+}
+
+function loadIdProviderButtonData(selectedId){
+	loadContent(SERVICES.getIdProviderButtonData, {id: selectedId}, TEMPLATES.idProviderButtonForm, $("#dialog-edit-id"), loadIdProviderButtonDataCallback);
+}
+
+function loadIdProviderButtonDataCallback(data){
+	if( $( "#form-id" ).find("#method").val() == "new" ){
+		$( "#form-id" ).find("#id").removeAttr('disabled').removeClass("disabled");
+		setNewIdProviderButtonActions();
+	}else{
+		$( "#form-id" ).find("#id").attr('disabled','disabled').addClass("disabled");
+	}
+	
+	initIdProviderButtonFormValidation();
+
+	$( "#form-id" ).attr("action", SERVICES_URL+SERVICES.saveIdProviderButton);
+	
+	$("#hiddenUpload").load(function(){
+		saveIdProviderButtonCallback(this);
+	});
+
+	//$('.colorPicker').minicolors({theme: 'default'});
+
+	$('.colorPicker').each( function() {
+		$(this).minicolors({
+			control: $(this).attr('data-control') || 'hue',
+			defaultValue: $(this).attr('data-defaultValue') || '',
+			inline: $(this).attr('data-inline') === 'true',
+			letterCase: $(this).attr('data-letterCase') || 'lowercase',
+			opacity: $(this).attr('data-opacity'),
+			position: $(this).attr('data-position') || 'bottom left',
+			change: function(hex, opacity) {
+				var log;
+				try {
+					log = hex ? hex : 'transparent';
+					if( opacity ) log += ', ' + opacity;
+				} catch(e) {}
+			},
+			theme: 'eslip'
+		});
+	});
+	
+	$("#dialog-edit-id").css("overflow","visible");
+
+	// open dialog
+	$("#dialog-edit-id" ).dialog( "open" );
+}
+
+function saveIdProviderButtonCallback(hiddenUploadFrame){
+
+	var response = $(hiddenUploadFrame).contents().find("body").html();
+	if (response.length) {
+		// Convertir a objeto JSON
+		var responseObject = eval("("+response+")");
+		if ($.exists('#idProviderButtonTable')) {
+			oTableIdsButtons.fnDestroy();
+			oTableIdsButtons = $('#idProviderButtonTable').dataTable(oTableIdsButtonsSettings);
+		}
+		$content.trigger('idProviderButton.updated', {id: responseObject.id});
+	}
+}
+
+function setNewIdProviderButtonActions(){
+	// prevenir caracterres especiales en el id
+	$( "#form-id" ).find('#id').off('onkeyup').on('keyup', function(){
+		var str = $(this).val();
+		//str = str.replace(/[_\s]/g, '-').replace(/[^a-z0-9-\s]/gi, '');
+		str = str.replace(/[_\W]+/g, "-");
+		$(this).val(str);
+	});
+}
+
+function initIdProviderButtonFormValidation(){
+	var rules = {
+		id: "required"
+	};
+	
+	if( $( "#form-id" ).find("#method").val() == "new" ){
+		rules.logo = "required";
+	}
+
+	$("#form-id").validate({
+		rules: rules
 	});
 }

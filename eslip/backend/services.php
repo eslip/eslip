@@ -7,9 +7,8 @@
 		
 		private $xmlApi = null;
 
-		public function __construct($xmlApi, $selectedLang){
-			$this->xmlApi = $xmlApi;
-			$this->selectedLang = $selectedLang;
+		public function __construct($eslip){
+			$this->xmlApi = $eslip;
 		}
 		
 		/*
@@ -100,7 +99,7 @@
 				"siteUrl" => (string)$eslipSettings->siteUrl,
 				"callbackUrl" => (string)$eslipSettings->callbackUrl,
 				"pluginUrl" => (string)$eslipSettings->pluginUrl,
-				"selectedLang" => $this->selectedLang
+				"selectedLang" => $this->xmlApi->selected_language
 			);
 
 			$languageOptions = array();
@@ -311,7 +310,8 @@
 				"scopeRequired" => ScopeRequired,
 				"scopeOptional" => ScopeOptional,
 				"userDataIdKey" => UserDataIdKey,
-				"immediate" => Immediate
+				"immediate" => Immediate,
+				"buttonPreview" => ButtonPreview
 			);
 
 			$new = true;
@@ -335,11 +335,30 @@
 				}
 			}
 
+			$buttonsArray = array();
+			$buttons = $this->xmlApi->getElementList("buttonStyle");
+ 			
+ 			foreach( $buttons as $b ){
+ 				array_push($buttonsArray, (String)$b->attributes()->id);
+ 			}
+			asort($buttonsArray);
+
+			$buttonsOptions = array();
+ 			foreach( $buttonsArray as $b ){
+ 				$bOption = array(
+ 					"value" => $b,
+ 					"content" => $b
+ 				);
+ 				array_push($buttonsOptions, $bOption);
+ 			}
+			//options: [{ value: 3, content: 'test3' }, { value: 4, content: 'test4' }, { value: 5, content: 'test5' }, { value: 6, content: 'test6'}],
+
 			$data = array(
 				"labels" => $labels,
 				"new" => $new,
 				"method" => $method,
-				"idProvider" => $idProviderFixed
+				"idProvider" => $idProviderFixed,
+				"idProvidersButtons" => $buttonsOptions
 			);
 
 			$this->response($data);
@@ -670,6 +689,220 @@
 			$this->response($data);
 		}
 
+		private function getLoginWidgetData(){
+
+			$labels = array(
+				"loginFormDesc" => LoginFormDesc
+			);
+
+			$eslipSettings = $this->xmlApi->getElementValue("configuration");
+			$pluginUrl = (string)$eslipSettings->pluginUrl;
+
+			$data = array(
+				"labels" => $labels,
+				"pluginUrl"  => $pluginUrl,
+				"pluginCss" => $pluginUrl.$_GET["cssUri"],
+				"pluginJs" => $pluginUrl.$_GET["jsUri"],
+				"eslipDivId" => $_GET["eslipDiv"]
+			);
+
+			$this->response($data);
+		}
+
+		private function getIdProvidersButtonsData(){
+
+			$labels = array(
+				"idProvidersButtons" => IdProvidersButtons,
+				"id" => Id,
+				"btnNew" => btnNew,
+				"btnEdit" => btnEdit,
+				"btnDelete" => btnDelete,
+				"btnSave" => btnSave,
+				"btnCancel" => btnCancel,
+				"btnConfirm" => btnConfirm,
+				"processing" => Procesando,
+				"dtsLoadingRecords" => dtsLoadingRecords,
+				"dtsLengthMenu" => dtsLengthMenu,
+				"dtsZeroRecords" => dtsZeroRecords,
+				"dtsInfo" => dtsInfo,
+				"dtsInfoEmpty" => dtsInfoEmpty,
+				"dtsInfoFiltered" => dtsInfoFiltered,
+				"dtsSearch" => dtsSearch,
+				"dtsFirst" => dtsFirst,
+				"dtsPrevious" => dtsPrevious,
+				"dtsNext" => dtsNext,
+				"dtsLast" => dtsLast,
+				"messageSuccess" => messageSuccess,
+				"messageError" => messageError
+			);
+
+			$data = array(
+				"labels" => $labels
+			);
+
+			$this->response($data);
+		}
+
+		private function getIdProvidersButtonsDataTable(){
+			$data = array();
+			$row = array();
+			$totalRecords = 0;
+			// Identity Provider
+			$idButtons = $this->xmlApi->getElementList("buttonStyle");
+			foreach( $idButtons as $idButton ){
+				
+				$row = array((String)$idButton->attributes()->id, (String)$idButton->logo, (String)$idButton->textColor, (String)$idButton->backgroundColor);
+				array_push($data,$row);
+				$totalRecords++;
+			}
+			
+			$data = array("sEcho" => 1, "iTotalRecords" => $totalRecords, "iTotalDisplayRecords" => $totalRecords, "aaData" => $data);
+
+			$this->response($data);
+		}
+
+		private function getIdProviderButtonData(){
+			$labels = array(
+				"id" => Id,
+				"logo" => Logo,
+				"textColor" => TextColor,
+				"backgroundColor" => BackgroundColor
+			);
+
+			$new = true;
+			$method = "new";
+			$id = "";
+			if (isset($_GET["id"]) && !empty($_GET["id"])){
+				$id = $_GET["id"];
+				$new = false;
+				$method = "update";
+			}
+			
+			$buttonFixed = array();
+			$button = new stdClass();
+			if (!empty($id)){
+				$button = $this->xmlApi->getElementById("buttonStyle",$id);
+				$button->id = $button->attributes()->id;
+				foreach ($button as $key => $value){
+					if ( is_object($value) ){
+						$buttonFixed[$key] = (string)$value;
+					}
+				}
+			}
+
+			$data = array(
+				"labels" => $labels,
+				"new" => $new,
+				"method" => $method,
+				"button" => $buttonFixed
+			);
+
+			$this->response($data);
+		}
+
+		private function saveIdProviderButton(){
+
+			$result = "ERROR";
+
+			if ( ! empty($_FILES['logo']['name']) ){
+				$nameParts = explode('.', $_FILES['logo']['name']);
+				$logo = $_POST["id"].'.'.$nameParts[1];
+				$targetFilepath = '../frontend/img/icons/' . $logo;
+
+				if (move_uploaded_file($_FILES['logo']['tmp_name'], $targetFilepath)) {
+					$_POST["logo"] = $logo;
+
+					//crear uno nuevo si no existe
+					if ($_POST["method"] == "new"){
+						
+						$this->newIdProviderButton();
+						
+					}else{
+						//update idprovider button data
+						$this->updateIdProviderButton();
+					}
+
+					$result = "SUCCESS";
+				}
+			}else if ($_POST["method"] == "update"){
+				$button = $this->xmlApi->getElementById("buttonStyle",$_POST["id"]);
+				$_POST["logo"] = (string)$button->logo;
+				$this->updateIdProviderButton();
+				$result = "SUCCESS";
+			}
+
+			$data = array(
+				"status" => $result,
+				"id" => $_POST["id"]
+			);
+
+			$this->response($data);
+		}
+
+		private function newIdProviderButton(){
+
+			$this->xmlApi->addElement(
+			
+				$_POST["id"],
+				
+				array(
+					"logo",
+					"textColor",
+					"backgroundColor"
+				),
+				
+				array(
+					$_POST["logo"],
+					$_POST["textColor"],
+					$_POST["backgroundColor"]
+				),
+				
+				"buttonStyle",
+				
+				"buttonStyles"
+			);
+		}
+
+		private function updateIdProviderButton(){
+			
+			$this->xmlApi->updateElementById(
+				
+				array(
+					"logo",
+					"textColor",
+					"backgroundColor"
+				),
+				
+				array(
+					$_POST["logo"],
+					$_POST["textColor"],
+					$_POST["backgroundColor"]
+				),
+				
+				"buttonStyle",
+				
+				$_POST["id"]
+			);
+		}
+
+		private function deleteIdProviderButton(){
+			
+			$result = "ERROR";
+			
+			$button = $this->xmlApi->getElementById("buttonStyle",$_POST["id"]);
+			$logo = '../frontend/img/icons/' . (string)$button->logo;
+			if (unlink($logo)){
+				$this->xmlApi->removeElementById("buttonStyle", $_POST["id"]);
+				$result = "SUCCESS";
+			}
+
+			$data = array(
+				"status" => $result
+			);
+
+			$this->response($data);
+		}
+
 		/******************************************************
 		* Wizard Setup Functions
 		*******************************************************/
@@ -800,6 +1033,6 @@
 	
 	// Inicializar la API
 	
-	$serviceApi = new ServiceApi($xmlApi, $selectedLang);
+	$serviceApi = new ServiceApi($eslip);
 	$serviceApi->callService();
 ?>

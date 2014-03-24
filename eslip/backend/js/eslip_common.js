@@ -96,6 +96,7 @@ function apiGet(uri, data, callback){
 		data: data,
 		dataType: 'JSON',
 		type: 'GET',
+		cache: false,
 		async: true
 	}).done(function(data){
 		callback(data);
@@ -107,6 +108,7 @@ function apiPost(uri, data, callback){
 		data: data,
 		dataType: 'JSON',
 		type: 'POST',
+		cache: false,
 		async: true
 	}).done(function(data){
 		callback(data);
@@ -123,3 +125,5 @@ function getFormData($form){
 
 	return indexed_array;
 }
+
+$.exists = function(selector) {return ($(selector).length > 0);}

@@ -4,7 +4,7 @@ session_start();
 
 $isAuthenticated = ( isset($_SESSION['usuario']) && ! empty($_SESSION['usuario']) );
 
-$runWizard = (bool)(String)$xmlApi->getElementValue("runWizard","configuration");
+$runWizard = (bool)(string)$eslip->configuration->runWizard;
 
 $_SESSION['referrer'] = currentPageUrl();
 

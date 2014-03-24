@@ -12,12 +12,12 @@
 */
 
 include_once('eslip_api.php');
-include_once('eslip_classes.php');
+
+include_once('eslip_protocols.php');
 
 if (IsSet($_GET['eslip_data']))
 {
-	$eslip_data = $_GET['eslip_data'];
-	$aux = json_decode(base64url_decode($eslip_data));
+	$aux = json_decode(base64url_decode($_GET['eslip_data']));
 	$referer = $aux->referer;
 	$server = $aux->server;
 }
@@ -27,14 +27,11 @@ else
 	$server = (IsSet($_GET['server'])) ? $_GET['server'] : '';
 }
 
-$eslip_data = array('server' => $server, 'referer' => $referer );
-$eslip_data = base64url_encode(json_encode($eslip_data));
+$eslip_data = base64url_encode(json_encode(array('server' => $server, 'referer' => $referer )));
 
-$eslip_settings = $xmlApi->getElementValue("configuration");
+$identity_provider_data = $eslip->get_identity_provider_data($server);
 
-$identity_provider_data = $xmlApi->getElementById("identityProvider", $server);
-
-$return_url = str_replace('{ESLIP_DATA}', $eslip_data, (string)$eslip_settings->pluginUrl."eslip_process.php?eslip_data={ESLIP_DATA}" );
+$return_url = str_replace('{ESLIP_DATA}', $eslip_data, (string)$eslip->configuration->pluginUrl."eslip_process.php?eslip_data={ESLIP_DATA}" );
 
 try
 {
@@ -58,15 +55,15 @@ try
 						'server' => $server, 
 						'referer' => $referer,
 						'state' => 'success',
-						'client_callback_url' => (string)$eslip_settings->callbackUrl);
+						'client_callback_url' => (string)$eslip->configuration->callbackUrl);
 
 		$return = base64url_encode(json_encode($return));
 
-		$callback_url_preocess = str_replace('{DATA}', $return, (string)$eslip_settings->pluginUrl."eslip_callback_process.php?data={DATA}");
+		$callback_url_preocess = str_replace('{DATA}', $return, (string)$eslip->configuration->pluginUrl."eslip_callback_process.php?data={DATA}");
 	}
 	else
 	{
-		$client = new eslip_openid($eslip_data, $identity_provider_data, (string)$eslip_settings->siteUrl, $return_url);
+		$client = new eslip_openid($eslip_data, $identity_provider_data, (string)$eslip->configuration->siteUrl, $return_url);
 
 		$client->Process();
 
@@ -84,11 +81,11 @@ try
 						'server' => $server, 
 						'referer' => $referer,
 						'state' => 'success',
-						'client_callback_url' => (string)$eslip_settings->callbackUrl);
+						'client_callback_url' => (string)$eslip->configuration->callbackUrl);
 
 		$return = base64url_encode(json_encode($return));
 
-		$callback_url_preocess = str_replace('{DATA}', $return, (string)$eslip_settings->pluginUrl."eslip_callback_process.php?data={DATA}");
+		$callback_url_preocess = str_replace('{DATA}', $return, (string)$eslip->configuration->pluginUrl."eslip_callback_process.php?data={DATA}");
 	}
 }
 catch (EslipException $e)
@@ -97,11 +94,11 @@ catch (EslipException $e)
 					'server' => $server, 
 					'referer' => $referer,
 					'state' => 'error',
-					'client_callback_url' => (string)$eslip_settings->callbackUrl);
+					'client_callback_url' => (string)$eslip->configuration->callbackUrl);
 
 	$return = base64url_encode(json_encode($return));
 
-	$callback_url_preocess = str_replace('{DATA}', $return, (string)$eslip_settings->pluginUrl."eslip_callback_process.php?data={DATA}");
+	$callback_url_preocess = str_replace('{DATA}', $return, (string)$eslip->configuration->pluginUrl."eslip_callback_process.php?data={DATA}");
 }
 ?>
 <script>

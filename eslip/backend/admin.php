@@ -21,6 +21,8 @@ $_SESSION['referrer'] = currentPageUrl();
 	<link type="text/css" rel="stylesheet" href="css/demo_table_jui.css">
 	<link type="text/css" rel="stylesheet" href="css/TableTools.css">
 	<link type="text/css" rel="stylesheet" href="css/vtip.css">
+	<link type="text/css" rel="stylesheet" href="css/jquery.minicolors.css">
+	<link type="text/css" rel="stylesheet" href="../frontend/eslip_plugin.css">
 	
 	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
@@ -32,6 +34,7 @@ $_SESSION['referrer'] = currentPageUrl();
 	<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="js/TableTools.min.js"></script>
 	<script type="text/javascript" src="js/vtip.js"></script>
+	<script type="text/javascript" src="js/jquery.minicolors.min.js"></script>
 	<script type="text/javascript" src="js/eslip_common.js"></script>
 	<script type="text/javascript" src="js/eslip_admin.js"></script>
 
@@ -71,6 +74,12 @@ $_SESSION['referrer'] = currentPageUrl();
 									<li class="ui-menu-item" role="presentation">
 										<a href="javascript:void(0);" id="languagesConfig" class="menuItem ui-corner-all" tabindex="-1"  role="menuitem"><?php echo LanguagesConfig; ?></a>
 									</li>
+									<li class="ui-menu-item" role="presentation">
+										<a href="javascript:void(0);" id="loginWidget" class="menuItem ui-corner-all" tabindex="-1"  role="menuitem"><?php echo LoginWidget; ?></a>
+									</li>
+									<li class="ui-menu-item" role="presentation">
+										<a href="javascript:void(0);" id="idProvidersButtons" class="menuItem ui-corner-all" tabindex="-1"  role="menuitem"><?php echo IdProvidersButtons; ?></a>
+									</li>
 								</ol>
 							</div>
 							
@@ -92,8 +101,18 @@ $_SESSION['referrer'] = currentPageUrl();
 	
 	<div id="dialog-edit" class="adminDialog" style="display:none;">
 	</div>
+
+	<div id="dialog-edit-id" class="adminDialog" style="display:none;">
+	</div>
    
-   <div id="dialog-confirm" class="adminDialog" style="display:none;">
+	<div id="dialog-confirm" class="adminDialog" style="display:none;">
+		<div class="reng">
+			<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+			<?php echo deleteConfirm; ?>
+		</div>
+	</div>
+
+	<div id="dialog-confirm-id" class="adminDialog" style="display:none;">
 		<div class="reng">
 			<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
 			<?php echo deleteConfirm; ?>

@@ -2,8 +2,17 @@
     <input type="hidden" id="method" name="method" data-value="method"/>
     
     <!-- manejar el caso de new, mostrarndo el input para setear el id con un autocomplete -->
-    <input type="hidden" id="id" name="id" data-value="idProvider.id"/>    
-
+    <!--input type="hidden" id="id" name="id" data-value="idProvider.id"/-->    
+    <div class="reng">
+        <label for="id"><span data-content="labels.id"></span>:</label>
+        <input type="text" id="id" name="id" data-value="idProvider.id" class="disabled" disabled="disabled"/>
+        <div id="selectContainer" class="selectContainer">
+            <span id="add" class="ui-icon ui-icon-plus"></span>
+            <span id="edit" class="ui-icon ui-icon-pencil"></span>
+            <select id="id" name="id" data-value="idProvider.id" data-template-bind='{"attribute": "options", "value": {"data": "idProvidersButtons", "value":"value", "content":"content"}}'>
+            </select>
+        </div> 
+    </div>
     <div class="reng">
         <label for="name"><span data-content="labels.name"></span>:</label>
         <input type="text" id="name" name="name" data-value="idProvider.name"/>    
@@ -80,6 +89,10 @@
     <div class="reng">
         <label for="userDataIdKey"><span data-content="labels.userDataIdKey"></span>:</label>
         <input type="text" id="userDataIdKey" name="userDataIdKey" data-value="idProvider.userDataIdKey"/>
+    </div>
+    <div class="reng" id="buttonStylePreview">
+        <label for="buttonStyle"><span data-content="labels.buttonPreview"></span>:</label>
+        <div class="buttonStyle"></div>
     </div>
 
 </form>
