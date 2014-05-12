@@ -2,7 +2,8 @@
 // Variables Definitions
 //**********************************************************
 
-var SERVICES_URL = "services/";
+var SERVICES_URL = "backend_services/";
+var ESLIP_SERVICES_URL = "../eslip_frontend_services/";
 var CSS_URI = "frontend/eslip_plugin.css";
 var JS_URI = "frontend/eslip_plugin.js";
 var ESLIP_DIV = "ESLIP_Plugin";
@@ -60,36 +61,22 @@ $(function() {
 function initSelectors(){
 	$selectLanguageDialog = $( "#dialog-lang" );
 	$wizardContainer = $("#wizardContainer");
-	$selectLangContainer = $("#selectLangContainer");
+	$selectLangContainer = $( "#dialog-lang" ).find(".modal-body");//$("#selectLangContainer");
 }
 
 function initSelectLanguageDialog(){
 
-	$selectLanguageDialog.dialog({
-		autoOpen: false,
-		resizable: false,
-		height:200,
-		modal: true,
-		closeOnEscape: false,
-		dialogClass: "no-close",
-		buttons: {
-			"Seleccionar": function() {
-				loadWizardContent();
-				$( this ).dialog( "close" );
-			}
-		}
+	$selectLanguageDialog.find(".btn-select").click(function(){
+		loadWizardContent();
+		$selectLanguageDialog.modal("hide");
 	});
-}
-
-function showSelectLanguageDialog(){
-	$selectLanguageDialog.dialog( "open" );
 }
 
 function populateLanguageSelect(){
 	
 	apiGet(SERVICES.getLanguages, {}, function(languages){
 
-		var $selectLang = '<select id="selectLang">';
+		var $selectLang = '<select id="selectLang" class="form-control">';
 		
 		var selected = '';
 		$.each(languages, function(i, lang){
@@ -103,6 +90,10 @@ function populateLanguageSelect(){
 	});
 }
 
+function showSelectLanguageDialog(){
+	$selectLanguageDialog.modal("show");
+}
+
 function prepareWizard(data){
 	$wizardContainer.hide();
 	if (!data.settings.runFullWizard){
@@ -114,6 +105,8 @@ function loadWizardContent(){
 
 	var selectedLang = $("#selectLang").val();
 
+	init({lang: selectedLang});
+
 	apiPost(SERVICES.getWizardData, {lang: selectedLang}, function(data){
 
 		$wizardContainer.loadTemplate(TEMPLATES.wizard, data, {
@@ -123,7 +116,11 @@ function loadWizardContent(){
 				// mostrar o no el wizard completo
 				prepareWizard(data);
 
-				$.each(data.idProviders,function(i, p){ data.idProviders[i].labels = data.labels; });
+				$.each(data.idProviders,function(i, p){ 
+					data.idProviders[i].labels = data.labels;
+					data.idProviders[i].idClientId = data.idProviders[i].id+'_clientId';
+					data.idProviders[i].idClientSecret = data.idProviders[i].id+'_clientSecret';
+				});
 				$("#idProvidersContainer").loadTemplate(TEMPLATES.idProviders, data.idProviders, {
 					overwriteCache: true,
 					complete: function(){
@@ -138,6 +135,7 @@ function loadWizardContent(){
 						});
 					}
 				});
+
 			}
 		});
 		
@@ -151,15 +149,13 @@ function loadWizardContentCallback(data){
 
 	initWizard(data);
 
-	initWizardFormValidation();
+	initWizardFormValidation(data);
 
 	bindWizardEvents();
 
-	bindWizardResize();
-
 	sortIdProviders();
 	
-	vtip();
+	initPopover();
 
 	initSwitchOnOff();
 
@@ -176,36 +172,29 @@ function initWizard(data){
 
 	$wizardContainer.show();
 
-	$wizard.jWizard({
+	var options = {
+    	//show: true,
+    	keyboard : false,
+		contentHeight : 500,
+		contentWidth : 800,	
+		backdrop: 'static',
 		buttons: {
-			next: {
-				text: data.labels.next,
-				type: "button"
-			},
-			prev: {
-				text: data.labels.previous,
-				type: "button"
-			},
-			cancel: {
-				"class": "ui-priority-secondary",
-				text: data.labels.cancel,
-				type: "button"
-			},
-			finish: {
-				"class": "ui-priority-primary ui-state-highlight",
-				text: data.labels.finish,
-				type: "button"
-			}
-		},
-		progress: {
-			label: "count",
-			append: ""
-		},
-		
-	});
+			cancelText: data.labels.cancel,
+			nextText: data.labels.next,
+			backText: data.labels.previous,
+			submitText: data.labels.finish,
+			submittingText: "..."
+		}
+    };
+
+    $wizard = $wizard.wizard(options);
+
+    $wizard.find(".wizard-card").outerHeight($wizard.find(".wizard-card-container").height());
+
+    $wizard.show();
 }
 
-function initWizardFormValidation(){
+function initWizardFormValidation(data){
 						
 	$wizard.find("#form1").validate({
 		rules: {
@@ -222,62 +211,119 @@ function initWizardFormValidation(){
 	
 	$wizard.find("#form2").validate({
 		rules: {
-			siteUrl: "required",
-			callbackUrl: "required",
-			pluginUrl: "required"
+			siteUrl: {
+				required: true,
+				urlCustom: true
+			},
+			callbackUrl: {
+				required: true,
+				urlCustom: true
+			},
+			pluginUrl: {
+				required: true,
+				urlCustom: true
+			}
+		}
+	});
+
+	$wizard.find("#form3").validate({
+		rules: {
+			'clientId[]': {
+				required: {
+					depends: function(element) {
+						return parseInt($(element).parents(".idProviderData").attr("active")) === 1;
+					}
+				}
+		    },
+		    'clientSecret[]': {
+				required: {
+					depends: function(element) {
+						return parseInt($(element).parents(".idProviderData").attr("active")) === 1;
+					}
+				}
+		    }
+		}
+	});
+
+	$wizard.find("#form4").validate({
+		rules: {
+			widgetWidth: {
+				required: true,
+      			number: true
+			},
+			widgetRows: {
+				required: true,
+      			number: true,
+      			min: 0
+			},
+			widgetColumns: {
+				required: true,
+      			number: true,
+      			min: 1
+			},
+			
 		}
 	});
 	
-	$wizard.find(".stepContainer").on("stephide",{},function(event){
-		var $container = $(event.target).find(".contenedorCentral");
-		if ($container.find("form").valid()){
+	if ( $.exists($wizard.find("#step-1")) ){
+		$wizard.cards[data.labels.createAdminUser].on("validate", function(card) {
+		    if (card.el.find("form").valid()){
+				return true;
+			}else{
+				return false;
+			}
+		});
+	}
+	
+
+	$wizard.cards[data.labels.generalConfigs].on("validate", function(card) {
+	    if (card.el.find("form").valid()){
 			return true;
 		}else{
-			$wizard.find(".jw-buttons").find("button").removeClass("ui-state-disabled");
 			return false;
 		}
 	});
+
+	$wizard.cards[data.labels.idProviders].on("validate", function(card) {
+	    if (card.el.find("form").valid()){
+			return true;
+		}else{
+			return false;
+		}
+	});
+
+	$wizard.cards[data.labels.loginWidget].on("validate", function(card) {
+	    if (card.el.find("form").valid()){
+			return true;
+		}else{
+			return false;
+		}
+	});
+
+	$wizard.cards[data.labels.loginWidget].on("selected", function(card) {
+	   	console.info("selected");
+		console.log(card);
+		initLoginWidget(data);
+	});
 	
+
 }
 
 function bindWizardEvents(){
 
 	//wizard finish
-	$wizard.on("wizardfinish",{},function(event){
+	$wizard.on("submit", function(wizard) {
+
 		$("#siteUrl").val( formatUrl( $("#siteUrl").val() ) );
 		$("#pluginUrl").val( formatUrl( $("#pluginUrl").val() ) );
-		var $formData = "";
-		$.each($wizard.find("form"),function(i,form){
-				$formData += $(form).serialize()+"&";
-		});
-		
+
+		var $formData = $wizard.serialize();
 		apiPost(SERVICES.saveConfiguration, $formData, function(data){
+			$wizard.submitSuccess();
+			$wizard.close();
 			wizardEnd();
 		});
-
-		return false;
 	});
-	
-	//wizard cancel
-	$wizard.on("wizardcancel",{},function(event){
-		$wizard.hide();
-	});
-
-}
-
-function bindWizardResize(){
-	//wizard resize
-						
-	$(window).resize(function() {
-		updateWizardHeight();
-	});
-	
-	var updateWizardHeight = function(){
-		var height = $(window).outerHeight() - ($(".jw-header").outerHeight() + $(".jw-footer").outerHeight() + 55);
-		//console.info(height +" = "+ $(window).outerHeight() + " - " + " ( "+$(".jw-header").outerHeight()+" + "+$(".jw-footer").outerHeight()+" + 55 )");
-		$wizard.find(".jw-steps-wrap").height(height);
-	};
-	updateWizardHeight();
 }
 
 function wizardEnd(){
@@ -286,16 +332,63 @@ function wizardEnd(){
 }
 
 function showWizardEndDialog(){
-	$("#dialog-wizard-end").dialog({
-		resizable: false,
-		height:380,
-		width:700,
-		modal: true,
-		buttons: {
-			"OK": function() {
-				$( this ).dialog( "close" );
-				window.location.href = ADMIN_URL;
-			}
-		}
+
+	$("#dialog-wizard-end").find(".btn-end").click(function(){
+		$("#dialog-wizard-end").modal("hide");
+		window.location.href = ADMIN_URL;
 	});
+
+	$("#dialog-wizard-end").modal("show");
+}
+
+/*** Helper Functions ***/
+
+function validateEmpty(el) {
+    var name = el.val();
+    var retValue = {};
+
+    if (name == "") {
+        retValue.status = false;
+        retValue.msg = "Please enter a name";
+    }
+    else {
+        retValue.status = true;
+    }
+
+    return retValue;
+}
+
+function findWithAttr(array, attr, value) {
+    for(var i = 0; i < array.length; i += 1) {
+        if(array[i][attr] === value) {
+            return i;
+        }
+    }
+}
+
+function initLoginWidget(data){
+
+	var activeIds = [];
+	$.each($('#active[value="1"]'), function(i, idP){
+		activeIds.push($(idP).parents('.idProvider').attr('id'));
+	});
+
+	data.identityProviders = [];
+	for (var i in activeIds){
+		if (activeIds[i] == 'openid'){
+			data.identityProviders.push(data.openIdProvider);
+		}else{
+			var j = findWithAttr(data.idProviders, 'id', activeIds[i]);
+			data.identityProviders.push(data.idProviders[j]);
+		}
+	}
+
+	initLoginWidgetValues(data);
+
+	bindLoginWidgetPreviewEvents(data);
+
+	renderWidget(data);
+
+	preventLoginButtonClick();
+
 }

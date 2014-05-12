@@ -24,26 +24,38 @@
 	float: right;	
 }
 
-.vtip{
-	float: right;
-	padding-top: 5px;
-}
-
-.vtip .help{
-	background-image: url("../images/ayuda.png");
-	width: 16px;
-	height: 16px;
-	float: left;
-}
-
 input.disabled {
 	border: none;
 	background: none;
 }
 
+/*** buttonStyle ***/
+
 .ui-widget-content .buttonStyle .button {
 	color: white;
 	font-size: 16px;
+}
+
+#buttonStylePreview{
+	height: auto;
+}
+
+.buttonStyle {
+	float: right;
+	margin-right: 70px;
+}
+
+.colorPreview {
+	float: left;
+	width: 14px;
+	height: 14px;
+	margin-right: 10px;
+	border: solid 1px #ccc;
+}
+
+.rowButtonPreview .button{
+	zoom: 75%;
+	-moz-transform: scale(0.75);
 }
 
 /*** Admin ***/
@@ -123,17 +135,30 @@ input.disabled {
 	height: 35px;
 }
 
-.adminContent .block form input,
+.adminContent .block form input[type="text"],
+.adminContent .block form input[type="button"],
+.adminContent .block form input[type="password"],
 .adminContent .block form select,
 .adminContent .block form textarea,
+.adminContent .block form .rightComonent,
 .adminDialog input,
 .adminDialog select,
-.adminDialog textarea{
+.adminDialog textarea
+.adminDialog .rightComonent{
 	float: right;
 	width: 350px;
 	box-sizing:border-box;
 	-moz-box-sizing:border-box; /* Firefox */
 	-webkit-box-sizing:border-box; /* Safari */
+}
+
+.adminContent .block form input.small,
+.adminContent .block form select.small,
+.adminContent .block form textarea.small,
+.adminDialog input.small,
+.adminDialog select.small,
+.adminDialog textarea.small{
+	width: 300px;
 }
 
 .adminContent .block form label,
@@ -150,19 +175,24 @@ input.disabled {
 
 .selectContainer{
 	float: right;
-	width: 350px;
-}
-
-.selectContainer .ui-icon{
-	float: right;
-	margin-top: 4px;
-	margin-right: 4px;
-	cursor: pointer;
+	width: 300px;
 }
 
 .selectContainer select{
 	float: left;
-	width: 300px;
+	width: 100%;
+}
+
+.buttonTools{
+	float: right;
+	width: 50px;
+}
+
+.buttonTools .ui-icon{
+	float: right;
+	margin-top: 4px;
+	margin-right: 4px;
+	cursor: pointer;
 }
 
 /*** Validate  Admin***/
@@ -339,4 +369,36 @@ label.valid {
 	color: #D8000C;
 	background-color: #FFBABA;
 	background-image: url('../images/error.png');
+}
+
+/* Login Widget Code */
+
+.codeContainer{
+    background: #ffffff;
+    overflow:auto;
+    width:auto;
+    border:solid gray;
+    border-width:.1em .1em .1em .8em;
+    padding:.2em .6em;
+    line-height: 16px;
+}
+
+.codeContainer .tag{
+    color: #007700;
+}
+
+.codeContainer .attribute{
+    color: #0000CC;
+}
+
+.codeContainer .text{
+    background-color: #fff0f0;
+}
+
+.codeContainer .tab1{
+    margin-left: 20px;
+}
+
+.codeContainer .tab2{
+    margin-left: 40px;
 }

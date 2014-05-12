@@ -1,50 +1,44 @@
 <?php
 	
-	include_once("../eslip_api.php");
+	include_once("../eslip.php");
+	include_once("../eslip_services.php");
 	session_start();
 
-	class ServiceApi {
+	class BackendServiceApi extends EslipServices{
 		
-		private $xmlApi = null;
-
-		public function __construct($eslip){
-			$this->xmlApi = $eslip;
-		}
-		
-		/*
-		 * Función pública para acceos de la API de Servicios.
-		 * Esta función llama dinámicamente a la función de la API de Servicios correspondiente dependiendo del valor del parámetro request
-		 *
-		 */
-		public function callService(){
-			$func = strtolower(trim(str_replace("/","",$_REQUEST['rquest'])));
-			if((int)method_exists($this,$func) > 0)
-				$this->$func();
-			//else
-				//$this->response('',404);				// If the method not exist with in this class, response would be "Page not found".
-		}
-		
-		/*
-		 *	Convertir arreglo en un objeto JSON
-		*/
-		private function json($data){
-			if(is_array($data)){
-				return json_encode($data);
-			}
+		public function __construct($xmlApi){
+			parent::__construct($xmlApi);
 		}
 
-		private function response($data){
-			//$this->_code = ($status)?$status:200;
-			//$this->set_headers();
-			echo $this->json($data);
-			exit;
+		/******************************************************
+		* General Functions
+		*******************************************************/
+
+		protected function init(){
+
+			$validatorMessages = array(
+				"required" => messageRequired,
+				"remote" => messageRemote,
+				"url" => messageUrl,
+				"number" => messageNumber,
+				"digits" => messageDigits,
+				"equalTo" => messageEqualTo,
+				"minlength" => messageMinlength,
+				"min" => messageMin
+			);
+
+			$data = array(
+				"validatorMessages" => $validatorMessages
+			);
+
+			$this->response($data);
 		}
 
 		/******************************************************
 		* Admin Functions
 		*******************************************************/
 
-		private function login(){
+		protected function login(){
 			$eslipSettings = $this->xmlApi->getElementValue("configuration");
 			$adminUser = (string)$eslipSettings->adminUser;
 			$adminPass = (string)$eslipSettings->adminPass;
@@ -62,7 +56,7 @@
 			$this->response($data);
 		}
 
-		private function logout(){
+		protected function logout(){
 			session_destroy();
 
 			$result = "SUCCESS";
@@ -72,7 +66,7 @@
 			$this->response($data);
 		}
 
-		private function isAuthenticated(){
+		protected function isAuthenticated(){
 			$isAuthenticated = ( isset($_SESSION['usuario']) && ! empty($_SESSION['usuario']) );
 			$data = array(
 				"isAuthenticated" => $isAuthenticated
@@ -80,7 +74,7 @@
 			$this->response($data);	
 		}
 
-		private function getGeneralConfigData(){
+		protected function getGeneralConfigData(){
 
 			$labels = array(
 				"generalConfigs" => GeneralConfigs,
@@ -91,15 +85,23 @@
 				"btnSave" => btnSave,
 				"btnCancel" => btnCancel,
 				"messageSuccess" => messageSuccess,
-				"messageError" => messageError
+				"messageError" => messageError,
+				"HelpSiteUrl" => HelpSiteUrl,
+				"HelpCallbackUrl" => HelpCallbackUrl,
+				"HelpPluginUrl" => HelpPluginUrl,
+				"HelpLanguage" => HelpLanguage
 			);
 
 			$eslipSettings = $this->xmlApi->getElementValue("configuration");
+
+			$selectedLang = $this->xmlApi->getElementListByFieldValue("selected", "1", "language");	
+			$selectedLang = (empty($selectedLang) || empty($selectedLang[0]->code )) ? getSystemLang() : (String)$selectedLang[0]->code;
+
 			$settings = array(
 				"siteUrl" => (string)$eslipSettings->siteUrl,
 				"callbackUrl" => (string)$eslipSettings->callbackUrl,
 				"pluginUrl" => (string)$eslipSettings->pluginUrl,
-				"selectedLang" => $this->xmlApi->selected_language
+				"selectedLang" => $selectedLang
 			);
 
 			$languageOptions = array();
@@ -123,7 +125,7 @@
 			$this->response($data);
 		}
 
-		private function saveGeneralConfig(){
+		protected function saveGeneralConfig(){
 
 			//update language
 			$this->xmlApi->updateElement(array("selected"), array("0"), "language");
@@ -143,7 +145,7 @@
 			$this->response($data);
 		}
 
-		private function getUserConfigData(){
+		protected function getUserConfigData(){
 
 			$labels = array(
 				"configUser" => ConfigUser,
@@ -169,7 +171,7 @@
 			$this->response($data);
 		}
 
-		private function saveUserConfig(){
+		protected function saveUserConfig(){
 
 			//update admin user
 			$this->xmlApi->setElementValue("adminUser", $_POST["adminUser"], "configuration");
@@ -184,8 +186,10 @@
 			$this->response($data);
 		}
 
-		private function getIdProviders(){
+		protected function getIdProviders(){
 
+			$configuration = $this->xmlApi->getElementValue("configuration");
+			
 			// Identity Provider
 			$identityProviders = $this->xmlApi->getElementList("identityProvider");
 			$openIdProvider = array();
@@ -198,6 +202,13 @@
 					if ( is_object($value) ){
 						$idProviderFixed[$key] = (string)$value;
 					}
+				}
+
+				$styles = $this->xmlApi->getElementById("buttonStyle", $idProvider->id);
+				$idProviderFixed["styles"] = SimpleXMLElementToObject($styles);
+
+				if (isset($idProviderFixed["styles"]->logo)){
+					$idProviderFixed["styles"]->logo_url = $configuration->pluginUrl . 'frontend/img/icons/' . $idProviderFixed["styles"]->logo;
 				}
 
 				if ($idProviderFixed["id"] == "openid"){
@@ -216,10 +227,12 @@
 			return $data;
 		}
 
-		private function getIdProvidersData(){
+		protected function getIdProvidersData(){
 
 			$labels = array(
 				"idProviders" => IdProviders,
+				"standardView" => StandardView,
+				"advancedView" => AdvancedView,
 				"id" => Id,
 				"name" => Name,
 				"oauth" => Oauth,
@@ -230,12 +243,14 @@
 				"scopeRequired" => ScopeRequired,
 				"scopeOptional" => ScopeOptional,
 				"scope" => Scope,
+				"buttonPreview" => ButtonPreview,
 				"btnNew" => btnNew,
 				"btnEdit" => btnEdit,
 				"btnDelete" => btnDelete,
 				"btnSave" => btnSave,
 				"btnCancel" => btnCancel,
 				"btnConfirm" => btnConfirm,
+				"deleteConfirm" => deleteConfirm,
 				"processing" => Procesando,
 				"dtsLoadingRecords" => dtsLoadingRecords,
 				"dtsLengthMenu" => dtsLengthMenu,
@@ -249,7 +264,14 @@
 				"dtsNext" => dtsNext,
 				"dtsLast" => dtsLast,
 				"messageSuccess" => messageSuccess,
-				"messageError" => messageError
+				"messageError" => messageError,
+				"messageDeleteOpenID" => messageDeleteOpenID,
+				"messageMustSelectProvider" => messageMustSelectProvider,
+				"HelpScopeRequired" => HelpScopeRequired,
+				"HelpScopeOptional" => HelpScopeOptional,
+				"HelpClientId" => HelpClientId,
+				"HelpClientSecret" => HelpClientSecret,
+				"HelpScope" => HelpScope
 			);
 
 			$idProvidersData = $this->getIdProviders();
@@ -265,7 +287,7 @@
 			$this->response($data);
 		}
 
-		private function getIdProvidersDataTable(){
+		protected function getIdProvidersDataTable(){
 
 			$data = array();
 			$row = array();
@@ -274,7 +296,7 @@
 			$identityProviders = $this->xmlApi->getElementList("identityProvider");
 			foreach( $identityProviders as $idProvider ){
 				
-				$row = array((String)$idProvider->attributes()->id, (String)$idProvider->name, (String)$idProvider->oauth, (String)$idProvider->active);
+				$row = array((String)$idProvider->attributes()->id, (String)$idProvider->name, (String)$idProvider->label, (String)$idProvider->active, 0);
 				array_push($data,$row);
 				$totalRecords++;
 			}
@@ -284,7 +306,7 @@
 			$this->response($data);
 		}
 
-		private function getIdProviderData(){
+		protected function getIdProviderData(){
 
 			$labels = array(
 				"id" => Id,
@@ -297,6 +319,7 @@
 				"requestTokenUrl" => RequestTokenUrl,
 				"dialogUrl" => DialogUrl,
 				"accessTokenUrl" => AccessTokenUrl,
+				"apiCallParameters" => ApiCallParameters,
 				"authorizationHeader" => AuthorizationHeader,
 				"urlParameters" => UrlParameters,
 				"clientId" => ClientId,
@@ -305,13 +328,33 @@
 				"hasAccessTokenExtraParameter" => HasAccessTokenExtraParameter,
 				"accessTokenExtraParameterName" => AccessTokenExtraParameterName,
 				"userDataUrl" => UserDataUrl,
-				"userDataNameKey" => UserDataNameKey,
 				"formUrl" => FormUrl,
 				"scopeRequired" => ScopeRequired,
 				"scopeOptional" => ScopeOptional,
 				"userDataIdKey" => UserDataIdKey,
 				"immediate" => Immediate,
-				"buttonPreview" => ButtonPreview
+				"buttonPreview" => ButtonPreview,
+				"selectOption" => SelectOption,
+				"btnNew" => btnNew,
+				"btnEdit" => btnEdit,
+				"HelpClientId" => HelpClientId,
+				"HelpClientSecret" => HelpClientSecret,
+				"HelpScope" => HelpScope,
+				"HelpId" => HelpId,
+				"HelpName" => HelpName,
+				"HelpLabel" => HelpLabel,
+				"HelpActive" => HelpActive,
+				"HelpOauth" => HelpOauth,
+				"HelpRequestTokenUrl" => HelpRequestTokenUrl,
+				"HelpDialogUrl" => HelpDialogUrl,
+				"HelpAccessTokenUrl" => HelpAccessTokenUrl,
+				"HelpApiCallParameters" => HelpApiCallParameters,
+				"HelpAuthorizationHeader" => HelpAuthorizationHeader,
+				"HelpUrlParameters" => HelpUrlParameters,
+				"HelpHasAccessTokenExtraParameter" => HelpHasAccessTokenExtraParameter,
+				"HelpAccessTokenExtraParameterName" => HelpAccessTokenExtraParameterName,
+				"HelpUserDataUrl" => HelpUserDataUrl,
+				"HelpUserDataIdKey" => HelpUserDataIdKey
 			);
 
 			$new = true;
@@ -328,6 +371,7 @@
 			if (!empty($id)){
 				$idProvider = $this->xmlApi->getElementById("identityProvider",$id);
 				$idProvider->id = $idProvider->attributes()->id;
+
 				foreach ($idProvider as $key => $value){
 					if ( is_object($value) ){
 						$idProviderFixed[$key] = (string)$value;
@@ -335,12 +379,20 @@
 				}
 			}
 
+			$idsInUseArray = array();
+			$idsInUse = $this->xmlApi->getElementList("identityProvider");
+			foreach( $idsInUse as $i ){
+ 				array_push($idsInUseArray, (String)$i->attributes()->id);
+ 			}
+
 			$buttonsArray = array();
 			$buttons = $this->xmlApi->getElementList("buttonStyle");
- 			
  			foreach( $buttons as $b ){
  				array_push($buttonsArray, (String)$b->attributes()->id);
  			}
+
+ 			$buttonsArray = array_diff($buttonsArray, $idsInUseArray);
+
 			asort($buttonsArray);
 
 			$buttonsOptions = array();
@@ -364,7 +416,7 @@
 			$this->response($data);
 		}
 
-		private function deleteIdProvider(){
+		protected function deleteIdProvider(){
 			$this->xmlApi->removeElementById("identityProvider", $_POST["id"]);
 
 			$result = "SUCCESS";
@@ -376,7 +428,7 @@
 			$this->response($data);
 		}
 
-		private function updateIdProvidersImpl(){
+		protected function updateIdProvidersImpl(){
 
 			//update idprovider data
 			for($i=0;$i<count($_POST["idProviderId"]);$i++){
@@ -398,7 +450,7 @@
 			
 		}
 
-		private function updateIdProviders(){
+		protected function updateIdProviders(){
 
 			$this->updateIdProvidersImpl();
 
@@ -409,7 +461,7 @@
 			$this->response($data);	
 		}
 
-		private function saveIdProvider(){
+		protected function saveIdProvider(){
 
 			//crear uno nuevo si no existe
 			if ($_POST["method"] == "new"){
@@ -430,7 +482,7 @@
 			$this->response($data);
 		}
 
-		private function newIdProvider(){
+		protected function newIdProvider(){
 			if($_POST["id"] != "openid"){
 
 				$this->xmlApi->addElement(
@@ -445,6 +497,7 @@
 						"requestTokenUrl",
 						"dialogUrl",
 						"accessTokenUrl",
+						"apiCallParameters",
 						"authorizationHeader",
 						"urlParameters",
 						"clientId",
@@ -464,6 +517,7 @@
 						$_POST["requestTokenUrl"],
 						$_POST["dialogUrl"],
 						$_POST["accessTokenUrl"],
+						$_POST["apiCallParameters"],
 						$_POST["authorizationHeader"],
 						$_POST["urlParameters"],
 						$_POST["clientId"],
@@ -482,7 +536,7 @@
 			}
 		}
 
-		private function updateIdProvider(){
+		protected function updateIdProvider(){
 			if($_POST["id"] == "openid"){
 					
 				$this->updateOpenIdProvider();
@@ -499,6 +553,7 @@
 						"requestTokenUrl",
 						"dialogUrl",
 						"accessTokenUrl",
+						"apiCallParameters",
 						"authorizationHeader",
 						"urlParameters",
 						"clientId",
@@ -518,6 +573,7 @@
 						$_POST["requestTokenUrl"],
 						$_POST["dialogUrl"],
 						$_POST["accessTokenUrl"],
+						$_POST["apiCallParameters"],
 						$_POST["authorizationHeader"],
 						$_POST["urlParameters"],
 						$_POST["clientId"],
@@ -536,7 +592,7 @@
 			}
 		}
 
-		private function updateOpenIdProvider(){
+		protected function updateOpenIdProvider(){
 			$this->xmlApi->updateElementById(
 					
 				array(
@@ -567,7 +623,7 @@
 			);
 		}
 
-		private function getLanguagesConfigData(){
+		protected function getLanguagesConfigData(){
 			$labels = array(
 				"languagesConfig" => LanguagesConfig,
 				"downloadLangFile" => DownloadLangFile,
@@ -587,7 +643,7 @@
 			$this->response($data);
 		}
 
-		private function uploadLangFile(){
+		protected function uploadLangFile(){
 
 			$targetFilepath = "i18n/" . basename($_FILES['langFile']['name']);
  			
@@ -606,7 +662,7 @@
 			$this->response($data);
 		}
 
-		private function compileLanguageFile(){
+		protected function compileLanguageFile(){
 
 			$content = array();
 
@@ -689,17 +745,52 @@
 			$this->response($data);
 		}
 
-		private function getLoginWidgetData(){
+		protected function getLoginWidgetData(){
 
 			$labels = array(
-				"loginFormDesc" => LoginFormDesc
+				"loginFormDesc" => LoginFormDesc,
+				"loginWidget" => LoginWidget,
+				"widgetWidth" => WidgetWidth,
+				"widgetRows" => WidgetRows,
+				"widgetColumns" => WidgetColumns,
+				"buttonLabel" => ButtonLabel,
+				"yes" => Yes,
+				"no" => No,
+				"btnSave" => btnSave,
+				"btnCancel" => btnCancel,
+				"messageSuccess" => messageSuccess,
+				"messageError" => messageError,
+				"HelpWidgetWidth" => HelpWidgetWidth,
+				"HelpWidgetRows" => HelpWidgetRows,
+				"HelpWidgetColumns" => HelpWidgetColumns,
+				"HelpWidgetButtonLabel" => HelpWidgetButtonLabel
 			);
 
 			$eslipSettings = $this->xmlApi->getElementValue("configuration");
 			$pluginUrl = (string)$eslipSettings->pluginUrl;
 
+			$loginWidget = $eslipSettings->loginWidget->children();
+			$loginWidgetFixed = array();
+
+			foreach ( $loginWidget as $key => $value){
+					$loginWidgetFixed[$key] = (string)$value;
+			}
+
+			$identityProviders = $this->getActiveIdentityProviders();
+			$identityProvidersFixed = array();
+			foreach( $identityProviders as $idProvider ){
+				$idProviderFixed = array(
+					"id" => (string)$idProvider->id,
+					"label" => (string)$idProvider->label,
+					"styles" => $idProvider->styles
+				);
+				array_push($identityProvidersFixed, $idProviderFixed);
+			}
+
 			$data = array(
 				"labels" => $labels,
+				"loginWidget" => $loginWidgetFixed,
+				"identityProviders" => $identityProvidersFixed,
 				"pluginUrl"  => $pluginUrl,
 				"pluginCss" => $pluginUrl.$_GET["cssUri"],
 				"pluginJs" => $pluginUrl.$_GET["jsUri"],
@@ -709,17 +800,48 @@
 			$this->response($data);
 		}
 
-		private function getIdProvidersButtonsData(){
+		protected function saveLoginWidget(){
+
+			$this->xmlApi->updateElement(
+				array(
+					"widgetWidth",
+					"widgetRows",
+					"widgetColumns",
+					"buttonLabel"
+				), 
+				array(
+					$_POST["widgetWidth"].$_POST["widgetWidthUnit"],
+					$_POST["widgetRows"],
+					$_POST["widgetColumns"],
+					$_POST["buttonLabel"]
+				), 
+				"loginWidget"
+			);
+
+			$result = "SUCCESS";
+
+			$data = array(
+				"status" => $result
+			);
+
+			$this->response($data);
+		}
+
+		protected function getIdProvidersButtonsData(){
 
 			$labels = array(
 				"idProvidersButtons" => IdProvidersButtons,
 				"id" => Id,
+				"logo" => Logo,
+				"textColor" => TextColor,
+				"backgroundColor" => BackgroundColor,
 				"btnNew" => btnNew,
 				"btnEdit" => btnEdit,
 				"btnDelete" => btnDelete,
 				"btnSave" => btnSave,
 				"btnCancel" => btnCancel,
 				"btnConfirm" => btnConfirm,
+				"deleteConfirm" => deleteConfirm,
 				"processing" => Procesando,
 				"dtsLoadingRecords" => dtsLoadingRecords,
 				"dtsLengthMenu" => dtsLengthMenu,
@@ -733,7 +855,9 @@
 				"dtsNext" => dtsNext,
 				"dtsLast" => dtsLast,
 				"messageSuccess" => messageSuccess,
-				"messageError" => messageError
+				"messageError" => messageError,
+				"messageDeleteOpenID" => messageDeleteOpenID,
+				"messageMustSelectProviderButton" => messageMustSelectProviderButton
 			);
 
 			$data = array(
@@ -743,15 +867,19 @@
 			$this->response($data);
 		}
 
-		private function getIdProvidersButtonsDataTable(){
+		protected function getIdProvidersButtonsDataTable(){
 			$data = array();
 			$row = array();
 			$totalRecords = 0;
+			
+			$eslipSettings = $this->xmlApi->getElementValue("configuration");
+			$pluginUrl = (string)$eslipSettings->pluginUrl;
+
 			// Identity Provider
 			$idButtons = $this->xmlApi->getElementList("buttonStyle");
 			foreach( $idButtons as $idButton ){
-				
-				$row = array((String)$idButton->attributes()->id, (String)$idButton->logo, (String)$idButton->textColor, (String)$idButton->backgroundColor);
+				$logo_url = $pluginUrl . 'frontend/img/icons/' . (String)$idButton->logo;
+				$row = array((String)$idButton->attributes()->id, $logo_url, (String)$idButton->textColor, (String)$idButton->backgroundColor, 0);
 				array_push($data,$row);
 				$totalRecords++;
 			}
@@ -761,12 +889,16 @@
 			$this->response($data);
 		}
 
-		private function getIdProviderButtonData(){
+		protected function getIdProviderButtonData(){
 			$labels = array(
 				"id" => Id,
 				"logo" => Logo,
 				"textColor" => TextColor,
-				"backgroundColor" => BackgroundColor
+				"backgroundColor" => BackgroundColor,
+				"HelpButtonID" => HelpButtonID,
+				"HelpButtonLogo" => HelpButtonLogo,
+				"HelpButtonTextColor" => HelpButtonTextColor,
+				"HelpButtonBackgroundColor" => HelpButtonBackgroundColor
 			);
 
 			$new = true;
@@ -778,11 +910,17 @@
 				$method = "update";
 			}
 			
+			$eslipSettings = $this->xmlApi->getElementValue("configuration");
+			$pluginUrl = (string)$eslipSettings->pluginUrl;
+
 			$buttonFixed = array();
 			$button = new stdClass();
 			if (!empty($id)){
 				$button = $this->xmlApi->getElementById("buttonStyle",$id);
 				$button->id = $button->attributes()->id;
+				$button->id = $button->attributes()->id;
+				$button->logo_url = $pluginUrl . 'frontend/img/icons/' . (String)$button->logo;
+				//aca
 				foreach ($button as $key => $value){
 					if ( is_object($value) ){
 						$buttonFixed[$key] = (string)$value;
@@ -800,11 +938,42 @@
 			$this->response($data);
 		}
 
-		private function saveIdProviderButton(){
+		protected function saveIdProviderButton(){
 
 			$result = "ERROR";
 
+			if ($_POST["method"] == "new"){
+				// check id provider associated
+				$button = $this->xmlApi->getElementById("buttonStyle",$_POST["id"]);
+				if ( !empty($button) ){
+					// id exists
+					$data = array(
+						"status" => "ERROR",
+						"message" => sprintf(messageErrorIdExists,$_POST["id"]),
+						"id" => $_POST["id"]
+					);
+
+					$this->response($data);
+				}
+			}
+
 			if ( ! empty($_FILES['logo']['name']) ){
+
+				// check image type
+				$imgType = $_FILES['logo']['type'];
+				$imgType = explode("/", $imgType);
+				$isImage = exif_imagetype($_FILES['logo']['tmp_name']) || $imgType[0] === 'image';
+
+				if (! $isImage){
+					$data = array(
+						"status" => "ERROR",
+						"message" => sprintf(messageErrorImageType,$_FILES['logo']['type']),
+						"id" => $_POST["id"]
+					);
+
+					$this->response($data);
+				}
+
 				$nameParts = explode('.', $_FILES['logo']['name']);
 				$logo = $_POST["id"].'.'.$nameParts[1];
 				$targetFilepath = '../frontend/img/icons/' . $logo;
@@ -839,7 +1008,7 @@
 			$this->response($data);
 		}
 
-		private function newIdProviderButton(){
+		protected function newIdProviderButton(){
 
 			$this->xmlApi->addElement(
 			
@@ -863,7 +1032,7 @@
 			);
 		}
 
-		private function updateIdProviderButton(){
+		protected function updateIdProviderButton(){
 			
 			$this->xmlApi->updateElementById(
 				
@@ -885,16 +1054,28 @@
 			);
 		}
 
-		private function deleteIdProviderButton(){
+		protected function deleteIdProviderButton(){
 			
-			$result = "ERROR";
-			
+			$idProvider = $this->xmlApi->getElementById("identityProvider", $_POST["id"]);
+			if (!empty($idProvider)){
+				$data = array(
+					"status" => "ERROR",
+					"message" => sprintf(messageErrorIdAssociated,$_POST["id"]),
+					"id" => $_POST["id"]
+				);
+
+				$this->response($data);
+			}
+
 			$button = $this->xmlApi->getElementById("buttonStyle",$_POST["id"]);
 			$logo = '../frontend/img/icons/' . (string)$button->logo;
-			if (unlink($logo)){
-				$this->xmlApi->removeElementById("buttonStyle", $_POST["id"]);
-				$result = "SUCCESS";
+			
+			if (file_exists ($logo)){
+				unlink($logo);	
 			}
+
+			$this->xmlApi->removeElementById("buttonStyle", $_POST["id"]);
+			$result = "SUCCESS";
 
 			$data = array(
 				"status" => $result
@@ -907,12 +1088,12 @@
 		* Wizard Setup Functions
 		*******************************************************/
 
-		private function getLanguages(){
+		protected function getLanguages(){
 			$eslipLangs = $this->xmlApi->getElementList("language");
 			$this->response($eslipLangs);	
 		}
 		
-		private function runFullWizard(){
+		protected function runFullWizard(){
 			$runWizard = (bool)(String)$this->xmlApi->getElementValue("runWizard","configuration");
 			$data = array(
 				"runFullWizard" => $runWizard
@@ -920,7 +1101,7 @@
 			$this->response($data);
 		}
 
-		private function getWizardData(){
+		protected function getWizardData(){
 
 
 			if ( isset($_POST["lang"]) ){
@@ -944,6 +1125,13 @@
 				"clientSecret" => ClientSecret,
 				"scopeRequired" => ScopeRequired,
 				"scopeOptional" => ScopeOptional,
+				"loginWidget" => LoginWidget,
+				"widgetWidth" => WidgetWidth,
+				"widgetRows" => WidgetRows,
+				"widgetColumns" => WidgetColumns,
+				"buttonLabel" => ButtonLabel,
+				"yes" => Yes,
+				"no" => No,
 				"scope" => Scope,
 				"next" => next,
 				"previous" => previous,
@@ -961,6 +1149,13 @@
 				"runFullWizard" => (bool)(string)$eslipSettings->runWizard
 			);
 
+			$loginWidget = $eslipSettings->loginWidget->children();
+			$loginWidgetFixed = array();
+
+			foreach ( $loginWidget as $key => $value){
+					$loginWidgetFixed[$key] = (string)$value;
+			}
+
 			$idProvidersData = $this->getIdProviders();
 			$idProviders = $idProvidersData["idProviders"];
 			$openIdProvider = $idProvidersData["openIdProvider"];
@@ -969,6 +1164,7 @@
 				"selectedLang" => $selectedLang,
 				"labels"  => $labels,
 				"settings" => $settings,
+				"loginWidget" => $loginWidgetFixed,
 				"idProviders" => $idProviders,
 				"openIdProvider" => $openIdProvider
 			);
@@ -976,7 +1172,7 @@
 			$this->response($data);	
 		}
 
-		private function saveConfiguration(){
+		protected function saveConfiguration(){
 
 			//update first time config
 			$this->xmlApi->setElementValue("runWizard", "0", "configuration");
@@ -997,6 +1193,22 @@
 			$this->xmlApi->setElementValue("callbackUrl", $_POST["callbackUrl"], "configuration");
 			$this->xmlApi->setElementValue("pluginUrl", $_POST["pluginUrl"], "configuration");
 			
+			$this->xmlApi->updateElement(
+				array(
+					"widgetWidth",
+					"widgetRows",
+					"widgetColumns",
+					"buttonLabel"
+				), 
+				array(
+					$_POST["widgetWidth"].$_POST["widgetWidthUnit"],
+					$_POST["widgetRows"],
+					$_POST["widgetColumns"],
+					$_POST["buttonLabel"]
+				), 
+				"loginWidget"
+			);
+
 			// update id providers and open id provider
 			$this->updateIdProvidersImpl();
 
@@ -1007,7 +1219,7 @@
 			$this->response($data);	
 		}
 
-		private function getWizardEndData(){
+		protected function getWizardEndData(){
 
 			$labels = array(
 				"wizardEndTitle" => WizardEndTitle,
@@ -1032,7 +1244,4 @@
 	}
 	
 	// Inicializar la API
-	
-	$serviceApi = new ServiceApi($eslip);
-	$serviceApi->callService();
-?>
+	new BackendServiceApi($xmlApi);

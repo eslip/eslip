@@ -1,4 +1,20 @@
 <?php
+include_once('eslip.php');
+include_once('eslip_protocol.php');
+
+/**
+* Clase de excepción personalizada para OpenID
+*
+* Clase que amplia la clase Exception interna de PHP para una personalización de los errores
+* en este caso para Open ID
+* 
+* @author Nicolás Burghi [nicoburghi@gmail.com]
+* @author Martín Estigarribia [martinestiga@gmail.com]
+* @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
+* @package Eslip
+*/
+
+class OpenIDException extends Exception {}
 
 /**
 * ESLIP OpenID
@@ -14,6 +30,24 @@
 
 class eslip_openid extends Eslip_protocol
 {
+    /**
+    * Instancia de la Api del plugin
+    *
+    * @var object
+    * @access private
+    */
+
+    private $eslip;
+
+    /**
+    * URL de la cual proviene el llamado al plugin para luego ser enviado de vuelta al sitio para que
+    * el desarrollador pueda redirigir
+    *
+    * @var string
+    * @access private
+    */
+
+    private $referer;
 
     /**
     * Arreglo con atributos que se desean requerir al proveedor de identidad
@@ -186,33 +220,26 @@ class eslip_openid extends Eslip_protocol
     * @throws EslipException Si el constructor no recibe el parametro $site_url
     */
 
-    public function __construct($eslip_data = FALSE, $identity_provider = FALSE, $site_url = '', $return_url = '')
+    public function __construct($eslip, $referer)
     {
         parent::__construct();
 
-        if (empty($eslip_data))
-        {
-            throw new EslipException(ParametersErrorEslipDataInConstruct);
-        }
+        $this->eslip = $eslip;
 
-        if (empty($site_url))
-        {
-            throw new EslipException(ParametersErrorURLInOpenIDConstruct);
-        }
+        $this->referer = $referer;
 
-        if (empty($identity_provider))
-        {
-            throw new EslipException(ParametersErrorIPInConstruct);
-        }
+        $eslip_data = base64url_encode(json_encode(array('referer' => $this->referer )));
+
+        $this->returnUrl = str_replace('{ESLIP_DATA}', $eslip_data, (string)$this->eslip->configuration->pluginUrl."eslip_openid.php?eslip_data={ESLIP_DATA}" );
+
+        $identity_provider = $this->eslip->xmlApi->getElementById("identityProvider",'openid');
 
         if (is_array($identity_provider))
         {
             $identity_provider = $this->Array2Object($identity_provider);
         }
 
-        $this->returnUrl = $return_url;
-
-        $this->trustRoot = $this->prep_trust_url($site_url);
+        $this->trustRoot = $this->prep_trust_url($this->eslip->configuration->siteUrl);
 
         $this->openid_form_url = $this->my_http_build_query(array('return_url' => $this->returnUrl), '&', $identity_provider->formUrl, '?');
 
@@ -229,6 +256,8 @@ class eslip_openid extends Eslip_protocol
         $this->required = explode(',', $identity_provider->scopeRequired);
 
         $this->optional = explode(',', $identity_provider->scopeOptional);
+
+        $this->process();
     }
 
     /**
@@ -278,13 +307,15 @@ class eslip_openid extends Eslip_protocol
         if (IsSet($_POST['openid_identifier']))
         {
             $value = trim(strtolower((String)$_POST['openid_identifier']));
-
+            
+            $domain = get_domain($value);
+            
             if (strpos($value, 'xri://') !== FALSE)
             {
                 //Si es un i-name de la manera xri:// se le quita el xri:// y se deja solo el i-name
                 $value = substr($value, strlen('xri://'));
             }
-            else
+            elseif (checkdnsrr($domain)) // Primero se chequea si existe el dominio que fue ingresado
             {
                 // Antepone http:// al principio si no esta presenta y / al final si es un dominio y no están presente
                 if ((strpos($value, 'http://') === FALSE) && (strpos($value, 'https://') === FALSE)) 
@@ -305,7 +336,11 @@ class eslip_openid extends Eslip_protocol
                     } 
                 }
             }
-
+            else
+            {
+                throw new OpenIDException(URIErrorInOpenIDDiscover);
+            }
+            
             // Se almacena en la session para armar la setup url en el caso de que immediate falle y no devuelva setup url
             $_SESSION['OPENID']['IDENTITY'] = $value;
         }
@@ -813,6 +848,41 @@ class eslip_openid extends Eslip_protocol
     }
 
     /**
+    * Realiza el llamado de todos los metodos necesarios por ESLIP para realizar la identificacion  
+    * del usuario. Si todo el proceso se realiza satisfactoriamente se redirige a un script el 
+    * cual postea los datos obtenidos del proveedor de identidad a la URL configurada.
+    *
+    * @access public
+    */
+
+    public function Process()
+    {
+        $this->Authenticate();
+        
+        if($this->ExitProgram())
+        {
+            exit;
+        }
+        
+        $user = $this->getAttributes();
+        
+        $this->StoreUserDataInSession($user, 'openid');
+
+        $return = array('user' => $user,
+                        'user_identification' => $user['id'],
+                        'server' => 'openid', 
+                        'referer' => $this->referer,
+                        'state' => 'success',
+                        'client_callback_url' => (string)$this->eslip->configuration->callbackUrl);
+
+        $return = base64url_encode(json_encode($return));
+
+        $callback_url_preocess = str_replace('{DATA}', $return, (string)$this->eslip->configuration->pluginUrl."eslip_callback_process.php?data={DATA}");
+
+        close_and_redirect_parent_window($callback_url_preocess);
+    }
+
+    /**
     * Realiza el procesamiento de la interaccion entre el plugin y el servidor OpenID, de acuerdo a 
     * la especificacion del protocolo OpenID
     *
@@ -822,7 +892,7 @@ class eslip_openid extends Eslip_protocol
     * @return boolean TRUE si se termina la ejecucion del metodo
     */
 
-    public function Process()
+    public function Authenticate()
     {
         if( empty($this->mode) )
         {
@@ -1077,4 +1147,43 @@ class eslip_openid extends Eslip_protocol
 
         return $attributes; 
     }
+}
+
+if (IsSet($_GET['eslip_data']))
+{
+    $aux = json_decode(base64url_decode($_GET['eslip_data']));
+    $referer = $aux->referer;
+}
+else
+{
+    $referer = (IsSet($_GET['referer'])) ? $_GET['referer'] : '';
+}
+
+try
+{
+    new eslip_openid($eslip, $referer);
+}
+catch (EslipException $e)
+{
+    $return = array('error' => $e->getMessage(), 
+                            'server' => 'openid', 
+                            'referer' => $referer,
+                            'state' => 'error',
+                            'client_callback_url' => (string)$eslip->configuration->callbackUrl);
+
+    $return = base64url_encode(json_encode($return));
+
+    $callback_url_preocess = str_replace('{DATA}', $return, $eslip->configuration->pluginUrl."eslip_callback_process.php?data={DATA}");
+
+    close_and_redirect_parent_window($callback_url_preocess);
+}
+catch (OpenIDException $e)
+{
+    $eslip_data = base64url_encode(json_encode(array('referer' => $referer )));
+
+    $returnUrl = str_replace('{ESLIP_DATA}', $eslip_data, (string)$eslip->configuration->pluginUrl."eslip_openid.php?eslip_data={ESLIP_DATA}" );
+
+    $openid_form_url = $eslip->configuration->pluginUrl."frontend/openid_form.php?return_url=".$returnUrl."&error=".$e->getMessage();
+
+    header( 'Location: ' . $openid_form_url );
 }

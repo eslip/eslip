@@ -1,49 +1,80 @@
-<form id="form" action="" method="POST">
+<form id="form" class="form-horizontal" role="form">
     <input type="hidden" id="method" name="method" data-value="method"/>
     
-    <!-- manejar el caso de new, mostrarndo el input para setear el id con un autocomplete -->
-    <input type="hidden" id="id" name="id" data-value="idProvider.id"/>   
+    <div class="form-group">
+        <label for="id" class="col-sm-2 control-label"><span data-content="labels.id"></span>:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="id" name="id" data-value="idProvider.id" class="disabled" disabled="disabled">
+        </div>
+    </div>
 
-    <div class="reng">
-        <label for="name"><span data-content="labels.name"></span>:</label>
-        <input type="text" id="name" name="name" data-value="idProvider.name"/>    
+    <div class="form-group">
+        <label for="name" class="col-sm-2 control-label"><span data-content="labels.name"></span>:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" name="name" data-value="idProvider.name" class="disabled" disabled="disabled">
+        </div>
     </div>
-    <div class="reng">
-        <label for="label"><span data-content="labels.label"></span>:</label>
-        <input type="text" id="label" name="label" data-value="idProvider.label"/> 
+
+    <div class="form-group">
+        <label for="label" class="col-sm-2 control-label"><span data-content="labels.label"></span>:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="label" name="label" data-value="idProvider.label">
+        </div>
     </div>
-    <div class="reng">
-        <label for="active"><span data-content="labels.active"></span>:</label>
-        <select id="active" name="active">
-            <option value="0" data-content="labels.no"></option>
-            <option value="1" data-content="labels.yes"></option>
-        </select>
+
+    <div class="form-group" id="buttonStylePreview">
+        <label for="buttonStyle" class="col-sm-2 control-label"><span data-content="labels.buttonPreview"></span>:</label>
+        <div class="col-sm-10">
+            <div class="buttonStyle"></div>
+        </div>
     </div>
-    <div class="reng">
-        <label for="formUrl"><span data-content="labels.formUrl"></span>:</label>
-        <input type="text" id="formUrl" name="formUrl" data-value="idProvider.formUrl"/>
+
+    <div class="form-group">
+        <label for="active" class="col-sm-2 control-label"><span data-content="labels.active"></span>:</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="active" name="active">
+                <option value="0" data-content="labels.no"></option>
+                <option value="1" data-content="labels.yes"></option>
+            </select>
+        </div>
     </div>
-    <div class="reng">
-        <label for="scopeRequired"><span data-content="labels.scopeRequired"></span>:</label>
-        <input type="text" id="scopeRequired" name="scopeRequired" data-value="idProvider.scopeRequired"/>
+  
+    <div class="form-group">
+        <label for="formUrl" class="col-sm-2 control-label"><span data-content="labels.formUrl"></span>:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="formUrl" name="formUrl" data-value="idProvider.formUrl">
+        </div>
     </div>
-    <div class="reng">
-        <label for="scopeOptional"><span data-content="labels.scopeOptional"></span>:</label>
-        <input type="text" id="scopeOptional" name="scopeOptional" data-value="idProvider.scopeOptional"/>
+
+    <div class="form-group">
+        <label for="scopeRequired" class="col-sm-2 control-label"><span data-content="labels.scopeRequired"></span>:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="scopeRequired" name="scopeRequired" data-value="idProvider.scopeRequired">
+        </div>
     </div>
-    <div class="reng">
-        <label for="userDataIdKey"><span data-content="labels.userDataIdKey"></span>:</label>
-        <input type="text" id="userDataIdKey" name="userDataIdKey" data-value="idProvider.userDataIdKey"/>
+
+    <div class="form-group">
+        <label for="scopeOptional" class="col-sm-2 control-label"><span data-content="labels.scopeOptional"></span>:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="scopeOptional" name="scopeOptional" data-value="idProvider.scopeOptional">
+        </div>
     </div>
-    <div class="reng">
-        <label for="immediate"><span data-content="labels.immediate"></span>:</label>
-        <select id="immediate" name="immediate">
-            <option value="0" data-content="labels.no"></option>
-            <option value="1" data-content="labels.yes"></option>
-        </select>
+   
+    <div class="form-group">
+        <label for="userDataIdKey" class="col-sm-2 control-label"><span data-content="labels.userDataIdKey"></span>:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="userDataIdKey" name="userDataIdKey" data-value="idProvider.userDataIdKey">
+        </div>
     </div>
-    <div class="reng" id="buttonStylePreview">
-        <label for="buttonStyle"><span data-content="labels.buttonPreview">:</span></label>
-        <div class="buttonStyle"></div>
+
+    <div class="form-group">
+        <label for="immediate" class="col-sm-2 control-label"><span data-content="labels.immediate"></span>:</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="immediate" name="immediate">
+                <option value="0" data-content="labels.no"></option>
+                <option value="1" data-content="labels.yes"></option>
+            </select>
+        </div>
     </div>
+  
 </form>

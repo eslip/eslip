@@ -1,41 +1,62 @@
-<div class="block">
-    <h3 class="stepTitle" data-content="labels.languagesConfig"></h3>
-    <br/>
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="stepTitle" data-content="labels.languagesConfig"></h3>
+    </div>
+</div>
 
-    <form id="downloadForm" action="" method="POST">
-        <div class="reng">
-            <label for="downloadLangFile"><span data-content="labels.downloadLangFile"></span>:</label>
-            <input type="button" id="downloadLangFile" data-value="labels.btnDownload"/>
+<div class="successMessage alert alert-success alert-dismissable fade in" style="display:none;">
+    <button type="button" class="close" onclick="$(this).parent('.alert').hide();">&times;</button>
+    <span class="glyphicon glyphicon-ok"></span> <span data-content="labels.messageSuccess"></span>
+</div>
+
+<div class="errorMessage alert alert-danger alert-dismissable fade in" style="display:none;">
+    <button type="button" class="close" onclick="$(this).parent('.alert').hide();">&times;</button>
+    <span class="glyphicon glyphicon-remove"></span> <span data-content="labels.messageError"></span>
+</div>
+
+<form id="downloadForm" class="form-horizontal" role="form">
+    <div class="form-group">
+        <label for="downloadLangFile" class="col-sm-2 control-label"><span data-content="labels.downloadLangFile"></span>:</label>
+        <div class="col-sm-2">
+            <button type="button" id="downloadLangFile" class="form-control btn btn-primary"><span class="glyphicon glyphicon-cloud-download"></span> <span data-content="labels.btnDownload"></span></button>
         </div>
-    </form>
+    </div>
+</form>
 
-    <div class="reng"></div>
+<hr/>
 
-    <div class="reng">
+<div class="row">
+    <div class="col-sm-12">
         <label for=""><span data-content="labels.translateLangFile"></span></label>
     </div>
-
-    <div class="reng"></div>
-
-    <form id="uploadForm" method="POST" enctype="multipart/form-data" target="hiddenUpload">
-        <div class="reng">
-            <label for="langFile"><span data-content="labels.uploadLangFile"></span>:</label>
-            <input type="file" name='langFile' class="file_upload">
-        </div>
-
-        <div class="reng">
-            <label for="langName"><span data-content="labels.langName"></span>:</label>
-            <input type="text" name='langName' value="">
-        </div>
-
-        <div class="reng">
-            <input type="button" id="uploadLangFile" data-value="labels.btnUpload"/>
-        </div>
-
-        <iframe id="hiddenUpload" name="hiddenUpload" class="hiddenFrame" src="">
-        </iframe>
-    </form>
-
-    <div class="successMessage" style="display:none;" data-content="labels.messageSuccess"></div>
-    <div class="errorMessage" style="display:none;" data-content="labels.messageError"></div>
 </div>
+
+<hr/>
+
+<form id="uploadForm" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" target="hiddenUpload">
+
+    <div class="form-group">
+        <label for="langFile" class="col-sm-2 control-label"><span data-content="labels.uploadLangFile"></span>:</label>
+        <div class="col-sm-7">
+            <input type="file" class="form-control file_upload" id="langFile" name="langFile">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="langName" class="col-sm-2 control-label"><span data-content="labels.langName"></span>:</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control" id="langName" name="langName" value="">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="uploadLangFile" class="col-sm-2 control-label"></label>
+        <div class="col-sm-2">
+            <button type="button" id="uploadLangFile" class="form-control btn btn-primary"><span class="glyphicon glyphicon-cloud-upload"></span> <span data-content="labels.btnUpload"></span></button>
+        </div>
+    </div>
+
+    <iframe id="hiddenUpload" name="hiddenUpload" class="hiddenFrame hidden" src="">
+    </iframe>
+
+</form>

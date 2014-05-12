@@ -1,4 +1,6 @@
 <?php
+include_once('eslip.php');
+include_once('eslip_protocol.php');
 
 /**
 * ESLIP OAuth
@@ -15,6 +17,34 @@
 
 class eslip_oauth extends Eslip_protocol
 {
+	/**
+    * Instancia de la Api del plugin
+    *
+    * @var object
+    * @access private
+    */
+
+    private $eslip;
+
+    /**
+    * URL de la cual proviene el llamado al plugin para luego ser enviado de vuelta al sitio para que
+    * el desarrollador pueda redirigir
+    *
+    * @var string
+    * @access private
+    */
+
+    private $referer;
+
+    /**
+    * Identificador del proveedor de identidad elegido por el usuario
+    *
+    * @var string
+    * @access private
+    */
+
+    private $server;
+
     /**
     * URL del servidor OAuth para solicitar el token inicial cuando trabajamos con servidores OAuth 1.0 y 1.0a.
     * Es inicializada por el constructor de la clase con la URL que ha sido establecida en la configuracion 
@@ -192,37 +222,47 @@ class eslip_oauth extends Eslip_protocol
 
 	private $user_data_id_key = '';
 
+    /**
+    * Cadena con los parametros que se le envian a la API del proveedor de identidad, entre los cuales debe estar
+    * el access token
+    *
+    * @var string 
+    * @access private
+    */
+
+    private $api_call_parameters = '';
+
 	/**
     * Metodo constructor de la clase. Se inicializan las variables de configuración del proveedor de
     * identidad con el que se va a interactuar
     *
     * @access public
-    * @param string $eslip_data Cadena codificada en base64 con datos internos del plugin que se deben mantener entre llamadas
-    * @param array $identity_provider Arreglo con los datos de configuración del proveedor de identidad
-    * @throws EslipException Si el constructor no recibe el parametro $eslip_data
-    * @throws EslipException Si el constructor no recibe el parametro $identity_provider
+    * @param object $eslip Instancia de la clase Eslip
+    * @param string $server Identificador del proveedor de identidad elegido por el usuario
+    * @param string $referer URL de la cual proviene el llamado al plugin para luego ser enviado de vuelta 
+    * al sitio para que el desarrollador pueda redirigir
     */
 
-    public function __construct($eslip_data = FALSE, $identity_provider = FALSE, $return_url = '')
+    public function __construct($eslip, $server, $referer)
     {
     	parent::__construct();
 
-    	if (empty($eslip_data))
-		{
-			throw new EslipException(ParametersErrorEslipDataInConstruct);
-		}
+    	$this->server = $server;
+		
+		$this->referer = $referer;
 
-		if (empty($identity_provider))
-		{
-			throw new EslipException(ParametersErrorIPInConstruct);
-		}
+		$this->eslip = $eslip;
+
+		$eslip_data = base64url_encode(json_encode(array('server' => $this->server, 'referer' => $this->referer )));
+
+		$this->redirect_uri = str_replace('{ESLIP_DATA}', $eslip_data, (string)$this->eslip->configuration->pluginUrl."eslip_oauth.php?eslip_data={ESLIP_DATA}" );
+
+		$identity_provider = $this->eslip->xmlApi->getElementById("identityProvider", $this->server);
 
 		if (is_array($identity_provider))
 		{
 			$identity_provider = $this->Array2Object($identity_provider);
 		}
-
-		$this->redirect_uri = $return_url;
 
 		$this->client_id = (string)$identity_provider->clientId;
 		$this->client_secret = (string)$identity_provider->clientSecret;
@@ -236,10 +276,13 @@ class eslip_oauth extends Eslip_protocol
 		$this->url_parameters = ((string)$identity_provider->urlParameters == '1') ? TRUE : FALSE ;
 		$this->has_access_token_extra_parameter = ((string)$identity_provider->hasAccessTokenExtraParameter == '1') ? TRUE : FALSE ;
 		$this->access_token_extra_parameter_name = (string)$identity_provider->accessTokenExtraParameterName;
+        $this->api_call_parameters = (string)$identity_provider->apiCallParameters;
 
 		$this->user_data_url = (string)$identity_provider->userDataUrl;
 
 		$this->user_data_id_key = (string)$identity_provider->userDataIdKey;
+
+		$this->process();
     }
 
     /**
@@ -396,7 +439,7 @@ class eslip_oauth extends Eslip_protocol
 	{
 		foreach ($array as $key_actual => $value)
 		{
-			if ($key_actual == $key)
+			if ($key_actual === $key)
 			{
 				return $value;
 			}
@@ -405,6 +448,7 @@ class eslip_oauth extends Eslip_protocol
 				$return = $this->GetElementOfKey($key, $value);
 				if ($return !== FALSE )
 				{
+
 					return $return;
 				}
 			}
@@ -555,7 +599,7 @@ class eslip_oauth extends Eslip_protocol
 			return($response);
 		}
 		else
-		{  
+		{
 			throw new EslipException(sprintf(CurlResponseError,$options['Resource'], $curl_response['code'], $curl_response['response']));
 		}
 	}
@@ -599,7 +643,20 @@ class eslip_oauth extends Eslip_protocol
 
 				case 2:
 					$oauth = NULL;
-					$url = $this->my_http_build_query(array('access_token' => $this->access_token), '&', $url, '?');
+
+                    $this->api_call_parameters = str_replace('{ACCESS_TOKEN}', $this->access_token, $this->api_call_parameters); 
+
+                    $parameters = array();
+
+                    parse_str($this->api_call_parameters, $parameters);
+
+                    if(empty($this->api_call_parameters))
+                    {
+                        $parameters = array('access_token' => $this->access_token);
+                    }
+
+                    $url = $this->my_http_build_query($parameters, '&', $url, '?');  
+					
 					break;
 
 				default:
@@ -615,6 +672,41 @@ class eslip_oauth extends Eslip_protocol
 	}
 
 	/**
+    * Realiza el llamado de todos los metodos necesarios por ESLIP para realizar la identificacion y autorizacion 
+    * del usuario. Si todo el proceso se realiza satisfactoriamente se redirige a un script el 
+	* cual postea los datos obtenidos del proveedor de identidad a la URL configurada.
+    *
+    * @access public
+    */
+
+	public function Process()
+	{
+		$this->Authenticate();
+		
+		if($this->ExitProgram())
+		{
+			exit;
+		}
+
+		$user = $this->GetUserData();
+
+		$this->StoreUserDataInSession($user, 'oauth');
+
+		$return = array('user' => $user,
+						'user_identification' => $this->GetUserId($user),
+						'server' => $this->server, 
+						'referer' => $this->referer,
+						'state' => 'success',
+						'client_callback_url' => (string)$this->eslip->configuration->callbackUrl);
+
+		$return = base64url_encode(json_encode($return));
+
+		$callback_url_preocess = str_replace('{DATA}', $return, (string)$this->eslip->configuration->pluginUrl."eslip_callback_process.php?data={DATA}");
+
+		close_and_redirect_parent_window($callback_url_preocess);
+	}
+
+	/**
     * Realiza el procesamiento de la interaccion entre el plugin y el servidor OAuth, de acuerdo a la especificacion
     * del protocolo OAuth
     *
@@ -626,7 +718,7 @@ class eslip_oauth extends Eslip_protocol
     * @return boolean TRUE si el procesamiento se realiza correctamente y no ocurre ningun error
     */	
 
-	public function Process()
+	public function Authenticate()
 	{
 		switch(intval($this->oauth_version))
 		{
@@ -880,4 +972,35 @@ class eslip_oauth extends Eslip_protocol
 		}
 		return(TRUE);
 	}
+}
+
+if (IsSet($_GET['eslip_data']))
+{
+	$aux = json_decode(base64url_decode($_GET['eslip_data']));
+	$referer = $aux->referer;
+	$server = $aux->server;
+}
+else
+{
+	$referer = (IsSet($_GET['referer'])) ? $_GET['referer'] : '';
+	$server = (IsSet($_GET['server'])) ? $_GET['server'] : '';
+}
+
+try
+{
+	new eslip_oauth($eslip, $server, $referer);
+}
+catch (EslipException $e)
+{
+	$return = array('error' => $e->getMessage(), 
+					'server' => $server, 
+					'referer' => $referer,
+					'state' => 'error',
+					'client_callback_url' => (string)$eslip->configuration->callbackUrl);
+
+	$return = base64url_encode(json_encode($return));
+
+	$callback_url_preocess = str_replace('{DATA}', $return, (string)$eslip->configuration->pluginUrl."eslip_callback_process.php?data={DATA}");
+
+	close_and_redirect_parent_window($callback_url_preocess);
 }

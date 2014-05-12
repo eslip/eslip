@@ -97,3 +97,89 @@ function currentPageUrl(){
     }
     return $page_url.'://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 }
+
+/**
+* Funcion para otener el nombre de dominio de la URL pasada por parametro
+*
+* @access public
+* @param string $url URL de la cual se quier saber el nombre de dominio
+* @return string Nombre de dominio
+*/
+
+function get_domain($url) 
+{ 
+    $bits = explode('/', $url);
+    if ($bits[0]=='http:' || $bits[0]=='https:') 
+    { 
+        $url= $bits[2]; 
+    } 
+    else 
+    { 
+        $url= $bits[0]; 
+    } 
+    unset($bits); 
+    $bits = explode('.', $url); 
+    $idz=count($bits); 
+    $idz-=3; 
+    if (strlen($bits[($idz+2)])==2) 
+    { 
+        $domain=$bits[$idz].'.'.$bits[($idz+1)].'.'.$bits[($idz+2)]; 
+    } 
+    elseif (strlen($bits[($idz+2)])==0) 
+    { 
+        $domain=$bits[($idz)].'.'.$bits[($idz+1)]; 
+    } 
+    else 
+    { 
+        $domain=$bits[($idz+1)].'.'.$bits[($idz+2)]; 
+    } 
+    return $domain; 
+}
+
+/**
+* Funcion utilizada para cerrar la ventana emergente actual y volver a la 
+* ventana padre redirigiendola a la URL pasada como parametro
+*
+* @access public
+* @param string $url URL a la cual se quiere refirigir la ventana padre
+*/
+
+function close_and_redirect_parent_window($url)
+{
+    echo '<script>
+            window.close();
+            window.opener.location.href = "'.$url.'";
+          </script>';
+}
+
+/**
+* Convierte un objeto SimpleXMLElement en un objeto StdClass
+*
+* @access public
+* @param object Objeto SimpleXMLElement a convertir
+* @return object Objeto creado
+* @todo Hacer la funcion recursiva por si hay objetos SimpleXMLElement adentro
+*/
+
+function SimpleXMLElementToObject($simple_xml_element) 
+{
+    if ($simple_xml_element instanceof SimpleXMLElement)
+    { 
+        $object = new StdClass();
+        $children = $simple_xml_element->children();
+        $attributes = $simple_xml_element->attributes();
+        foreach ($attributes as $key => $value)
+        {
+            $object->$key = (string)$value;
+        }
+        foreach ($children as $key => $value) 
+        { 
+            $object->$key = (string)$value;
+        }
+    }
+    else
+    {
+        $object = $simple_xml_element;
+    }
+    return $object;
+}

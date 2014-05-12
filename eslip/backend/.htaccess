@@ -3,11 +3,11 @@
 
 	RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-s
-	RewriteRule services/(.*)$ services.php?rquest=$1 [QSA,NC,L]
+	RewriteRule backend_services/(.*)$ backend_services.php?rquest=$1 [QSA,NC,L]
 
 	RewriteCond %{REQUEST_FILENAME} -d
-	RewriteRule services/(.*)$ services.php [QSA,NC,L]
+	RewriteRule backend_services/(.*)$ backend_services.php [QSA,NC,L]
 
 	RewriteCond %{REQUEST_FILENAME} -s
-	RewriteRule services/(.*)$ services.php [QSA,NC,L]	
+	RewriteRule backend_services/(.*)$ backend_services.php [QSA,NC,L]	
 </IfModule>

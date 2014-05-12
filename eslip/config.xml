@@ -18,7 +18,13 @@
     <siteUrl>http://localhost/eslip-plugin/example/</siteUrl>
     <adminUser>nicolas</adminUser>
     <adminPass>3adb6313def794171d0e53d9d2a8b2fde64cf9e7</adminPass>
-    <runWizard>0</runWizard>
+    <runWizard>1</runWizard>
+    <loginWidget>
+      <widgetWidth>500px</widgetWidth>
+      <widgetRows>0</widgetRows>
+      <widgetColumns>2</widgetColumns>
+      <buttonLabel>1</buttonLabel>
+    </loginWidget>
   </configuration>
   <identityProviders>
     <identityProvider id="openid">
@@ -48,6 +54,7 @@
       <accessTokenExtraParameterName/>
       <userDataUrl>https://graph.facebook.com/me</userDataUrl>
       <userDataIdKey>name</userDataIdKey>
+      <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
     <identityProvider id="twitter">
       <name>Twitter</name>
@@ -66,11 +73,12 @@
       <accessTokenExtraParameterName/>
       <userDataUrl>https://api.twitter.com/1.1/account/verify_credentials.json</userDataUrl>
       <userDataIdKey>name</userDataIdKey>
+      <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
     <identityProvider id="yahoo">
       <name>Yahoo</name>
       <label>Login con Yahoo</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>1.0a</oauth>
       <requestTokenUrl>https://api.login.yahoo.com/oauth/v2/get_request_token</requestTokenUrl>
       <dialogUrl>https://api.login.yahoo.com/oauth/v2/request_auth</dialogUrl>
@@ -84,11 +92,12 @@
       <accessTokenExtraParameterName>xoauth_yahoo_guid</accessTokenExtraParameterName>
       <userDataUrl>http://social.yahooapis.com/v1/user/{EXTRA_PARAMETER}/profile/usercard?format=json</userDataUrl>
       <userDataIdKey>nickname</userDataIdKey>
+      <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
     <identityProvider id="dropbox">
       <name>Dropbox</name>
       <label>Login con Dropbox</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>1.0</oauth>
       <requestTokenUrl>https://api.dropbox.com/1/oauth/request_token</requestTokenUrl>
       <dialogUrl>https://www.dropbox.com/1/oauth/authorize</dialogUrl>
@@ -102,42 +111,26 @@
       <accessTokenExtraParameterName/>
       <userDataUrl>https://api.dropbox.com/1/account/info</userDataUrl>
       <userDataIdKey>display_name</userDataIdKey>
-    </identityProvider>
-    <identityProvider id="bitbucket">
-      <name>Bitbucket</name>
-      <label>Login con Bitbucket</label>
-      <active>0</active>
-      <oauth>1.0a</oauth>
-      <requestTokenUrl>https://bitbucket.org/!api/1.0/oauth/request_token</requestTokenUrl>
-      <dialogUrl>https://bitbucket.org/!api/1.0/oauth/authenticate</dialogUrl>
-      <accessTokenUrl>https://bitbucket.org/!api/1.0/oauth/access_token</accessTokenUrl>
-      <authorizationHeader>1</authorizationHeader>
-      <urlParameters>1</urlParameters>
-      <clientId/>
-      <clientSecret/>
-      <scope/>
-      <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
-      <accessTokenExtraParameterName/>
-      <userDataUrl>https://api.bitbucket.org/1.0/user</userDataUrl>
-      <userDataIdKey>---</userDataIdKey>
+      <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
     <identityProvider id="flickr">
       <name>Flickr</name>
       <label>Login con Flickr</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>1.0a</oauth>
       <requestTokenUrl>http://www.flickr.com/services/oauth/request_token</requestTokenUrl>
       <dialogUrl>http://www.flickr.com/services/oauth/authorize</dialogUrl>
       <accessTokenUrl>http://www.flickr.com/services/oauth/access_token</accessTokenUrl>
       <authorizationHeader>0</authorizationHeader>
       <urlParameters>0</urlParameters>
-      <clientId>---</clientId>
-      <clientSecret>---</clientSecret>
+      <clientId>723b9981f91c69c305260fe274009a0f</clientId>
+      <clientSecret>8234f096d7bcaf14</clientSecret>
       <scope/>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
       <userDataUrl>http://api.flickr.com/services/rest/?method=flickr.test.login&amp;format=json&amp;nojsoncallback=1</userDataUrl>
-      <userDataIdKey>---</userDataIdKey>
+      <userDataIdKey>_content</userDataIdKey>
+      <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
     <identityProvider id="foursquare">
       <name>Foursquare</name>
@@ -154,31 +147,33 @@
       <scope/>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
-      <userDataUrl>---</userDataUrl>
-      <userDataIdKey>---</userDataIdKey>
+      <userDataUrl>https://api.foursquare.com/v2/users/self</userDataUrl>
+      <userDataIdKey>firstName</userDataIdKey>
+      <apiCallParameters>oauth_token={ACCESS_TOKEN}&amp;v=20140429</apiCallParameters>
     </identityProvider>
     <identityProvider id="github">
       <name>Github</name>
       <label>Login con Github</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>2.0</oauth>
       <requestTokenUrl/>
       <dialogUrl>https://github.com/login/oauth/authorize?client_id={CLIENT_ID}&amp;redirect_uri={REDIRECT_URI}&amp;scope={SCOPE}&amp;state={STATE}</dialogUrl>
       <accessTokenUrl>https://github.com/login/oauth/access_token</accessTokenUrl>
       <authorizationHeader>1</authorizationHeader>
       <urlParameters>0</urlParameters>
-      <clientId>---</clientId>
-      <clientSecret>---</clientSecret>
+      <clientId>ac07e07465abe8e7b661</clientId>
+      <clientSecret>f35d0d3b799019810d2bcd9a114cdda12ae34d3c</clientSecret>
       <scope/>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
-      <userDataUrl>---</userDataUrl>
-      <userDataIdKey>---</userDataIdKey>
+      <userDataUrl>https://api.github.com/user</userDataUrl>
+      <userDataIdKey>login</userDataIdKey>
+      <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
     <identityProvider id="google">
       <name>Google</name>
       <label>Login con Google</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>2.0</oauth>
       <requestTokenUrl/>
       <dialogUrl>https://accounts.google.com/o/oauth2/auth?response_type=code&amp;client_id={CLIENT_ID}&amp;redirect_uri={REDIRECT_URI}&amp;scope={SCOPE}&amp;state={STATE}</dialogUrl>
@@ -192,42 +187,45 @@
       <accessTokenExtraParameterName/>
       <userDataUrl>https://www.googleapis.com/oauth2/v1/userinfo</userDataUrl>
       <userDataIdKey>---</userDataIdKey>
+      <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
     <identityProvider id="linkedin">
       <name>LinkedIn</name>
       <label>Login con LinkedIn</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>1.0a</oauth>
       <requestTokenUrl>https://api.linkedin.com/uas/oauth/requestToken?scope={SCOPE}</requestTokenUrl>
       <dialogUrl>https://api.linkedin.com/uas/oauth/authenticate</dialogUrl>
       <accessTokenUrl>https://api.linkedin.com/uas/oauth/accessToken</accessTokenUrl>
       <authorizationHeader>1</authorizationHeader>
       <urlParameters>0</urlParameters>
-      <clientId>---</clientId>
-      <clientSecret>---</clientSecret>
-      <scope>r_fullprofile r_emailaddress</scope>
+      <clientId>756e3ohl654af3</clientId>
+      <clientSecret>9x8AMSLeZbyNY0ZO</clientSecret>
+      <scope>r_fullprofile</scope>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
       <userDataUrl>http://api.linkedin.com/v1/people/~?format=json</userDataUrl>
-      <userDataIdKey>---</userDataIdKey>
+      <userDataIdKey>firstName</userDataIdKey>
+      <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
     <identityProvider id="windows">
       <name>Windows</name>
       <label>Login con Windows Live</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>2.0</oauth>
       <requestTokenUrl/>
       <dialogUrl>https://login.live.com/oauth20_authorize.srf?client_id={CLIENT_ID}&amp;scope={SCOPE}&amp;response_type=code&amp;redirect_uri={REDIRECT_URI}&amp;state={STATE}</dialogUrl>
       <accessTokenUrl>https://login.live.com/oauth20_token.srf</accessTokenUrl>
       <authorizationHeader>1</authorizationHeader>
       <urlParameters>0</urlParameters>
-      <clientId>---</clientId>
-      <clientSecret>---</clientSecret>
+      <clientId>000000004C10E300</clientId>
+      <clientSecret>IIH-dVSS9fAibItNQuQubJRGLb6lgsga</clientSecret>
       <scope>wl.basic wl.emails</scope>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
       <userDataUrl>https://apis.live.net/v5.0/me</userDataUrl>
       <userDataIdKey>---</userDataIdKey>
+      <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
     <identityProvider id="tumblr">
       <name>Tumblr</name>
@@ -246,278 +244,279 @@
       <accessTokenExtraParameterName/>
       <userDataUrl>http://api.tumblr.com/v2/user/info</userDataUrl>
       <userDataIdKey>---</userDataIdKey>
+      <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
   </identityProviders>
   <buttonStyles>
     <buttonStyle id="android">
       <logo>android.svg</logo>
       <textColor>#000000</textColor>
-      <backgroundColor>#a4c639</backgroundColor>
+      <backgroundColor>#A4C639</backgroundColor>
     </buttonStyle>
     <buttonStyle id="apple">
       <logo>apple.svg</logo>
-      <textColor>#fff</textColor>
-      <backgroundColor>#000</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#000000</backgroundColor>
     </buttonStyle>
     <buttonStyle id="bitbucket">
       <logo>bitbucket.svg</logo>
-      <textColor/>
+      <textColor>#FFFFFF</textColor>
       <backgroundColor>#205081</backgroundColor>
     </buttonStyle>
     <buttonStyle id="blogger">
       <logo>blogger.svg</logo>
-      <textColor/>
-      <backgroundColor>#ee5a22</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#EE5A22</backgroundColor>
     </buttonStyle>
     <buttonStyle id="creativecloud">
       <logo>creativecloud.svg</logo>
-      <textColor>#fff</textColor>
-      <backgroundColor>#eb4924</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#EB4924</backgroundColor>
     </buttonStyle>
     <buttonStyle id="deviantart">
       <logo>deviantart.svg</logo>
-      <textColor>#fff</textColor>
+      <textColor>#FFFFFF</textColor>
       <backgroundColor>#506256</backgroundColor>
     </buttonStyle>
     <buttonStyle id="dropbox">
       <logo>dropbox.svg</logo>
-      <textColor>#312c2a</textColor>
-      <backgroundColor>#fff</backgroundColor>
+      <textColor>#312C2A</textColor>
+      <backgroundColor>#FFFFFF</backgroundColor>
     </buttonStyle>
     <buttonStyle id="evernote">
       <logo>evernote.svg</logo>
-      <textColor>#fff</textColor>
-      <backgroundColor>#6bb130</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#6BB130</backgroundColor>
     </buttonStyle>
     <buttonStyle id="500px">
       <logo>500px.svg</logo>
-      <textColor>#fff</textColor>
-      <backgroundColor>#09bdfd</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#09BDFD</backgroundColor>
     </buttonStyle>
     <buttonStyle id="facebook">
       <logo>facebook.svg</logo>
-      <textColor/>
-      <backgroundColor>#4863ae</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#4863AE</backgroundColor>
     </buttonStyle>
     <buttonStyle id="flickr">
       <logo>flickr.svg</logo>
       <textColor/>
-      <backgroundColor>#ff0084</backgroundColor>
+      <backgroundColor>#FF0084</backgroundColor>
     </buttonStyle>
     <buttonStyle id="foursquare">
       <logo>foursquare.svg</logo>
-      <textColor/>
-      <backgroundColor>#44a8e0</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#44A8E0</backgroundColor>
     </buttonStyle>
     <buttonStyle id="git">
       <logo>git.svg</logo>
-      <textColor>#f14e32</textColor>
-      <backgroundColor>#f0efe7</backgroundColor>
+      <textColor>#F14E32</textColor>
+      <backgroundColor>#F0EFE7</backgroundColor>
     </buttonStyle>
     <buttonStyle id="github">
       <logo>github.svg</logo>
       <textColor>#050505</textColor>
-      <backgroundColor>#fbfbfb</backgroundColor>
+      <backgroundColor>#FBFBFB</backgroundColor>
     </buttonStyle>
     <buttonStyle id="goodreads">
       <logo>goodreads.svg</logo>
       <textColor>#382110</textColor>
-      <backgroundColor>#f4f2e9</backgroundColor>
+      <backgroundColor>#F4F2E9</backgroundColor>
     </buttonStyle>
     <buttonStyle id="google">
       <logo>google.svg</logo>
-      <textColor/>
-      <backgroundColor>#4e6cf7</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#4E6CF7</backgroundColor>
     </buttonStyle>
     <buttonStyle id="googleplay">
       <logo>googleplay.svg</logo>
-      <textColor/>
-      <backgroundColor>#000</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#000000</backgroundColor>
     </buttonStyle>
     <buttonStyle id="googleplus">
       <logo>googleplus.svg</logo>
-      <textColor/>
-      <backgroundColor>#dd4b39</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#DD4B39</backgroundColor>
     </buttonStyle>
     <buttonStyle id="html5">
       <logo>html5.svg</logo>
-      <textColor/>
-      <backgroundColor>#ff3617</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#FF3617</backgroundColor>
     </buttonStyle>
     <buttonStyle id="icloud">
       <logo>icloud.svg</logo>
-      <textColor>#fff</textColor>
-      <backgroundColor>#5d5d5d</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#5D5D5D</backgroundColor>
     </buttonStyle>
     <buttonStyle id="instagram">
       <logo>instagram.svg</logo>
-      <textColor/>
-      <backgroundColor>#3f729b</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#3F729B</backgroundColor>
     </buttonStyle>
     <buttonStyle id="instapaper">
       <logo>instapaper.svg</logo>
-      <textColor>#222</textColor>
-      <backgroundColor>#eee</backgroundColor>
+      <textColor>#222222</textColor>
+      <backgroundColor>#EEEEEE</backgroundColor>
     </buttonStyle>
     <buttonStyle id="kickstarter">
       <logo>kickstarter.svg</logo>
-      <textColor>#76cc1e</textColor>
-      <backgroundColor>#0b1902</backgroundColor>
+      <textColor>#76CC1E</textColor>
+      <backgroundColor>#0B1902</backgroundColor>
     </buttonStyle>
     <buttonStyle id="klout">
       <logo>klout.svg</logo>
       <textColor/>
-      <backgroundColor>#e34a25</backgroundColor>
+      <backgroundColor>#E34A25</backgroundColor>
     </buttonStyle>
     <buttonStyle id="lastfm">
       <logo>lastfm.svg</logo>
-      <textColor/>
-      <backgroundColor>#dc1a23</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#DC1A23</backgroundColor>
     </buttonStyle>
     <buttonStyle id="linkedin">
       <logo>linkedin.svg</logo>
-      <textColor/>
-      <backgroundColor>#0083a8</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#0083A8</backgroundColor>
     </buttonStyle>
     <buttonStyle id="mac">
       <logo>mac.svg</logo>
-      <textColor>#000</textColor>
-      <backgroundColor>#fff</backgroundColor>
+      <textColor>#000000</textColor>
+      <backgroundColor>#FFFFFF</backgroundColor>
     </buttonStyle>
     <buttonStyle id="mail">
       <logo>mail.svg</logo>
-      <textColor>#312c2a</textColor>
-      <backgroundColor>#f0f0eb</backgroundColor>
+      <textColor>#312C2A</textColor>
+      <backgroundColor>#F0F0EB</backgroundColor>
     </buttonStyle>
     <buttonStyle id="medium">
       <logo>medium.svg</logo>
-      <textColor>#fff</textColor>
+      <textColor>#FFFFFF</textColor>
       <backgroundColor>#333332</backgroundColor>
     </buttonStyle>
     <buttonStyle id="mixi">
       <logo>mixi.svg</logo>
-      <textColor>#fff</textColor>
+      <textColor>#FFFFFF</textColor>
       <backgroundColor>#996600</backgroundColor>
     </buttonStyle>
     <buttonStyle id="msn">
       <logo>msn.svg</logo>
-      <textColor>#666</textColor>
-      <backgroundColor>#fff</backgroundColor>
+      <textColor>#666666</textColor>
+      <backgroundColor>#FFFFFF</backgroundColor>
     </buttonStyle>
     <buttonStyle id="openid">
       <logo>openid.svg</logo>
-      <textColor>#333</textColor>
-      <backgroundColor>#f5f5f5</backgroundColor>
+      <textColor>#333333</textColor>
+      <backgroundColor>#F5F5F5</backgroundColor>
     </buttonStyle>
     <buttonStyle id="orkut">
       <logo>orkut.svg</logo>
-      <textColor>#000</textColor>
-      <backgroundColor>#fff</backgroundColor>
+      <textColor>#000000</textColor>
+      <backgroundColor>#FFFFFF</backgroundColor>
     </buttonStyle>
     <buttonStyle id="picasa">
       <logo>picasa.svg</logo>
-      <textColor>#222</textColor>
-      <backgroundColor>#fff</backgroundColor>
+      <textColor>#222222</textColor>
+      <backgroundColor>#FFFFFF</backgroundColor>
     </buttonStyle>
     <buttonStyle id="pinterest">
       <logo>pinterest.svg</logo>
       <textColor/>
-      <backgroundColor>#c91618</backgroundColor>
+      <backgroundColor>#C91618</backgroundColor>
     </buttonStyle>
     <buttonStyle id="pocketapp">
       <logo>pocketapp.svg</logo>
-      <textColor>#777</textColor>
-      <backgroundColor>#fff</backgroundColor>
+      <textColor>#777777</textColor>
+      <backgroundColor>#FFFFFF</backgroundColor>
     </buttonStyle>
     <buttonStyle id="quora">
       <logo>quora.svg</logo>
       <textColor/>
-      <backgroundColor>#a82400</backgroundColor>
+      <backgroundColor>#A82400</backgroundColor>
     </buttonStyle>
     <buttonStyle id="rdio">
       <logo>rdio.svg</logo>
-      <textColor>#fff</textColor>
-      <backgroundColor>#0096df</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#0096DF</backgroundColor>
     </buttonStyle>
     <buttonStyle id="reddit">
       <logo>reddit.svg</logo>
-      <textColor>#222</textColor>
-      <backgroundColor>#fff</backgroundColor>
+      <textColor>#222222</textColor>
+      <backgroundColor>#FFFFFF</backgroundColor>
     </buttonStyle>
     <buttonStyle id="renren">
       <logo>renren.svg</logo>
-      <textColor>#005eac</textColor>
-      <backgroundColor>#fff</backgroundColor>
+      <textColor>#005EAC</textColor>
+      <backgroundColor>#FFFFFF</backgroundColor>
     </buttonStyle>
     <buttonStyle id="rss">
       <logo>rss.svg</logo>
       <textColor/>
-      <backgroundColor>#ff7f25</backgroundColor>
+      <backgroundColor>#FF7F25</backgroundColor>
     </buttonStyle>
     <buttonStyle id="skype">
       <logo>skype.svg</logo>
-      <textColor/>
-      <backgroundColor>#00a2ed</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#00A2ED</backgroundColor>
     </buttonStyle>
     <buttonStyle id="soundcloud">
       <logo>soundcloud.svg</logo>
       <textColor/>
-      <backgroundColor>#ff4500</backgroundColor>
+      <backgroundColor>#FF4500</backgroundColor>
     </buttonStyle>
     <buttonStyle id="spotify">
       <logo>spotify.svg</logo>
       <textColor/>
-      <backgroundColor>#60af00</backgroundColor>
+      <backgroundColor>#60AF00</backgroundColor>
     </buttonStyle>
     <buttonStyle id="stackoverflow">
       <logo>stackoverflow.svg</logo>
-      <textColor>#555</textColor>
-      <backgroundColor>#fff</backgroundColor>
+      <textColor>#555555</textColor>
+      <backgroundColor>#FFFFFF</backgroundColor>
     </buttonStyle>
     <buttonStyle id="stumbleupon">
       <logo>stumbleupon.svg</logo>
       <textColor/>
-      <backgroundColor>#eb4924</backgroundColor>
+      <backgroundColor>#EB4924</backgroundColor>
     </buttonStyle>
     <buttonStyle id="svn">
       <logo>svn.svg</logo>
-      <textColor>#fff</textColor>
-      <backgroundColor>#06c</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#0066CC</backgroundColor>
     </buttonStyle>
     <buttonStyle id="tent">
       <logo>tent.svg</logo>
-      <textColor>#fff</textColor>
+      <textColor>#FFFFFF</textColor>
       <backgroundColor>#0099FF</backgroundColor>
     </buttonStyle>
     <buttonStyle id="tumblr">
       <logo>tumblr.svg</logo>
-      <textColor/>
-      <backgroundColor>#374a61</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#374A61</backgroundColor>
     </buttonStyle>
     <buttonStyle id="twitter">
       <logo>twitter.svg</logo>
-      <textColor/>
-      <backgroundColor>#46c0fb</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#46C0FB</backgroundColor>
     </buttonStyle>
     <buttonStyle id="viadeo">
       <logo>viadeo.svg</logo>
-      <textColor>#000</textColor>
-      <backgroundColor>#fff</backgroundColor>
+      <textColor>#000000</textColor>
+      <backgroundColor>#FFFFFF</backgroundColor>
     </buttonStyle>
     <buttonStyle id="vimeo">
       <logo>vimeo.svg</logo>
       <textColor/>
-      <backgroundColor>#00a2cd</backgroundColor>
+      <backgroundColor>#00A2CD</backgroundColor>
     </buttonStyle>
     <buttonStyle id="weibo">
       <logo>weibo.svg</logo>
-      <textColor>#000</textColor>
-      <backgroundColor>#faf6f1</backgroundColor>
+      <textColor>#000000</textColor>
+      <backgroundColor>#FAF6F1</backgroundColor>
     </buttonStyle>
     <buttonStyle id="windows">
       <logo>windows.svg</logo>
-      <textColor>#fff</textColor>
-      <backgroundColor>#0052a4</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#0052A4</backgroundColor>
     </buttonStyle>
     <buttonStyle id="wordpress">
       <logo>wordpress.svg</logo>
@@ -526,23 +525,23 @@
     </buttonStyle>
     <buttonStyle id="xing">
       <logo>xing.svg</logo>
-      <textColor/>
-      <backgroundColor>#0a5d5e</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#0A5D5E</backgroundColor>
     </buttonStyle>
     <buttonStyle id="yahoo">
       <logo>yahoo.svg</logo>
-      <textColor/>
-      <backgroundColor>#a200c2</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#A200C2</backgroundColor>
     </buttonStyle>
     <buttonStyle id="yelp">
       <logo>yelp.svg</logo>
-      <textColor/>
-      <backgroundColor>#e60010</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#E60010</backgroundColor>
     </buttonStyle>
     <buttonStyle id="youtube">
       <logo>youtube.svg</logo>
-      <textColor/>
-      <backgroundColor>#f00</backgroundColor>
+      <textColor>#FFFFFF</textColor>
+      <backgroundColor>#FF0000</backgroundColor>
     </buttonStyle>
   </buttonStyles>
 </eslip>

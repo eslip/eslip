@@ -1,36 +1,96 @@
-.button {
-  font-family: arial;
-  background-position: 1em;
-  background-repeat: no-repeat;
-  background-size: 2em;
+/* Main styles */
 
-  -webkit-border-radius: 0.5em;
-  -moz-border-radius: 0.5em;
-  border-radius: 0.5em;
+#ESLIP_Plugin {
+    overflow: hidden;
+}
 
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 1em;
-  height: 1em;
-  line-height: 1em;
-  padding: 25px 15px 25px 65px;
-  margin: 0.4em;
-  text-decoration: none;
-  transition: all 0.5s;}
+#ESLIP_Plugin * {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    line-height: 1rem;
+}
 
-/*http://ianlunn.github.io/Hover/*/
+#ESLIP_Plugin .eslip_button {
+    padding: 0.5rem;  
+    text-decoration: none;
+    display: block;
+    box-sizing: border-box;
+    -moz-box-sizing:border-box;
+    float: left;
+}
 
-.glow {
-  display: inline-block;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: box-shadow;
-  transition-property: box-shadow;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);}
+#ESLIP_Plugin .buttonView .eslip_button{
+    margin-right: 1%;
+    margin-bottom: 0.5rem;
+}
 
-.glow:hover {
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);}
+#ESLIP_Plugin .buttonView .eslip_button:hover {
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.4);
+}
+
+#ESLIP_Plugin .iconView, 
+#ESLIP_Plugin .iconView ul, 
+#ESLIP_Plugin .iconView li {
+    float: left;
+    width: 100%;
+}
+
+#ESLIP_Plugin .iconView .eslip_button .eslip_button_image:hover {
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.4);
+}
+
+#ESLIP_Plugin .eslip_button .eslip_button_image {
+    height: 2rem;
+    width: 2rem;
+    float: left;
+}
+
+#ESLIP_Plugin .buttonView .eslip_button .eslip_button_image {
+    margin-right: 0.5rem;
+}
+
+#ESLIP_Plugin .eslip_button > .eslip_button_image,
+#ESLIP_Plugin .eslip_button > .eslip_button_label {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 2rem;
+    height: 2rem;
+}
+
+/* Slider widget */
+
+#ESLIP_Plugin > div {
+    float: left;
+}
+
+#ESLIP_Plugin #eslip_slideleft, #ESLIP_Plugin #eslip_slideright {
+    cursor:pointer
+}
+
+#eslip_wraper {
+    position: relative;
+}
+
+#eslip_wraper ul.slider {
+    position: absolute;
+}
+
+#ESLIP_Plugin li {
+  float: left;
+  list-style: none;
+}
+
+#ESLIP_Plugin .eslip_prevArrow{
+  background: url(img/icon-arrow-left-b-32.png) no-repeat;
+  width: 32px;
+  height: 32px;
+}
+
+#ESLIP_Plugin .eslip_nextArrow{
+  background: url(img/icon-arrow-right-b-32.png) no-repeat;
+  width: 32px;
+  height: 32px;
+}

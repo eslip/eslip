@@ -3,10 +3,14 @@
 include_once("eslip_helper.php");
 
 /**
-* ESLIP API
+* ESLIP
 *
-* API para manipular el archivo XML de configuración. Implementa una interfaz para obtener
-* y guardar facilmente información en el archivo XML de configuración.
+* Clase con funcionalidad generica para todo el plugin
+*
+* Se definen metodos generales del plugin para ser utilizados donde este disponible un objeto
+* de esta clase. Además se incluye el archivo de lenguaje correspondiente al idioma configurado en el 
+* administrador del plugin el cual define las constantes correspondientes para todos los textos 
+* que se utilizan en el plugin.
 * 
 * @author Nicolás Burghi [nicoburghi@gmail.com]
 * @author Martín Estigarribia [martinestiga@gmail.com]
@@ -14,25 +18,16 @@ include_once("eslip_helper.php");
 * @package Eslip
 */
 
-class EslipApi {
+class Eslip {
 
 	/**
-    * Archivo de configuración del plugin
+    * Objeto que contiene una instancia de la API XML de ESLIP
     *
-    * @var string 
-    * @access private
-    */
-
-	private $xmlFile = "";
-
-	/**
-    * Idioma del plugin seleccionado en el administrador
-    *
-    * @var string 
+    * @var object 
     * @access public
     */
 
-	public $selected_language;
+	public $xmlApi;
 
 	/**
     * Configuraciones generales del plugin
@@ -44,8 +39,17 @@ class EslipApi {
 	public $configuration;
 
 	/**
-    * Metodo constructor de la clase. Se inicializa la variable de clase que contiene la ubicación
-    * del archivo XML de configuración, la variable de clase que contiene el idioma seleccionado 
+    * Idioma del plugin seleccionado en el administrador
+    *
+    * @var string 
+    * @access public
+    */
+
+	public $selectedLang;
+
+	/**
+    * Metodo constructor de la clase. Se inicializa la variable de clase que contiene una instancia 
+    * de la API XML de ESLIP, la variable de clase que contiene el idioma seleccionado 
     * en el administrador y la variable de clase que contiene las configuraciones generales del
     * plugin.
     * Aqui tambien se incluye el archivo de lenguaje correspondiente al idioma configurado en el 
@@ -55,11 +59,11 @@ class EslipApi {
     * @access public
     */
 
-	public function __construct()
+	public function __construct($xmlApi)
     {
-        $this->xmlFile = dirname(__FILE__) . DIRECTORY_SEPARATOR . "config.xml";
+    	$this->xmlApi = $xmlApi;
 
-        $this->configuration = $this->getElementValue("configuration");
+        $this->configuration = $this->xmlApi->getElementValue("configuration");
 
         if (isset($_POST["lang"]))
 		{
@@ -67,85 +71,50 @@ class EslipApi {
 		}
 		else
 		{
-			$selectedLang = $this->getElementListByFieldValue("selected", "1", "language");
+			$selectedLang = $this->xmlApi->getElementListByFieldValue("selected", "1", "language");
 			$selectedLang = (empty($selectedLang) || empty($selectedLang[0]->code )) ? getSystemLang() : (String)$selectedLang[0]->code;	
 		}
 
-		$this->selected_language = $selectedLang;
+		$this->selectedLang = $selectedLang;
 
 		include_once("i18n/".$selectedLang.".php");
     }
+}
 
-    /**
-    * Convierte un objeto SimpleXMLElement en un objeto StdClass
-    *
-    * @access private
-    * @param object Objeto SimpleXMLElement a convertir
-    * @return object Objeto creado
-    * @todo Hacer la funcion recursiva por si hay objetos SimpleXMLElement adentro
-    */
+/**
+* ESLIP XML API
+*
+* API para manipular el archivo XML de configuración. Implementa una interfaz para obtener
+* y guardar facilmente información en el archivo XML de configuración.
+* 
+* @author Nicolás Burghi [nicoburghi@gmail.com]
+* @author Martín Estigarribia [martinestiga@gmail.com]
+* @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
+* @package Eslip
+*/
 
-    private function SimpleXMLElementToObject($simple_xml_element) 
-	{
-		if ($simple_xml_element instanceof SimpleXMLElement)
-		{ 
-			$object = new StdClass();
-			$children = $simple_xml_element->children();
-			$attributes = $simple_xml_element->attributes();
-			foreach ($attributes as $key => $value)
-			{
-				$object->$key = (string)$value;
-			}
-			foreach ($children as $key => $value) 
-			{ 
-				$object->$key = (string)$value;
-			}
-		}
-		else
-		{
-			$object = $simple_xml_element;
-		}
-		return $object;
-	}
-
-    /**
-    * Retorna un arreglo con los proveedores de identidad activos en el adminstrador.
-    *
-    * @access public
-    * @return array Arreglo con los proveedores de identidad
-    */
-
-    public function get_active_identity_providers()
-	{
-		$idps = $this->getElementListByFieldValue("active", "1", "identityProvider");
-		$activeIdps = array();
-		foreach ($idps as $ip)
-		{
-			$_tmp_ip = $this->SimpleXMLElementToObject($ip);
-			$styles = $this->getElementById("buttonStyle", $_tmp_ip->id);
-			$_tmp_ip->styles = $this->SimpleXMLElementToObject($styles);
-			if (isset($_tmp_ip->styles->logo))
-			{
-				$_tmp_ip->styles->logo_url = $this->configuration->pluginUrl . 'frontend/img/icons/' . $_tmp_ip->styles->logo;
-			}
-			$activeIdps[] = $_tmp_ip;
-		}
-		return $activeIdps;
-	}
+class EslipXMLApi {
 
 	/**
-    * Retorna los parametros de configuracion del proveedor de identidad cuyo identificador
-    * es pasado por parametro.
+    * Archivo de configuración del plugin
     *
-    * @access public
-    * @param string $identity_provider_id Identificador del proveedor de identidad
-    * @return SimpleXMLElement Parametros de configuracion del proveedor de identidad
+    * @var string 
+    * @access private
     */
 
-	public function get_identity_provider_data($identity_provider_id)
-	{
-		return $this->getElementById("identityProvider", $identity_provider_id);
-	}
+	private $xmlFile = "";
+
+	/**
+    * Metodo constructor de la clase. Se inicializa la variable de clase que contiene la ubicación
+    * del archivo XML de configuración.
+    *
+    * @access public
+    */
+
+	public function __construct()
+    {
+        $this->xmlFile = dirname(__FILE__) . DIRECTORY_SEPARATOR . "config.xml";
+    }
 
     /**
     * Convierte el archivo XML de configuración en un objeto y lo retorna.
@@ -483,4 +452,5 @@ class EslipApi {
 	}
 }
 
-$eslip = new EslipApi();
+$xmlApi = new EslipXMLApi();
+$eslip = new Eslip($xmlApi);

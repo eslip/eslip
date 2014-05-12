@@ -1,5 +1,5 @@
 <?php
-include_once("../eslip_api.php");
+include_once("../eslip.php");
 ?>
 
 <style>
@@ -61,29 +61,28 @@ span {
 </style>
 
 <div id="wrap">
-
-<form name="openid_form" action='<?php echo $_GET["return_url"]; ?>' onsubmit="return validateForm()" method='POST'>
-<div id="parent">
-    <div id="inner">
-        <label>OpenID URL:</label> 
-        <span><input id="openid_identifier" type='text' name='openid_identifier' /></span>
-        <button class="button">Login</button>
-    </div>
-</div>
-</form>
-
-<div style="display:none" id="error">
-</div>
-
+	<form name="openid_form" action='<?php echo $_GET["return_url"]; ?>' onsubmit="return validateForm()" method='POST'>
+		<div id="parent">
+		    <div id="inner">
+		        <label>OpenID URL:</label> 
+		        <span><input id="openid_identifier" type='text' name='openid_identifier' /></span>
+		        <button name="open_id_login" class="button">Login</button>
+		    </div>
+		</div>
+	</form>
+	<div style="display:none" id="error">
+	</div>
 </div>
 
 <script type="text/javascript">
+    var emptyErrorMessage = '<?php echo emptyErrorMessage; ?>';
+	function getParameter(d){var a,b,c=window.location.search.substring(1).split("&");for(a=0;a<c.length;a++)if(b=c[a].split("="),b[0]==d)return b[1];return null};
 	function validateForm()
 	{
 		var openid_identifier = document.forms["openid_form"]["openid_identifier"].value;
 		if (openid_identifier.trim() == '')
 		{
-			document.getElementById('error').innerHTML = "vacio";
+			document.getElementById('error').innerHTML = emptyErrorMessage;
 			document.getElementById('error').removeAttribute("style");
 			return false;
 		}
@@ -92,4 +91,11 @@ span {
 			return true;
 		}
 	}
+	window.onload=function(){
+		if (getParameter('error') !== null)
+        {
+        	document.getElementById('error').innerHTML = decodeURIComponent(getParameter('error'));
+			document.getElementById('error').removeAttribute("style");
+        }
+	};
 </script>
