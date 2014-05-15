@@ -638,8 +638,6 @@ function loadIdProviderData(selectedId){
 }
 
 function loadIdProviderDataCallback(data){
-	
-	console.log(data);
 
 	initPopover();
 
@@ -730,8 +728,6 @@ function bindToolsIdProviderEvents(data){
 	$( "#form" ).find('#edit').click( function() {
 		var selected = $( "#form" ).find("#id").val();
 		if ( selected !== "" ) {
-			console.log($("#dialog-edit-id").find(".modal-title"));
-			console.log(data.labels.btnEdit);
 			$("#dialog-edit-id").find(".modal-title").html(data.labels.btnEdit);
 			loadIdProviderButtonData(selected);
 		}

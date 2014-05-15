@@ -53,7 +53,7 @@ define("Oauth", "OAuth Version");
 define("RequestTokenUrl", "Request Token Url");
 define("DialogUrl", "Dialog Url");
 define("AccessTokenUrl", "Access Token Url");
-define("ApiCallParameters", "Api Call Parameters");
+define("ApiCallParameters", "API Call Parameters");
 define("AuthorizationHeader", "Authorization Header");
 define("UrlParameters", "Url Parameters");
 define("RedirectUri", "Redirect Uri");

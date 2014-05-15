@@ -301,8 +301,6 @@ function initWizardFormValidation(data){
 	});
 
 	$wizard.cards[data.labels.loginWidget].on("selected", function(card) {
-	   	console.info("selected");
-		console.log(card);
 		initLoginWidget(data);
 	});
 	

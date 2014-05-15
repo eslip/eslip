@@ -31,18 +31,14 @@ if ( ! $isAuthenticated && ! $runWizard){
 
 	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
 	<link type="text/css" rel="stylesheet" href="css/bootstrap-wizard.css">
-	<!--link type="text/css" rel="stylesheet" href="css/style.css"-->
-	<link type="text/css" rel="stylesheet" href="css/main.css">
 	<link type="text/css" rel="stylesheet" href="css/onoff_switch.css">
+	<link type="text/css" rel="stylesheet" href="css/main.css">
 	<link type="text/css" rel="stylesheet" href="../frontend/eslip_plugin.css">
 
-	<!--script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script-->
 	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.loadTemplate-1.3.2.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	
-	<script type="text/javascript" src="js/bootstrap-wizard.js"></script>
+	<script type="text/javascript" src="js/bootstrap-wizard.min.js"></script>
 	<script type="text/javascript" src="js/jquery.validate.js"></script>
 	<script type="text/javascript" src="js/onoff_switch.js"></script>
 	<script type="text/javascript" src="js/eslip_common.js"></script>

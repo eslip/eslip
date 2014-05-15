@@ -132,9 +132,6 @@ function initLoginWidgetValues(data){
 		unit = '%';
 	}
 
-    console.info("initLoginWidgetValues");
-    console.log(data.loginWidget);
-
 	$("#widgetWidth").val(widthFixed);
 	$("#widgetWidthUnit").val(unit).change();
 	
@@ -228,7 +225,6 @@ function spinnerKeyupHandler(elem, event, data){
 }
 
 function updateLoginWidgetPreview(data){
-    console.info("updateLoginWidgetPreview");
     var $buttons = $("#loginWidgetPreview").find(".button")
     var showLabel = parseInt($('input[name=buttonLabel]:checked').val());
     var width = $("#widgetWidth").val();
@@ -237,8 +233,6 @@ function updateLoginWidgetPreview(data){
 
     var rows = $("#widgetRows").val();
     var columns = $("#widgetColumns").val();
-
-    console.log("width: "+width+" - rows: "+rows+" - columns: "+columns+" - showLabel: "+showLabel );
 
     data.loginWidget = {
         widgetWidth: width,
