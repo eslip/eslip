@@ -313,8 +313,8 @@
 				"name" => Name,
 				"label" => Label,
 				"active" => Active,
-				"no" => No,
-				"yes" => Yes,
+				"no" => NoLabel,
+				"yes" => YesLabel,
 				"oauth" => Oauth,
 				"requestTokenUrl" => RequestTokenUrl,
 				"dialogUrl" => DialogUrl,
@@ -354,7 +354,9 @@
 				"HelpHasAccessTokenExtraParameter" => HelpHasAccessTokenExtraParameter,
 				"HelpAccessTokenExtraParameterName" => HelpAccessTokenExtraParameterName,
 				"HelpUserDataUrl" => HelpUserDataUrl,
-				"HelpUserDataIdKey" => HelpUserDataIdKey
+				"HelpUserDataIdKey" => HelpUserDataIdKey,
+				"btnNew" => btnNew,
+				"btnEdit" => btnEdit
 			);
 
 			$new = true;
@@ -690,59 +692,68 @@
 			$langCode = str_replace(".ini", "", $langFile);
 
 			if ($langFile != ""){
-				
+
 				$dir = "i18n/";
 				$fileCompiled = "../".$dir.str_replace("ini", "php", $langFile);
 				$inifile = parse_ini_file($dir.$langFile, true);
 
-				array_push($content, "<?php");
-				array_push($content, "\n");
+				if ($inifile){
 
-				foreach ($inifile as $key => $value){
-			    	if ( is_array($value) ){
-						printSection($key,$content);
-						recorrer($value,$content);
-					}else{
-						printDefine($key,$value,$content);
+					array_push($content, "<?php");
+					array_push($content, "\n");
+
+					foreach ($inifile as $key => $value){
+				    	if ( is_array($value) ){
+							printSection($key,$content);
+							recorrer($value,$content);
+						}else{
+							printDefine($key,$value,$content);
+						}
+						
 					}
+
+					array_push($content, "\n");
+					array_push($content, "?>");
+
+					file_put_contents($fileCompiled, $content);
+
+					$this->xmlApi->addElement(
 					
+						"",
+						
+						array(
+							"name",
+							"code",
+							"selected",
+						),
+						
+						array(
+							$langName,
+							$langCode,
+							"0",
+						),
+						
+						"language",
+						
+						"languages"
+					);
+
+					$result = "SUCCESS";
+
+				}else{
+					$result = "ERROR";
 				}
 
-				array_push($content, "\n");
-				array_push($content, "?>");
-
-				file_put_contents($fileCompiled, $content);
-
-				$this->xmlApi->addElement(
-				
-					"",
-					
-					array(
-						"name",
-						"code",
-						"selected",
-					),
-					
-					array(
-						$langName,
-						$langCode,
-						"0",
-					),
-					
-					"language",
-					
-					"languages"
-				);
+			}else{
+				$result = "ERROR";
 			}
-			
-
-			$result = "SUCCESS";
 
 			$data = array(
 				"status" => $result
 			);
 
 			$this->response($data);
+			
 		}
 
 		protected function getLoginWidgetData(){
@@ -754,8 +765,8 @@
 				"widgetRows" => WidgetRows,
 				"widgetColumns" => WidgetColumns,
 				"buttonLabel" => ButtonLabel,
-				"yes" => Yes,
-				"no" => No,
+				"yes" => YesLabel,
+				"no" => NoLabel,
 				"btnSave" => btnSave,
 				"btnCancel" => btnCancel,
 				"messageSuccess" => messageSuccess,
@@ -874,6 +885,9 @@
 			
 			$eslipSettings = $this->xmlApi->getElementValue("configuration");
 			$pluginUrl = (string)$eslipSettings->pluginUrl;
+			if ( !isset($pluginUrl) || empty($pluginUrl) ){
+				$pluginUrl = "http://".$_SERVER['HTTP_HOST']."/eslip-plugin/eslip/";	
+			}
 
 			// Identity Provider
 			$idButtons = $this->xmlApi->getElementList("buttonStyle");
@@ -912,7 +926,10 @@
 			
 			$eslipSettings = $this->xmlApi->getElementValue("configuration");
 			$pluginUrl = (string)$eslipSettings->pluginUrl;
-
+			if ( !isset($pluginUrl) || empty($pluginUrl) ){
+				$pluginUrl = "http://".$_SERVER['HTTP_HOST']."/eslip-plugin/eslip/";	
+			}
+			
 			$buttonFixed = array();
 			$button = new stdClass();
 			if (!empty($id)){
@@ -1130,8 +1147,20 @@
 				"widgetRows" => WidgetRows,
 				"widgetColumns" => WidgetColumns,
 				"buttonLabel" => ButtonLabel,
-				"yes" => Yes,
-				"no" => No,
+				"HelpSiteUrl" => HelpSiteUrl,
+				"HelpCallbackUrl" => HelpCallbackUrl,
+				"HelpPluginUrl" => HelpPluginUrl,
+				"HelpScopeRequired" => HelpScopeRequired,
+				"HelpScopeOptional" => HelpScopeOptional,
+				"HelpClientId" => HelpClientId,
+				"HelpClientSecret" => HelpClientSecret,
+				"HelpScope" => HelpScope,
+				"HelpWidgetWidth" => HelpWidgetWidth,
+				"HelpWidgetRows" => HelpWidgetRows,
+				"HelpWidgetColumns" => HelpWidgetColumns,
+				"HelpWidgetButtonLabel" => HelpWidgetButtonLabel,
+				"yes" => YesLabel,
+				"no" => NoLabel,
 				"scope" => Scope,
 				"next" => next,
 				"previous" => previous,

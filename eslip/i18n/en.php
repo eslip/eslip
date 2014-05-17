@@ -35,7 +35,7 @@ define("Login", "Account Login");
 //menu
 define("ConfigUser","Usuer Settings");
 define("LanguagesConfig", "Language Settings");
-define("LoginWidget", "Login Widget");
+define("LoginWidget", "Social Login Widget");
 define("IdProvidersButtons", "Providers Buttons");
 
 //labels
@@ -50,27 +50,26 @@ define("Name", "Name");
 define("Label", "Button Label");
 define("Active", "Active");
 define("Oauth", "OAuth Version");
-define("RequestTokenUrl", "Request Token Url");
-define("DialogUrl", "Dialog Url");
-define("AccessTokenUrl", "Access Token Url");
-define("ApiCallParameters", "API Call Parameters");
-define("AuthorizationHeader", "Authorization Header");
-define("UrlParameters", "Url Parameters");
-define("RedirectUri", "Redirect Uri");
-define("HasAccessTokenExtraParameter", "Has Access Token Extra Parameter");
-define("AccessTokenExtraParameterName", "Access Token Extra Parameter Name");
-define("UserDataUrl", "User Data Url");
+define("RequestTokenUrl", "Initial token endpoint URL");
+define("DialogUrl", "Authorization endpoint URL");
+define("AccessTokenUrl", "Access token endpoint URL");
+define("ApiCallParameters", "Parameters for obtaining user resources");
+define("AuthorizationHeader", "Parameters in the header of the request");
+define("UrlParameters", "Parameters in the URL");
+define("HasAccessTokenExtraParameter", "Has access token extra parameter");
+define("AccessTokenExtraParameterName", "Access token extra parameter name");
+define("UserDataUrl", "Endpoint URL for obtaining user resources");
 define("FormUrl", "Form Url");
 define("ScopeRequired", "Required Scope");
 define("ScopeOptional", "Optional Scope");
-define("UserDataIdKey", "User Data Id Key");
+define("UserDataIdKey", "Resource used as unique identifier of the user");
 define("Immediate", "Immediate Authentication");
-define("Yes", "Yes");
-define("No", "No");
+define("YesLabel", "Yes");
+define("NoLabel", "No");
 define("LangName", "Language Name");
 define("DownloadLangFile", "Download the template language file");
 define("UploadLangFile", "Upload the translated language file");
-define("TranslateLangFile", "Translate the downloaded file and rename it with the appropriate two letters ISO language code in lower case (http://reference.sitepoint.com/html/lang-codes)");
+define("TranslateLangFile", "Translate the downloaded file and rename it with the appropriate two letters ISO language code in lower case (<a target='_blank' href='http://www.sitepoint.com/web-foundations/iso-2-letter-language-codes/'>http://www.sitepoint.com/web-foundations/iso-2-letter-language-codes/</a>)");
 define("Logo", "Logo");
 define("TextColor", "Text Colot");
 define("BackgroundColor", "Background Color");
@@ -85,7 +84,7 @@ define("AdvancedView", "Advanced View");
 
 //dataTable
 define("Procesando", "Loading...");
-define("dtsLoadingRecords", "Cargando...");
+define("dtsLoadingRecords", "Loading...");
 define("dtsLengthMenu", "Display _MENU_ records per page");
 define("dtsZeroRecords", "No records were found");
 define("dtsInfo", "Showing _START_ to _END_ of _TOTAL_ entries");

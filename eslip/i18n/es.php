@@ -22,7 +22,7 @@ define("cancel","Cancelar");
 define("finish","Finalizar");
 
 //dialogs
-define("SelectLangTitle","Seleccionar Lenguaje");
+define("SelectLangTitle","Seleccionar lenguaje");
 define("WizardEndTitle","Configuración Finalizada");
 define("WizardEndSubTitle","Gracias por usar ESLIP Plugin");
 
@@ -35,50 +35,49 @@ define("Login", "Iniciar Sesi&oacute;n");
 //menu
 define("ConfigUser","Configuraciones de Usuario");
 define("LanguagesConfig", "Configuración de Idiomas");
-define("LoginWidget", "Widget de Login");
+define("LoginWidget", "Widget de Social Login");
 define("IdProvidersButtons", "Botones de Proveedores");
 
 //labels
-define("SiteUrl", "URL del Sitio");
-define("CallbackUrl", "Callback URL");
-define("PluginUrl", "URL del Plugin ESLIP");
+define("SiteUrl", "URL del sitio");
+define("CallbackUrl", "URL de retorno");
+define("PluginUrl", "URL del plugin ESLIP");
 define("ClientId", "ID de Cliente");
 define("ClientSecret", "Secreto de Cliente");
 define("Scope", "Scope");
 define("Id", "ID");
 define("Name", "Nombre");
-define("Label", "Label del Botón");
+define("Label", "Texto del botón");
 define("Active", "Activo");
 define("Oauth", "Versión de OAuth");
-define("RequestTokenUrl", "Url de Solicitud de Token");
-define("DialogUrl", "Url de Identificaci&oacute;n");
-define("AccessTokenUrl", "Url de Token de Acceso");
-define("ApiCallParameters", "Par&aacute;metros de Llamada a la API");
-define("AuthorizationHeader", "Cabecera de Autorizaci&oacute;n");
-define("UrlParameters", "Par&aacute;metros de la Url");
-define("RedirectUri", "Uri de Redirecci&oacute;n");
-define("HasAccessTokenExtraParameter", "Tiene Par&aacute;metro Adicional de Token de Acceso");
-define("AccessTokenExtraParameterName", "Nombre del Par&aacute;metro Adicional de Token de Acceso");
-define("UserDataUrl", "Url de Datos del Usuiaro");
-define("FormUrl", "Url del Formulario");
+define("RequestTokenUrl", "URL del punto de entrada para la solicitud del token inicial");
+define("DialogUrl", "URL del punto de entrada para la autorización");
+define("AccessTokenUrl", "URL del punto de entrada para la obtención del token de acceso");
+define("ApiCallParameters", "Parámetros para la obtención de recursos del usuario");
+define("AuthorizationHeader", "Parámetros en la cabecera de la petición");
+define("UrlParameters", "Parámetros en la URL");
+define("HasAccessTokenExtraParameter", "Parámetro adicional en la respuesta a la petición del token de acceso");
+define("AccessTokenExtraParameterName", "Nombre del parámetro adicional");
+define("UserDataUrl", "URL del punto de entrada para la obtención de recursos del usuario");
+define("FormUrl", "URL del formulario");
 define("ScopeRequired", "Scope Requerido");
 define("ScopeOptional", "Scope Opcional");
-define("UserDataIdKey", "Clave del ID de Datos del Usuario");
+define("UserDataIdKey", "Recurso utilizado como identificador único del usuario");
 define("Immediate", "Autenticación Inmediata");
-define("Yes", "Si");
-define("No", "No");
+define("YesLabel", "Si");
+define("NoLabel", "No");
 define("LangName", "Nombre del idioma");
 define("DownloadLangFile", "Descargar el template del archivo de idioma");
 define("UploadLangFile", "Subir el archivo de idioma traducido");
-define("TranslateLangFile", "Traducir el archivo descargado y renombrarlo con el correspondiente codigo de lenguage ISO de dos letras en minúsculas (http://reference.sitepoint.com/html/lang-codes)");
+define("TranslateLangFile", "Traducir el archivo descargado y renombrarlo con el correspondiente codigo de lenguage ISO de dos letras en minúsculas (<a target='_blank' href='http://www.sitepoint.com/web-foundations/iso-2-letter-language-codes/'>http://www.sitepoint.com/web-foundations/iso-2-letter-language-codes/</a>)");
 define("Logo", "Logo");
 define("TextColor", "Color de Texto");
 define("BackgroundColor", "Color de Fondo");
-define("ButtonPreview", "Vista Previa del Bot&oacute;n");
+define("ButtonPreview", "Vista previa del botón");
 define("WidgetWidth", "Ancho del Wdiget");
 define("WidgetRows", "Cantidad de Filas");
 define("WidgetColumns", "Cantidad de Columnas");
-define("ButtonLabel", "Label de Botones");
+define("ButtonLabel", "Texto en los botones");
 define("SelectOption", "Seleccione una opci&oacute;n");
 define("StandardView", "Vista Estandar");
 define("AdvancedView", "Vista Avanzada");
@@ -155,14 +154,14 @@ define("emptyErrorMessage", "El identificador de OpenID no puede estar vac&iacut
 //oauth
 define("CurlResponseError", "ESLIP ERROR: No fue posible acceder a %s: Se ha devuelto un estado inesperado %s. Respuesta: %s");
 define("OAuthVersionError", "ESLIP ERROR: %s no es una versión soportada del protocolo OAuth.");
-define("NoAccessTokenError", "ESLIP ERROR: Imposible realizar llamada a la API ya que no se posee access token.");
+define("NoAccessTokenError", "ESLIP ERROR: Imposible realizar llamada a la API ya que no se posee token de acceso.");
 define("RequestTokenDeniedError", "ESLIP ERROR: El Request Token fue denegado.");
-define("NotReturnedAccessTokenError", "ESLIP ERROR: No se devolvió el access token o el secret.");
-define("ExpiryTimeError", "ESLIP ERROR: El servidor OAuth devolvió un tipo no compatible de fecha de expiración de access token.");
+define("NotReturnedAccessTokenError", "ESLIP ERROR: No se devolvió el token de acceso o el secret.");
+define("ExpiryTimeError", "ESLIP ERROR: El servidor OAuth devolvió un tipo no compatible de fecha de expiración del token de acceso.");
 define("AuthorizationErrorWithCodeError", "ESLIP ERROR: Ha ocurrido un error en la autorización. Código de error OAuth: %s.");
 define("AuthorizationError", "ESLIP ERROR: Ha ocurrido un error en la autorización. No se ha devuelto el código de diálogo OAuth.");
-define("ServerNotReturnAccessTokenError", "ESLIP ERROR: El servidor OAuth no devolvió el access token.");
-define("ServerNotReturnAccessTokenWhiteCodeError", "ESLIP ERROR: No fue posible recuperar el access token: se devolvió el error: %s.");
+define("ServerNotReturnAccessTokenError", "ESLIP ERROR: El servidor OAuth no devolvió el token de acceso.");
+define("ServerNotReturnAccessTokenWhiteCodeError", "ESLIP ERROR: No fue posible recuperar el token de acceso: se devolvió el error: %s.");
 
 //Popover help
 define("HelpSiteUrl", "URL del sitio web en donde está incluyendo el plugin. Por ejemplo: http://www.example.com");
@@ -171,7 +170,7 @@ define("HelpPluginUrl", "URL donde se encuentra alojado el plugin dentro de su s
 define("HelpLanguage", "Aquí debe seleccionar el idioma en que quiera que se muestren los textos de la interfaz del plugin y del administrador.");
 
 define("HelpScopeRequired", "Atributos que se desean requerir al proveedor de identidad. Deben estar separados por coma.");
-define("HelpScopeOptional", "Atributos que se desean requerir al proveedor de identidad pero que serán opcionales. El proveedor de identidad puede o no retornarlos. Los diferentes scopes que se pueden solicitar pueden ser consultados en http://openid.net/specs/openid-attribute-properties-list-1_0-01.html#Prop_List. De cada scope se debe descartar la primer parte correspondiente a http://openid.net/schema/ la cual se repite en todos los scopes, y solamente se debe utilizar lo que se encuentra a continuación.");
+define("HelpScopeOptional", "Atributos que se desean requerir al proveedor de identidad pero que serán opcionales. El proveedor de identidad puede o no retornarlos. Los diferentes scopes que se pueden solicitar pueden ser consultados en <a href='http://openid.net/specs/openid-attribute-properties-list-1_0-01.html#Prop_List' target='_blank'>http://openid.net/specs/openid-attribute-properties-list-1_0-01.html#Prop_List</a>. De cada scope se debe descartar la primer parte correspondiente a http://openid.net/schema/ la cual se repite en todos los scopes, y solamente se debe utilizar lo que se encuentra a continuación.");
 define("HelpClientId", "Identificador provisto por la API OAuth para la aplicación externa creada en el proveedor de identidad correspondiente.");
 define("HelpClientSecret", "Clave secreta provista por la API OAuth para la aplicación externa creada en el proveedor de identidad correspondiente.");
 define("HelpScope", "Recursos que se desean obtener y que su propietario quien se autentica a través del proveedor de identidad debe autorizar para que sean concedidos.");

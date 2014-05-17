@@ -14,10 +14,10 @@
     <span class="glyphicon glyphicon-remove"></span> <span data-content="labels.messageError"></span>
 </div>
 
-<form id="downloadForm" class="form-horizontal" role="form">
+<form id="downloadForm" class="static-width-form form-horizontal" role="form">
     <div class="form-group">
-        <label for="downloadLangFile" class="col-sm-2 control-label"><span data-content="labels.downloadLangFile"></span>:</label>
-        <div class="col-sm-2">
+        <label for="downloadLangFile" class="col-sm-7 control-label"><span data-content="labels.downloadLangFile"></span>:</label>
+        <div class="col-sm-5">
             <button type="button" id="downloadLangFile" class="form-control btn btn-primary"><span class="glyphicon glyphicon-cloud-download"></span> <span data-content="labels.btnDownload"></span></button>
         </div>
     </div>
@@ -25,33 +25,32 @@
 
 <hr/>
 
-<div class="row">
-    <div class="col-sm-12">
-        <label for=""><span data-content="labels.translateLangFile"></span></label>
-    </div>
+<div class="bs-callout bs-callout-warning">
+    <h4 data-content="labels.langName"></h4>
+    <p data-content="labels.translateLangFile"></p>
 </div>
 
 <hr/>
 
-<form id="uploadForm" class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" target="hiddenUpload">
+<form id="uploadForm" class="static-width-form form-horizontal" role="form" method="POST" enctype="multipart/form-data" target="hiddenUpload">
 
     <div class="form-group">
-        <label for="langFile" class="col-sm-2 control-label"><span data-content="labels.uploadLangFile"></span>:</label>
-        <div class="col-sm-7">
+        <label for="langFile" class="col-sm-7 control-label"><span data-content="labels.uploadLangFile"></span>:</label>
+        <div class="col-sm-5">
             <input type="file" class="form-control file_upload" id="langFile" name="langFile">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="langName" class="col-sm-2 control-label"><span data-content="labels.langName"></span>:</label>
-        <div class="col-sm-7">
+        <label for="langName" class="col-sm-7 control-label"><span data-content="labels.langName"></span>:</label>
+        <div class="col-sm-5">
             <input type="text" class="form-control" id="langName" name="langName" value="">
         </div>
     </div>
 
     <div class="form-group">
-        <label for="uploadLangFile" class="col-sm-2 control-label"></label>
-        <div class="col-sm-2">
+        <label for="uploadLangFile" class="col-sm-7 control-label"></label>
+        <div class="col-sm-5">
             <button type="button" id="uploadLangFile" class="form-control btn btn-primary"><span class="glyphicon glyphicon-cloud-upload"></span> <span data-content="labels.btnUpload"></span></button>
         </div>
     </div>

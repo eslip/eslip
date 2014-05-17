@@ -72,6 +72,8 @@ function loadContent(url, params, template, container, callback){
 
 function submitData(url, params, callback){
 	apiPost(url, params, function(data){
+        console.log(data);
+        console.log(data.status == "SUCCESS");
 		if (data.status == "SUCCESS"){
 			if (typeof callback === "function"){
 				callback(data);
@@ -277,7 +279,9 @@ function apiPost(uri, data, callback){
 		async: true
 	}).done(function(data){
 		callback(data);
-	});
+	}).fail(function(data) {
+        callback(data);
+    });
 }
 
 function getFormData($form){
@@ -353,7 +357,14 @@ $.validator.setDefaults({
         if (offsetNumber < 0){
             $(offsetElement).focus();
         }else{
-            scrollToTop(offsetNumber-100);
+            //if ($.exists(".wizard"))
+            //{
+                scrollToTop(offsetNumber-$(offsetElement).parents('form').offset().top);
+            //}
+            //else
+            //{
+            //    scrollToTop(offsetNumber-100);    
+            //}
         }
     }
 });

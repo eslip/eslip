@@ -12,6 +12,31 @@ General
     height: 34px;
 }
 
+.form-group .control-label{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#idProvidersContainer{
+    width: 487px;
+}
+
+.static-width-form{
+    width: 520px;
+}
+
+.cut-text{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.stepTitle{
+    margin-bottom: 30px !important;
+    border-bottom: 2px solid #428bca;
+    padding-bottom: 10px;
+}
+
 /* Login Widget Code */
 
 .codeContainer{
@@ -86,8 +111,8 @@ General
 }
 
 #widgetRows[readonly], #widgetColumns[readonly] {
-cursor: auto;
-background-color: #fff;
+    cursor: auto;
+    background-color: #fff;
 }
 
 /*** Admin color picker ***/
@@ -182,7 +207,7 @@ Admin
 }
 
 /* modal wide */
-
+/*
 .modal-wide .modal-dialog {
   width: 60%;
 }
@@ -191,7 +216,7 @@ Admin
 .modal-dialog {
     width: 750px;
 }
-
+*/
 /* Popover */
 
 .modal .popover.right{
@@ -210,4 +235,53 @@ Admin
 
 #ESLIP_Plugin .eslip_button .eslip_button_image {
     margin-right: 0.5rem;
+}
+
+/* Side notes */
+ 
+.bs-callout{
+    margin: 20px 0;
+    padding: 20px;
+    border-left: 3px solid #eee;
+}
+
+.bs-callout h4{
+    margin-top:0;
+    margin-bottom:5px;
+}
+
+.bs-callout p:last-child{
+    margin-bottom:0;
+}
+
+.bs-callout code{
+    background-color:#fff;
+    border-radius:3px;
+}
+
+.bs-callout-danger{
+    background-color:#fdf7f7;
+    border-color:#d9534f;
+}
+
+.bs-callout-danger h4{
+    color:#d9534f;
+}
+
+.bs-callout-warning{
+    background-color:#fcf8f2;
+    border-color:#f0ad4e;
+}
+
+.bs-callout-warning h4{
+    color:#f0ad4e
+}
+
+.bs-callout-info{
+    background-color:#f4f8fa;
+    border-color:#5bc0de
+}
+
+.bs-callout-info h4{
+    color:#5bc0de
 }
