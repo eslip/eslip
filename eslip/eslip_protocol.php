@@ -27,6 +27,25 @@ class EslipException extends Exception {}
 class eslip_protocol {
 
     /**
+    * Instancia de la Api del plugin
+    *
+    * @var object
+    * @access protected
+    */
+
+    protected $eslip;
+
+    /**
+    * URL de la cual proviene el llamado al plugin para luego ser enviado de vuelta al sitio para que
+    * el desarrollador pueda redirigir
+    *
+    * @var string
+    * @access protected
+    */
+
+    protected $referer;
+
+    /**
     * Determina si se debe abandonar la ejecución del script
     *
     * @var boolean 

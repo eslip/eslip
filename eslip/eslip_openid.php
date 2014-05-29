@@ -31,25 +31,6 @@ class OpenIDException extends Exception {}
 class eslip_openid extends Eslip_protocol
 {
     /**
-    * Instancia de la Api del plugin
-    *
-    * @var object
-    * @access private
-    */
-
-    private $eslip;
-
-    /**
-    * URL de la cual proviene el llamado al plugin para luego ser enviado de vuelta al sitio para que
-    * el desarrollador pueda redirigir
-    *
-    * @var string
-    * @access private
-    */
-
-    private $referer;
-
-    /**
     * Arreglo con atributos que se desean requerir al proveedor de identidad
     *
     * @var array

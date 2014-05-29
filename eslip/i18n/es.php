@@ -174,6 +174,8 @@ define("HelpScopeOptional", "Atributos que se desean requerir al proveedor de id
 define("HelpClientId", "Identificador provisto por la API OAuth para la aplicación externa creada en el proveedor de identidad correspondiente.");
 define("HelpClientSecret", "Clave secreta provista por la API OAuth para la aplicación externa creada en el proveedor de identidad correspondiente.");
 define("HelpScope", "Recursos que se desean obtener y que su propietario quien se autentica a través del proveedor de identidad debe autorizar para que sean concedidos.");
+define("HelpFormUrl", "Dirección relativa dentro de la carpeta del plugin donde se encuentra el formulario donde el el usuario ingresa su identificador OpenID.");
+define("HelpImmediate", "Aquí se establece si la autenticación se va a realizar utilizando el modo inmediato.");
 
 define("HelpId", "Identificador único para cada proveedor de identidad. ESLIP ofrece una lista de identificadores precargados. El plugin provee un estilo de botón junto con el correspondiente icono para cada identificador.");
 define("HelpName", "Nombre para identificar el proveedor de identidad dentro del administrador del plugin.");

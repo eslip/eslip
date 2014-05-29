@@ -355,6 +355,10 @@
 				"HelpAccessTokenExtraParameterName" => HelpAccessTokenExtraParameterName,
 				"HelpUserDataUrl" => HelpUserDataUrl,
 				"HelpUserDataIdKey" => HelpUserDataIdKey,
+				"HelpScopeRequired" => HelpScopeRequired,
+				"HelpScopeOptional" => HelpScopeOptional,
+				"HelpFormUrl" => HelpFormUrl,
+				"HelpImmediate" => HelpImmediate,
 				"btnNew" => btnNew,
 				"btnEdit" => btnEdit
 			);

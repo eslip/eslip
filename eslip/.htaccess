@@ -9,5 +9,7 @@
 	RewriteRule eslip_frontend_services/(.*)$ eslip_frontend_services.php [QSA,NC,L]
 
 	RewriteCond %{REQUEST_FILENAME} -s
-	RewriteRule eslip_frontend_services/(.*)$ eslip_frontend_services.php [QSA,NC,L]	
+	RewriteRule eslip_frontend_services/(.*)$ eslip_frontend_services.php [QSA,NC,L]
+
+	RewriteRule ^config.xml$ index.php
 </IfModule>
