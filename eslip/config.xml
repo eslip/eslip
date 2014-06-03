@@ -5,7 +5,7 @@
       <language>
         <name>Espa&amp;ntilde;ol</name>
         <code>es</code>
-        <selected>0</selected>
+        <selected>1</selected>
       </language>
       <language>
         <name>English</name>
@@ -13,16 +13,16 @@
         <selected>0</selected>
       </language>
     </languages>
-    <pluginUrl></pluginUrl>
-    <callbackUrl></callbackUrl>
-    <siteUrl></siteUrl>
-    <adminUser></adminUser>
-    <adminPass></adminPass>
+    <pluginUrl>http://localhost/eslip-plugin/eslip/</pluginUrl>
+    <callbackUrl>http://localhost/eslip-plugin/example/login.php</callbackUrl>
+    <siteUrl>http://localhost/eslip-plugin/example/</siteUrl>
+    <adminUser>nicolas</adminUser>
+    <adminPass>3adb6313def794171d0e53d9d2a8b2fde64cf9e7</adminPass>
     <runWizard>1</runWizard>
     <loginWidget>
-      <widgetWidth></widgetWidth>
+      <widgetWidth>500px</widgetWidth>
       <widgetRows>0</widgetRows>
-      <widgetColumns>1</widgetColumns>
+      <widgetColumns>2</widgetColumns>
       <buttonLabel>1</buttonLabel>
     </loginWidget>
   </configuration>
@@ -30,26 +30,26 @@
     <identityProvider id="openid">
       <name>OpenID</name>
       <label>Login con OpenID</label>
-      <active>0</active>
+      <active>1</active>
       <formUrl>frontend/openid_form.php</formUrl>
-      <scopeRequired></scopeRequired>
-      <scopeOptional></scopeOptional>
+      <scopeRequired>contact/email</scopeRequired>
+      <scopeOptional>namePerson,namePerson/friendly</scopeOptional>
       <userDataIdKey>openid_claimed_id</userDataIdKey>
       <immediate>0</immediate>
     </identityProvider>
     <identityProvider id="facebook">
       <name>Facebook</name>
       <label>Login con Facebook</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>2.0</oauth>
       <requestTokenUrl/>
       <dialogUrl>https://www.facebook.com/dialog/oauth?client_id={CLIENT_ID}&amp;display=popup&amp;redirect_uri={REDIRECT_URI}&amp;scope={SCOPE}&amp;state={STATE}</dialogUrl>
       <accessTokenUrl>https://graph.facebook.com/oauth/access_token</accessTokenUrl>
       <authorizationHeader>1</authorizationHeader>
       <urlParameters>0</urlParameters>
-      <clientId></clientId>
-      <clientSecret></clientSecret>
-      <scope></scope>
+      <clientId>586708388078241</clientId>
+      <clientSecret>85a6de0087d2d9f9adcc4b150a2c98cd</clientSecret>
+      <scope>email</scope>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
       <userDataUrl>https://graph.facebook.com/me</userDataUrl>
@@ -59,15 +59,15 @@
     <identityProvider id="twitter">
       <name>Twitter</name>
       <label>Login con Twitter</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>1.0a</oauth>
       <requestTokenUrl>https://api.twitter.com/oauth/request_token</requestTokenUrl>
       <dialogUrl>https://api.twitter.com/oauth/authenticate</dialogUrl>
       <accessTokenUrl>https://api.twitter.com/oauth/access_token</accessTokenUrl>
       <authorizationHeader>1</authorizationHeader>
       <urlParameters>1</urlParameters>
-      <clientId></clientId>
-      <clientSecret></clientSecret>
+      <clientId>wmOE1qpl4IaDEt3uiBrX9g</clientId>
+      <clientSecret>wyz5POiQUe8DekJ2tllmJd4ujiHwJihsnXf8Gpqq6A</clientSecret>
       <scope/>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
@@ -78,7 +78,7 @@
     <identityProvider id="yahoo">
       <name>Yahoo</name>
       <label>Login con Yahoo</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>1.0a</oauth>
       <requestTokenUrl>https://api.login.yahoo.com/oauth/v2/get_request_token</requestTokenUrl>
       <dialogUrl>https://api.login.yahoo.com/oauth/v2/request_auth</dialogUrl>
@@ -97,15 +97,15 @@
     <identityProvider id="dropbox">
       <name>Dropbox</name>
       <label>Login con Dropbox</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>1.0</oauth>
       <requestTokenUrl>https://api.dropbox.com/1/oauth/request_token</requestTokenUrl>
       <dialogUrl>https://www.dropbox.com/1/oauth/authorize</dialogUrl>
       <accessTokenUrl>https://api.dropbox.com/1/oauth/access_token</accessTokenUrl>
       <authorizationHeader>0</authorizationHeader>
       <urlParameters>0</urlParameters>
-      <clientId></clientId>
-      <clientSecret></clientSecret>
+      <clientId>ia0i2mutm4gxpkz</clientId>
+      <clientSecret>im6osgjkhlvazwa</clientSecret>
       <scope/>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
@@ -116,15 +116,15 @@
     <identityProvider id="flickr">
       <name>Flickr</name>
       <label>Login con Flickr</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>1.0a</oauth>
       <requestTokenUrl>http://www.flickr.com/services/oauth/request_token</requestTokenUrl>
       <dialogUrl>http://www.flickr.com/services/oauth/authorize</dialogUrl>
       <accessTokenUrl>http://www.flickr.com/services/oauth/access_token</accessTokenUrl>
       <authorizationHeader>0</authorizationHeader>
       <urlParameters>0</urlParameters>
-      <clientId></clientId>
-      <clientSecret></clientSecret>
+      <clientId>723b9981f91c69c305260fe274009a0f</clientId>
+      <clientSecret>8234f096d7bcaf14</clientSecret>
       <scope/>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
@@ -135,34 +135,34 @@
     <identityProvider id="foursquare">
       <name>Foursquare</name>
       <label>Login con Foursquare</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>2.0</oauth>
       <requestTokenUrl/>
       <dialogUrl>https://foursquare.com/oauth2/authorize?client_id={CLIENT_ID}&amp;scope={SCOPE}&amp;response_type=code&amp;redirect_uri={REDIRECT_URI}&amp;state={STATE}</dialogUrl>
       <accessTokenUrl>https://foursquare.com/oauth2/access_token</accessTokenUrl>
       <authorizationHeader>1</authorizationHeader>
       <urlParameters>0</urlParameters>
-      <clientId></clientId>
-      <clientSecret></clientSecret>
+      <clientId>A3YRKN4IX24XJLE1AS5SULAG15V40SN3PA0WXEH3R3EGIOSG</clientId>
+      <clientSecret>RZZK25SCURNKX1VLWLXK0HPZDERNO4YNQYHE5ZTTDBTXJWNC</clientSecret>
       <scope/>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
       <userDataUrl>https://api.foursquare.com/v2/users/self</userDataUrl>
-      <userDataIdKey></userDataIdKey>
+      <userDataIdKey>firstName</userDataIdKey>
       <apiCallParameters>oauth_token={ACCESS_TOKEN}&amp;v=20140429</apiCallParameters>
     </identityProvider>
     <identityProvider id="github">
       <name>Github</name>
       <label>Login con Github</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>2.0</oauth>
       <requestTokenUrl/>
       <dialogUrl>https://github.com/login/oauth/authorize?client_id={CLIENT_ID}&amp;redirect_uri={REDIRECT_URI}&amp;scope={SCOPE}&amp;state={STATE}</dialogUrl>
       <accessTokenUrl>https://github.com/login/oauth/access_token</accessTokenUrl>
       <authorizationHeader>1</authorizationHeader>
       <urlParameters>0</urlParameters>
-      <clientId></clientId>
-      <clientSecret></clientSecret>
+      <clientId>ac07e07465abe8e7b661</clientId>
+      <clientSecret>f35d0d3b799019810d2bcd9a114cdda12ae34d3c</clientSecret>
       <scope/>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
@@ -173,15 +173,15 @@
     <identityProvider id="google">
       <name>Google</name>
       <label>Login con Google</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>2.0</oauth>
       <requestTokenUrl/>
       <dialogUrl>https://accounts.google.com/o/oauth2/auth?response_type=code&amp;client_id={CLIENT_ID}&amp;redirect_uri={REDIRECT_URI}&amp;scope={SCOPE}&amp;state={STATE}</dialogUrl>
       <accessTokenUrl>https://accounts.google.com/o/oauth2/token</accessTokenUrl>
       <authorizationHeader>1</authorizationHeader>
       <urlParameters>0</urlParameters>
-      <clientId></clientId>
-      <clientSecret></clientSecret>
+      <clientId>629599750618-ed6ms1csot717ges9ov77htbtmocmh9f.apps.googleusercontent.com</clientId>
+      <clientSecret>_IU9N28_pj8Cr3gRm0r4oNhn</clientSecret>
       <scope>https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile</scope>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
@@ -192,16 +192,16 @@
     <identityProvider id="linkedin">
       <name>LinkedIn</name>
       <label>Login con LinkedIn</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>1.0a</oauth>
       <requestTokenUrl>https://api.linkedin.com/uas/oauth/requestToken?scope={SCOPE}</requestTokenUrl>
       <dialogUrl>https://api.linkedin.com/uas/oauth/authenticate</dialogUrl>
       <accessTokenUrl>https://api.linkedin.com/uas/oauth/accessToken</accessTokenUrl>
       <authorizationHeader>1</authorizationHeader>
       <urlParameters>0</urlParameters>
-      <clientId></clientId>
-      <clientSecret></clientSecret>
-      <scope></scope>
+      <clientId>756e3ohl654af3</clientId>
+      <clientSecret>9x8AMSLeZbyNY0ZO</clientSecret>
+      <scope>r_fullprofile</scope>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
       <userDataUrl>http://api.linkedin.com/v1/people/~?format=json</userDataUrl>
@@ -211,16 +211,16 @@
     <identityProvider id="windows">
       <name>Windows</name>
       <label>Login con Windows Live</label>
-      <active>0</active>
+      <active>1</active>
       <oauth>2.0</oauth>
       <requestTokenUrl/>
       <dialogUrl>https://login.live.com/oauth20_authorize.srf?client_id={CLIENT_ID}&amp;scope={SCOPE}&amp;response_type=code&amp;redirect_uri={REDIRECT_URI}&amp;state={STATE}</dialogUrl>
       <accessTokenUrl>https://login.live.com/oauth20_token.srf</accessTokenUrl>
       <authorizationHeader>1</authorizationHeader>
       <urlParameters>0</urlParameters>
-      <clientId></clientId>
-      <clientSecret></clientSecret>
-      <scope></scope>
+      <clientId>000000004C10E300</clientId>
+      <clientSecret>IIH-dVSS9fAibItNQuQubJRGLb6lgsga</clientSecret>
+      <scope>wl.basic wl.emails</scope>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
       <userDataUrl>https://apis.live.net/v5.0/me</userDataUrl>

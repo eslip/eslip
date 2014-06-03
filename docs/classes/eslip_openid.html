@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">12</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1272894044"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1272894044" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Eslip.html">Eslip</a></li>
+                                                    <li class="class"><a href="../classes/EslipXMLApi.html">EslipXMLApi</a></li>
+                                                    <li class="class"><a href="../classes/FrontendServiceApi.html">FrontendServiceApi</a></li>
+                                                    <li class="class"><a href="../classes/eslip_oauth.html">eslip_oauth</a></li>
+                                                    <li class="class"><a href="../classes/OpenIDException.html">OpenIDException</a></li>
+                                                    <li class="class"><a href="../classes/eslip_openid.html">eslip_openid</a></li>
+                                                    <li class="class"><a href="../classes/EslipException.html">EslipException</a></li>
+                                                    <li class="class"><a href="../classes/eslip_protocol.html">eslip_protocol</a></li>
+                                                    <li class="class"><a href="../classes/EslipServices.html">EslipServices</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>eslip_openid</h1>
+                    <p><em>ESLIP OpenID</em></p>
+                    <p>Esta clase implementa una interfaz para autenticar un usuario a traves del protocolo
+OpenID. Soporta tanto las versiones 1.0 como la 2.0 del protocolo.</p>
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/eslip_openid.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_Process" class="">Process()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_Authenticate" class="">Authenticate()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_getAttributes" class="">getAttributes()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/eslip_openid.html#method_prep_trust_url" class="">prep_trust_url()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_ProcessIdentity" class="">ProcessIdentity()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_GetRequestMode" class="">GetRequestMode()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_request" class="">request()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_getValueOfHtmlTag" class="">getValueOfHtmlTag()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_discover" class="">discover()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_sregParams" class="">sregParams()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_axParams" class="">axParams()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_authUrl_v1" class="">authUrl_v1()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_authUrl_v2" class="">authUrl_v2()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_authUrl" class="">authUrl()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_validate" class="">validate()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_getAxAttributes" class="">getAxAttributes()</a><br />
+                                                                    <a href="../classes/eslip_openid.html#method_getSregAttributes" class="">getSregAttributes()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/eslip_openid.html#property_required" class="">$required</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_optional" class="">$optional</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_returnUrl" class="">$returnUrl</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_trustRoot" class="">$trustRoot</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_openid_form_url" class="">$openid_form_url</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_data" class="">$data</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_mode" class="">$mode</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_identity" class="">$identity</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_claimed_id" class="">$claimed_id</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_ax" class="">$ax</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_sreg" class="">$sreg</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_server" class="">$server</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_version" class="">$version</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_identifier_select" class="">$identifier_select</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_immediate" class="">$immediate</a><br />
+                                                                    <a href="../classes/eslip_openid.html#property_ax_to_sreg" class="">$ax_to_sreg</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/eslip_openid.php.html"><div class="path-wrapper">eslip_openid.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Eslip</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper">\Eslip_protocol</div>
+                                                                                                    <div class="namespace-wrapper">\eslip_openid</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Nicolás Burghi [nicoburghi@gmail.com]</p>
+                                                                    <p>Martín Estigarribia [martinestiga@gmail.com]</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                license
+                            </th>
+                            <td>
+                                                                    <p><a href="http://opensource.org/licenses/mit-license.php">http://opensource.org/licenses/mit-license.php</a> The MIT License (MIT)</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                todo
+                            </th>
+                            <td>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_required" name="property_required" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$required</h3>
+                <pre class="signature">$required : array</pre>
+                <p><em>Arreglo con atributos que se desean requerir al proveedor de identidad</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_optional" name="property_optional" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$optional</h3>
+                <pre class="signature">$optional : array</pre>
+                <p><em>Arreglo con atributos que se desean requerir al proveedor de identidad pero serán opcionales</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_returnUrl" name="property_returnUrl" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$returnUrl</h3>
+                <pre class="signature">$returnUrl : string</pre>
+                <p><em>URL a donde debe retornar el proveedor de identidad. Debe ser la URL del script  que procesa la
+respuesta del proveedor de identidad</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_trustRoot" name="property_trustRoot" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$trustRoot</h3>
+                <pre class="signature">$trustRoot : string</pre>
+                <p><em>URL del sitio que esta implementando el plugin para ser mostrado en el proveedor de identidad a la
+hora de pedir autenticacion</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_openid_form_url" name="property_openid_form_url" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$openid_form_url</h3>
+                <pre class="signature">$openid_form_url : string</pre>
+                <p><em>URL de la ubicacion del formulario donde el usuario debe insertar su OpenID</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_data" name="property_data" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$data</h3>
+                <pre class="signature">$data : array</pre>
+                <p><em>Datos enviados al plugin via GET o POST</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_mode" name="property_mode" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$mode</h3>
+                <pre class="signature">$mode : string</pre>
+                <p><em>Modo que devuelve en la resupesta el proveedor de identidad</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_identity" name="property_identity" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$identity</h3>
+                <pre class="signature">$identity : string</pre>
+                <p><em>Identificador OpenID que el usuario ingresa en el formulario</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_claimed_id" name="property_claimed_id" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$claimed_id</h3>
+                <pre class="signature">$claimed_id : string</pre>
+                <p><em>Es el identificador reclamado. Este identificador es una URL que el usuario final dice poseer
+pero aún no fue verificada.</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_ax" name="property_ax" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$ax</h3>
+                <pre class="signature">$ax : boolean</pre>
+                <p><em>Indica si el servidor OpenID implementa la extención AX (Attribute Exchange) para luego
+enviarle los parametros correspondientes para obtener los datos deseados del usuario</em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_sreg" name="property_sreg" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$sreg</h3>
+                <pre class="signature">$sreg : boolean</pre>
+                <p><em>Indica si el servidor OpenID implementa la extención SREG (Simple Registration) para luego
+enviarle los parametros correspondientes para obtener los datos deseados del usuario</em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_server" name="property_server" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$server</h3>
+                <pre class="signature">$server : string</pre>
+                <p><em>Contiene la URL del servidor OpenID. Extremo del protocolo obtenido de realizar el descubrimiento.</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_version" name="property_version" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$version</h3>
+                <pre class="signature">$version : integer</pre>
+                <p><em>Version del servidor OpenID identificado en el proceso de descubrimiento</em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_identifier_select" name="property_identifier_select" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$identifier_select</h3>
+                <pre class="signature">$identifier_select : boolean</pre>
+                <p><em>Especifica si el servidor OpenID soporta Identifier Select</em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_immediate" name="property_immediate" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$immediate</h3>
+                <pre class="signature">$immediate : boolean</pre>
+                <p><em>Determina si la autenticacion se va a realizar utilizando el modo inmediato</em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_ax_to_sreg" name="property_ax_to_sreg" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$ax_to_sreg</h3>
+                <pre class="signature">$ax_to_sreg : array</pre>
+                <p><em>Arreglo para mapear nombres de parametros de la extencion AX a nombres de la extension SREG o viceversa</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(object <span class="argument">$eslip</span>, string <span class="argument">$referer</span>)</pre>
+                <p><em>Metodo constructor de la clase. Se inicializan las variables de configuración del plugin</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>object</td>
+                                <td>$eslip</td>
+                                <td><p>Instancia de la clase Eslip</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$referer</td>
+                                <td><p>URL de la cual proviene el llamado al plugin para luego ser enviado de vuelta</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\EslipException</dt>
+                            <dd><p>Si el constructor no recibe el parametro $eslip_data</p></dd>
+                                                    <dt>\EslipException</dt>
+                            <dd><p>Si el constructor no recibe el parametro $identity_provider</p></dd>
+                                                    <dt>\EslipException</dt>
+                            <dd><p>Si el constructor no recibe el parametro $site_url</p></dd>
+                                                                    </dl>
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_Process" name="method_Process" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">Process()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">Process()</pre>
+                <p><em>Realiza el llamado de todos los metodos necesarios por ESLIP para realizar la identificacion
+del usuario. Si todo el proceso se realiza satisfactoriamente se redirige a un script el
+cual postea los datos obtenidos del proveedor de identidad a la URL configurada.</em></p>
+                
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_Authenticate" name="method_Authenticate" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">Authenticate()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">Authenticate() : boolean</pre>
+                <p><em>Realiza el procesamiento de la interaccion entre el plugin y el servidor OpenID, de acuerdo a
+la especificacion del protocolo OpenID</em></p>
+                
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\EslipException</dt>
+                            <dd><p>Si el proveedor de identidad devuelve el parametro modo con el valor 'cancel'</p></dd>
+                                                    <dt>\EslipException</dt>
+                            <dd><p>Si el proveedor de identidad devuelve el parametro modo con un valor distinto a 'id_res'</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE si se termina la ejecucion del metodo</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAttributes" name="method_getAttributes" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAttributes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAttributes() : array</pre>
+                <p><em>Obtiene los atributos tanto de la extension AX como de SREG devueltas por el proveedor de identidad.</em></p>
+                <p>Debe utilizarse sólo después de que se haya validado con éxito la autenticacion. Hay que tener en
+cuenta que esto no garantiza que cualquiera de los parámetros necesarios u opcionales van a estar
+presentes, o que no habrá otros atributos además de los especificados. En otras palabras, el
+proveedor de identidad puede proporcionar toda la información que quiera.</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Recursos devueltos por el proveedor de identidad</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_prep_trust_url" name="method_prep_trust_url" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">prep_trust_url()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">prep_trust_url(string <span class="argument">$site_url</span>) : string</pre>
+                <p><em>Prepara la URL del sitio que implementa el plugin para que pueda ser utilizada correctamente
+como lo indica el protocolo OpenID</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$site_url</td>
+                                <td><p>URL que se quiere preparar</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>URL preparada</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_ProcessIdentity" name="method_ProcessIdentity" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">ProcessIdentity()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">ProcessIdentity() : string</pre>
+                <p><em>Procesa y prepara el identificador OpenID que el usuario ingresa en el formulario o que ya se encuentra
+en la sesion para que pueda ser utilizada correctamente como lo indica el protocolo OpenID</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>identificador del usuario</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_GetRequestMode" name="method_GetRequestMode" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">GetRequestMode()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">GetRequestMode() : string</pre>
+                <p><em>Devuelve el parametro mode que se utiliza para distinguir que mensaje está siendo enviado o recibido. El mismo
+esta presente en todos los mensajes de OpenID</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>parametro mode</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_request" name="method_request" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">request()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">request(string <span class="argument">$url</span>, string <span class="argument">$method</span>, array <span class="argument">$params</span>, boolean <span class="argument">$update_claimed_id</span>, boolean <span class="argument">$includeHeader</span>) : array</pre>
+                <p><em>Realiza una peticion utlizando la libreria cURL a una URL con opciones y parametros especificos.</em></p>
+                <p>La URL con la que se desea comunicar, y los parametros que se utilizan son recibidos por este metodo
+por parametro.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$url</td>
+                                <td><p>URL con la que nos queremos comunicar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$method</td>
+                                <td><p>Metodo HTTP que se va a utilizar para comunicarse con el destino</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>array</td>
+                                <td>$params</td>
+                                <td><p>Parametros que se van a enviar en la petición</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$update_claimed_id</td>
+                                <td><p>Determina si se debe actualizar la propiedad de la clase claimed_id</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$includeHeader</td>
+                                <td><p>Determina si el servidor con el que nos comunicamos debe incluir la cabezera HTTP en la respuesta</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Arreglo con los datos devueltos por la URL con la que nos comunicamos</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getValueOfHtmlTag" name="method_getValueOfHtmlTag" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getValueOfHtmlTag()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getValueOfHtmlTag(string <span class="argument">$content</span>, string <span class="argument">$tag</span>, string <span class="argument">$attrName</span>, string <span class="argument">$attrValue</span>, string <span class="argument">$valueName</span>) : string</pre>
+                <p><em>Función de ayuda usada para analizar las etiquetas HTML &lt;meta&gt; o &lt;link&gt; extraer información de ellas</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$content</td>
+                                <td><p>Contenido HTML en el que se va a realizar la busqueda</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$tag</td>
+                                <td><p>Elemento HTML en el que se encuentra el Atributo que queremos saber su valor</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$attrName</td>
+                                <td><p>Atributo selector por el que vamos a buscar el elemento</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$attrValue</td>
+                                <td><p>Valor que debe tener el atributo selector</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$valueName</td>
+                                <td><p>Atributo del cual queremos saber su valor</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>con el valor buscado si existe o FALSE si no se encuentra nada</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_discover" name="method_discover" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">discover()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">discover(mixed <span class="argument">$url</span>) : string</pre>
+                <p><em>Realiza el descubrimiento Yadis</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$url</td>
+                                <td><p>URL de identificacion OpenID que el usuario ingresa en el formulario</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\EslipException</dt>
+                            <dd><p>Si no se proporciona el parametro $url</p></dd>
+                                                    <dt>\EslipException</dt>
+                            <dd><p>Si no se puede descubrir el servidor OpenID</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Extremo del protocolo. URL del servidor OpenID</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_sregParams" name="method_sregParams" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">sregParams()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">sregParams() : array</pre>
+                <p><em>Arma el arreglo con los parametros necesarios que entiende la extension SREG para
+solicitar al proveedor de identidad los atributos requeridos u opcionales que fueron
+configurados previamente.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Parametros que entiende la extension SREG para solicitar atributos</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_axParams" name="method_axParams" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">axParams()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">axParams() : array</pre>
+                <p><em>Arma el arreglo con los parametros necesarios que entiende la extension AX para
+solicitar al proveedor de identidad los atributos requeridos u opcionales que fueron
+configurados previamente.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Parametros que entiende la extension AX para solicitar atributos</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_authUrl_v1" name="method_authUrl_v1" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">authUrl_v1()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">authUrl_v1() : string</pre>
+                <p><em>Forma la URL para servidores que implementen la version 1 de OpenID a la cual se va a
+redirigir el navegador para que el proveedor de identidad confirme la identidad reclamada</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>URL del servidor OpenID con todos los parametros necesarios</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_authUrl_v2" name="method_authUrl_v2" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">authUrl_v2()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">authUrl_v2() : string</pre>
+                <p><em>Forma la URL para servidores que implementen la version 2 de OpenID a la cual se va a
+redirigir el navegador para que el proveedor de identidad confirme la identidad reclamada</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>URL del servidor OpenID con todos los parametros necesarios</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_authUrl" name="method_authUrl" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">authUrl()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">authUrl() : string</pre>
+                <p><em>Devoluelve la URL de autenticación a la cual se va a redirigir al usuario para que el
+proveedor de identidad confirme la identidad reclamada</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>URL del servidor OpenID con todos los parametros necesarios de acuerdo a la version del servidor</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validate" name="method_validate" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">validate()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validate() : boolean</pre>
+                <p><em>Realiza la verificación de OpenID con el proveedor de identidad. Valida la autenticacion realizada
+en el proveedor de identidad.</em></p>
+                
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\EslipException</dt>
+                            <dd><p>Si el parametro 'return_to' devuelto luego de la autencacion por el proveedor de identidad coincide que el configurado previamente</p></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>Si la verificación se ha realizado correctamente.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAxAttributes" name="method_getAxAttributes" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getAxAttributes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAxAttributes() : array</pre>
+                <p><em>Analiza los parametros devueltos por el proveedor de identidad correspondientes
+a recursos solicitados. Analiza los parametros referentes a la extension AX</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Recursos devueltos por el proveedor de identidad referentes a la extension AX</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSregAttributes" name="method_getSregAttributes" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getSregAttributes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSregAttributes() : array</pre>
+                <p><em>Analiza los parametros devueltos por el proveedor de identidad correspondientes
+a recursos solicitados. Analiza los parametros referentes a la extension SREG</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>Recursos devueltos por el proveedor de identidad referentes a la extension SREG</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">eslip_openid.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/eslip_openid.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on June 3rd, 2014 at 03:52.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

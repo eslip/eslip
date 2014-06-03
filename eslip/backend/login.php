@@ -47,7 +47,7 @@ if(isset($_SESSION['referrer'])){
 		    <div class="row">
 
 		        <div class="col-sm-12">
-		            <img src="images/logo.jpg" class="col-sm-12" alt="<?php echo Login; ?>">
+		            <img src="images/eslip-logo.png" class="col-sm-12" alt="<?php echo Login; ?>">
 		        </div>
 
 		    </div>

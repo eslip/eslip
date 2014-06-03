@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                    <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                    </ul>
+                    </li>
+                    <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">12</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1590086525"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1590086525" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Eslip.html">Eslip</a></li>
+                                                    <li class="class"><a href="../classes/EslipXMLApi.html">EslipXMLApi</a></li>
+                                                    <li class="class"><a href="../classes/FrontendServiceApi.html">FrontendServiceApi</a></li>
+                                                    <li class="class"><a href="../classes/eslip_oauth.html">eslip_oauth</a></li>
+                                                    <li class="class"><a href="../classes/OpenIDException.html">OpenIDException</a></li>
+                                                    <li class="class"><a href="../classes/eslip_openid.html">eslip_openid</a></li>
+                                                    <li class="class"><a href="../classes/EslipException.html">EslipException</a></li>
+                                                    <li class="class"><a href="../classes/eslip_protocol.html">eslip_protocol</a></li>
+                                                    <li class="class"><a href="../classes/EslipServices.html">EslipServices</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>EslipXMLApi</h1>
+                    <p><em>ESLIP XML API</em></p>
+                    <p>API para manipular el archivo XML de configuración. Implementa una interfaz para obtener
+y guardar facilmente información en el archivo XML de configuración.</p>
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/EslipXMLApi.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_getElementValue" class="">getElementValue()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_setElementValue" class="">setElementValue()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_getElementList" class="">getElementList()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_getElementById" class="">getElementById()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_updateElementById" class="">updateElementById()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_updateElement" class="">updateElement()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_addElement" class="">addElement()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_removeElementById" class="">removeElementById()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_getElementListByFieldValue" class="">getElementListByFieldValue()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_setElementListByFieldValue" class="">setElementListByFieldValue()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_getElementAttributesListById" class="">getElementAttributesListById()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_getElementAttributeById" class="">getElementAttributeById()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_setElementAttributeById" class="">setElementAttributeById()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_setElementAttributesById" class="">setElementAttributesById()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/EslipXMLApi.html#method_getXml" class="">getXml()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_saveXml" class="">saveXml()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_saveFormattedXml" class="">saveFormattedXml()</a><br />
+                                                                    <a href="../classes/EslipXMLApi.html#method_getQuery" class="">getQuery()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/EslipXMLApi.html#property_xmlFile" class="">$xmlFile</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/eslip.php.html"><div class="path-wrapper">eslip.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Eslip</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\EslipXMLApi</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Nicolás Burghi [nicoburghi@gmail.com]</p>
+                                                                    <p>Martín Estigarribia [martinestiga@gmail.com]</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                license
+                            </th>
+                            <td>
+                                                                    <p><a href="http://opensource.org/licenses/mit-license.php">http://opensource.org/licenses/mit-license.php</a> The MIT License (MIT)</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                todo
+                            </th>
+                            <td>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_xmlFile" name="property_xmlFile" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$xmlFile</h3>
+                <pre class="signature">$xmlFile : string</pre>
+                <p><em>Archivo de configuración del plugin</em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct()</pre>
+                <p><em>Metodo constructor de la clase. Se inicializa la variable de clase que contiene la ubicación
+del archivo XML de configuración.</em></p>
+                
+
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getElementValue" name="method_getElementValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getElementValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getElementValue(String <span class="argument">$element</span>, String <span class="argument">$parent</span>) : Object</pre>
+                <p><em>Retorna el valor de un determinado elemento del XML de configuración</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento del XML del cual se desea buscar su valor</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$parent</td>
+                                <td><p>cadena que representa al padre del elemento en cuestión, en caso de que se conozca</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    Object
+                                            &mdash; <p>valor del elemento</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setElementValue" name="method_setElementValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setElementValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setElementValue(String <span class="argument">$element</span>, Object <span class="argument">$value</span>, String <span class="argument">$parent</span>)</pre>
+                <p><em>Asigna un valor a un determinado elemento del XML de configuración</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento del XML al cual se desea asignarle un valor</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>Object</td>
+                                <td>$value</td>
+                                <td><p>valor que será asignado al elemento</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$parent</td>
+                                <td><p>cadena que representa al padre del elemento en cuestión, en caso de que se conozca</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getElementList" name="method_getElementList" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getElementList()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getElementList(String <span class="argument">$element</span>, String <span class="argument">$parent</span>) : Array</pre>
+                <p><em>Retorna una lista de elementos SimpleXMLElement</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento del XML que se desea buscar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$parent</td>
+                                <td><p>cadena que representa al padre del elemento en cuestión, en caso de que se conozca</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    Array
+                                            &mdash; <p>lista de elementos SimpleXMLElement encontrados</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getElementById" name="method_getElementById" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getElementById()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getElementById(String <span class="argument">$element</span>, String <span class="argument">$elementId</span>) : \SimpleXMLElement</pre>
+                <p><em>Retorna un elemento SimpleXMLElement determinado por el valor de su atributo id</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento del XML que se desea buscar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$elementId</td>
+                                <td><p>id del elemento en cuestión</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \SimpleXMLElement
+                                            &mdash; <p>elemento encontrado</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateElementById" name="method_updateElementById" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">updateElementById()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateElementById(Array <span class="argument">$fields</span>, Array <span class="argument">$values</span>, String <span class="argument">$element</span>, String <span class="argument">$elementId</span>)</pre>
+                <p><em>Actualiza los valores de los campos especificados de un elemento del XML determinado por el valor de su atributo id</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>Array</td>
+                                <td>$fields</td>
+                                <td><p>lista de los campos que serán actualizados</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>Array</td>
+                                <td>$values</td>
+                                <td><p>lista con los valores que serán asignados a los campos</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento del XML que se desea actualizar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$elementId</td>
+                                <td><p>id del elemento que se desea actualizar</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_updateElement" name="method_updateElement" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">updateElement()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">updateElement(Array <span class="argument">$fields</span>, Array <span class="argument">$values</span>, String <span class="argument">$element</span>)</pre>
+                <p><em>Actualiza los valores de los campos especificados de los elementos del XML</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>Array</td>
+                                <td>$fields</td>
+                                <td><p>lista de los campos que serán actualizados</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>Array</td>
+                                <td>$values</td>
+                                <td><p>lista con los valores que serán asignados a los campos</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa a los elemento del XML que se desea actualizar</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addElement" name="method_addElement" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addElement()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addElement(String <span class="argument">$id</span>, Array <span class="argument">$fields</span>, Array <span class="argument">$values</span>, String <span class="argument">$element</span>, String <span class="argument">$parent</span>)</pre>
+                <p><em>Agrega un elemento al XML</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>String</td>
+                                <td>$id</td>
+                                <td><p>atributo id que tendrá el elemento</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>Array</td>
+                                <td>$fields</td>
+                                <td><p>lista de los campos que tendrá el elemento</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>Array</td>
+                                <td>$values</td>
+                                <td><p>lista con los valores de los campos del elemento</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento a agregar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$parent</td>
+                                <td><p>cadena que representa al quién será el padre del elemento a agregar</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_removeElementById" name="method_removeElementById" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">removeElementById()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">removeElementById(String <span class="argument">$element</span>, String <span class="argument">$elementId</span>)</pre>
+                <p><em>Elimina un elemento del XML determinado por el valor de su atributo id</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento del XML que se desea eliminar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$elementId</td>
+                                <td><p>id del elemento que se desea eliminar</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getElementListByFieldValue" name="method_getElementListByFieldValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getElementListByFieldValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getElementListByFieldValue(String <span class="argument">$field</span>, String <span class="argument">$value</span>, String <span class="argument">$element</span>, String <span class="argument">$parent</span>) : Array</pre>
+                <p><em>Retorna una lista de elementos SimpleXMLElement determinada por el valor de un determinado campo</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>String</td>
+                                <td>$field</td>
+                                <td><p>cadena que representa al campo por el cual se desea buscar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$value</td>
+                                <td><p>cadena que representa al valor del campo por el cual se desea buscar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento del XML que se desea buscar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$parent</td>
+                                <td><p>cadena que representa al padre del elemento en cuestión, en caso de que se conozca</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    Array
+                                            &mdash; <p>lista de elementos SimpleXMLElement encontrados</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setElementListByFieldValue" name="method_setElementListByFieldValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setElementListByFieldValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setElementListByFieldValue(String <span class="argument">$field</span>, String <span class="argument">$value</span>, String <span class="argument">$element</span>, String <span class="argument">$parent</span>, String <span class="argument">$fieldToSet</span>, String <span class="argument">$valueToSet</span>)</pre>
+                <p><em>Asigna el valor a un campo de un elemento del XML determinado por el valor de un determinado campo</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>String</td>
+                                <td>$field</td>
+                                <td><p>cadena que representa al campo por el cual se desea buscar al elemento a actualizar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$value</td>
+                                <td><p>cadena que representa al valor del campo por el cual se desea buscar al elemento a actualizar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento del XML que se desea actualizar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$parent</td>
+                                <td><p>cadena que representa al padre del elemento en cuestión, en caso de que se conozca</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$fieldToSet</td>
+                                <td><p>cadena que representa al campo al cual se desea actualizar su valor</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$valueToSet</td>
+                                <td><p>cadena que representa al valor que será asignado al campo</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getElementAttributesListById" name="method_getElementAttributesListById" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getElementAttributesListById()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getElementAttributesListById(String <span class="argument">$element</span>, String <span class="argument">$elementId</span>) : Array</pre>
+                <p><em>Retorna una lista de atributos de un elemento del XML</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento del XML del cual se quieren obtener los atributos</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$elementId</td>
+                                <td><p>id del elemento del XML del cual se quieren obtener los atributos</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    Array
+                                            &mdash; <p>arreglo asociativo de atributos y valores de esos atributos</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getElementAttributeById" name="method_getElementAttributeById" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getElementAttributeById()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getElementAttributeById(String <span class="argument">$attribute</span>, String <span class="argument">$element</span>, String <span class="argument">$elementId</span>) : Object</pre>
+                <p><em>Retorna el valor de un atributo determinado de un elemento del XML</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>String</td>
+                                <td>$attribute</td>
+                                <td><p>cadena que representa al atributo del elemento del XML del cual se quiere obtener el valor</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento del XML del cual se quiere obtener el valor del atributo</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$elementId</td>
+                                <td><p>id del elemento del XML del cual se quiere obtener el valor del atributo</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    Object
+                                            &mdash; <p>valor del atributo</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setElementAttributeById" name="method_setElementAttributeById" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setElementAttributeById()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setElementAttributeById(String <span class="argument">$attribute</span>, String <span class="argument">$value</span>, String <span class="argument">$element</span>, String <span class="argument">$elementId</span>)</pre>
+                <p><em>Asgina el valor a un atributo determinado de un elemento del XML</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>String</td>
+                                <td>$attribute</td>
+                                <td><p>cadena que representa al atributo del elemento del XML al cual se desea asginar el valor</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$value</td>
+                                <td><p>cadena que representa al valor que será asignado al atributo</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento del XML el cual contiene el atributo a atualizar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$elementId</td>
+                                <td><p>id del elemento del XML que contiene el atributo a atualizar</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setElementAttributesById" name="method_setElementAttributesById" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setElementAttributesById()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setElementAttributesById(Array <span class="argument">$attributes</span>, Array <span class="argument">$values</span>, String <span class="argument">$element</span>, String <span class="argument">$elementId</span>)</pre>
+                <p><em>Asgina valores a una lista de atributo determinada de un elemento del XML</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>Array</td>
+                                <td>$attributes</td>
+                                <td><p>lista de los atributos del elemento del XML a los cuales se desea asginar valores</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>Array</td>
+                                <td>$values</td>
+                                <td><p>lsita con los valores que serán asignados a los atributos</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento del XML el cual contiene los atributos a atualizar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$elementId</td>
+                                <td><p>id del elemento del XML que contiene los atributos a atualizar</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getXml" name="method_getXml" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getXml()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getXml() : object</pre>
+                <p><em>Convierte el archivo XML de configuración en un objeto y lo retorna.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    object
+                                            &mdash; <p>Retorna un object de tipo SimpleXMLElement cuyas propiedades contienen los datos del documento XML, o FALSE en caso de error.</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_saveXml" name="method_saveXml" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">saveXml()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">saveXml(\SimpleXML <span class="argument">$xml</span>)</pre>
+                <p><em>Escribe en el archivo XML de configuración un string XML correcto basado en un
+elemento SimpleXML que se recibe como parámetro.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\SimpleXML</td>
+                                <td>$xml</td>
+                                <td><p>objeto de tipo SimpleXML</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_saveFormattedXml" name="method_saveFormattedXml" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">saveFormattedXml()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">saveFormattedXml(\SimpleXML <span class="argument">$xml</span>)</pre>
+                <p><em>Escribe en el archivo XML de configuración un string XML correcto basado en un
+elemento SimpleXML que se recibe como parámetro, respetando el formato de identación
+de los archivos XML.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\SimpleXML</td>
+                                <td>$xml</td>
+                                <td><p>objeto de tipo SimpleXML</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getQuery" name="method_getQuery" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">getQuery()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getQuery(String <span class="argument">$element</span>, String <span class="argument">$parent</span>) : String</pre>
+                <p><em>Retorna una cadena que representa una consulta compatible con xpath</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>String</td>
+                                <td>$element</td>
+                                <td><p>cadena que representa al elemento del XML que se desea buscar</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>String</td>
+                                <td>$parent</td>
+                                <td><p>cadena que representa al padre del elemento que se desea busccar, en caso de que se conozca</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    String
+                                            &mdash; <p>cadena que representa una consulta compatible con xpath para buscar el elemento</p>
+                                                </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">eslip.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/eslip.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on June 3rd, 2014 at 03:52.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
