@@ -1,0 +1,97 @@
+body {
+	font-family: Helvetica,Arial,sans-serif;
+	font-size: 15px;
+	color: #ebebeb;
+	background-color: #2b3e50;
+}
+
+.header {
+	border-bottom: 1px solid #e5e5e5;
+	margin-bottom: 30px;
+	padding-bottom: 5px;
+}
+
+#eslip-logo {
+	width: 200px;
+}
+
+.container {
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.example-widget .container{
+	max-width: 730px;
+}
+
+.results .container{
+	max-width: 1000px;
+}
+
+.content {
+	margin-bottom: 30px;
+	background-color: #4e5d6c;
+}
+.example-widget .content{
+	padding-left: 60px;
+	padding-right: 60px;
+	padding-top: 48px;
+	padding-bottom: 48px;
+}
+.results .content{
+	padding: 20px;
+}
+
+#ESLIP_Plugin {
+	margin: 0 auto;
+}
+
+.footer {
+    border-top: 1px solid #E5E5E5;
+    color: #777777;
+    display: inline-block;
+    margin-bottom: 10px;
+    padding-top: 19px;
+    width: 100%;
+}
+
+.pull-left{
+	float: left;
+}
+
+.pull-right{
+	float: right;
+}
+
+.row label{
+	width: 49%;
+	display: inline-block;
+	text-align: right;
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+.row span{
+	width: 49%;
+	display: inline-block;
+	text-align: left;
+}
+
+.row span.success{
+	color: #7FFF00;
+	text-transform: uppercase;
+}
+
+.row span.error{
+	color: red;
+	text-transform: uppercase;
+}
+
+h2.hola{
+	background-color: #5CB85C;
+    color: #FFFFFF;
+    padding: 10px 0;
+    text-align: center;
+}
