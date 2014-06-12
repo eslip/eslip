@@ -49,11 +49,11 @@
       <urlParameters>0</urlParameters>
       <clientId></clientId>
       <clientSecret></clientSecret>
-      <scope></scope>
+      <scope/>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
       <userDataUrl>https://graph.facebook.com/me</userDataUrl>
-      <userDataIdKey>name</userDataIdKey>
+      <userDataIdKey>first_name</userDataIdKey>
       <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
     <identityProvider id="twitter">
@@ -85,12 +85,12 @@
       <accessTokenUrl>https://api.login.yahoo.com/oauth/v2/get_token</accessTokenUrl>
       <authorizationHeader>0</authorizationHeader>
       <urlParameters>0</urlParameters>
-      <clientId>dj0yJmk9U0tVNXFnVFR0dlFtJmQ9WVdrOWNWRTNZWHBsTlRnbWNHbzlNVGt4TXpRMk5URTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD1hYQ--</clientId>
-      <clientSecret>ad8f15daa63193c6878c3390e4745d3c9a3200ed</clientSecret>
+      <clientId></clientId>
+      <clientSecret></clientSecret>
       <scope/>
       <hasAccessTokenExtraParameter>1</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName>xoauth_yahoo_guid</accessTokenExtraParameterName>
-      <userDataUrl>http://social.yahooapis.com/v1/user/{EXTRA_PARAMETER}/profile/usercard?format=json</userDataUrl>
+      <userDataUrl>https://social.yahooapis.com/v1/user/{EXTRA_PARAMETER}/profile/usercard?format=json</userDataUrl>
       <userDataIdKey>nickname</userDataIdKey>
       <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
@@ -148,7 +148,7 @@
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
       <userDataUrl>https://api.foursquare.com/v2/users/self</userDataUrl>
-      <userDataIdKey></userDataIdKey>
+      <userDataIdKey>firstName</userDataIdKey>
       <apiCallParameters>oauth_token={ACCESS_TOKEN}&amp;v=20140429</apiCallParameters>
     </identityProvider>
     <identityProvider id="github">
@@ -182,11 +182,11 @@
       <urlParameters>0</urlParameters>
       <clientId></clientId>
       <clientSecret></clientSecret>
-      <scope>https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile</scope>
+      <scope/>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
       <userDataUrl>https://www.googleapis.com/oauth2/v1/userinfo</userDataUrl>
-      <userDataIdKey></userDataIdKey>
+      <userDataIdKey>given_name</userDataIdKey>
       <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
     <identityProvider id="linkedin">
@@ -201,7 +201,7 @@
       <urlParameters>0</urlParameters>
       <clientId></clientId>
       <clientSecret></clientSecret>
-      <scope></scope>
+      <scope/>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
       <userDataUrl>http://api.linkedin.com/v1/people/~?format=json</userDataUrl>
@@ -214,27 +214,8 @@
       <active>0</active>
       <oauth>2.0</oauth>
       <requestTokenUrl/>
-      <dialogUrl>https://login.live.com/oauth20_authorize.srf?client_id={CLIENT_ID}&amp;scope={SCOPE}&amp;response_type=code&amp;redirect_uri={REDIRECT_URI}&amp;state={STATE}</dialogUrl>
+      <dialogUrl>https://login.live.com/oauth20_authorize.srf?client_id={CLIENT_ID}&amp;scope={SCOPE}&amp;response_type=code&amp;redirect_uri={REDIRECT_URI}&amp;state={STATE}&amp;display=popup</dialogUrl>
       <accessTokenUrl>https://login.live.com/oauth20_token.srf</accessTokenUrl>
-      <authorizationHeader>1</authorizationHeader>
-      <urlParameters>0</urlParameters>
-      <clientId></clientId>
-      <clientSecret></clientSecret>
-      <scope></scope>
-      <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
-      <accessTokenExtraParameterName/>
-      <userDataUrl>https://apis.live.net/v5.0/me</userDataUrl>
-      <userDataIdKey></userDataIdKey>
-      <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
-    </identityProvider>
-    <identityProvider id="tumblr">
-      <name>Tumblr</name>
-      <label>Login con Tumblr</label>
-      <active>0</active>
-      <oauth>1.0a</oauth>
-      <requestTokenUrl>http://www.tumblr.com/oauth/request_token</requestTokenUrl>
-      <dialogUrl>http://www.tumblr.com/oauth/authorize</dialogUrl>
-      <accessTokenUrl>http://www.tumblr.com/oauth/access_token</accessTokenUrl>
       <authorizationHeader>1</authorizationHeader>
       <urlParameters>0</urlParameters>
       <clientId></clientId>
@@ -242,8 +223,8 @@
       <scope/>
       <hasAccessTokenExtraParameter>0</hasAccessTokenExtraParameter>
       <accessTokenExtraParameterName/>
-      <userDataUrl>http://api.tumblr.com/v2/user/info</userDataUrl>
-      <userDataIdKey></userDataIdKey>
+      <userDataUrl>https://apis.live.net/v5.0/me</userDataUrl>
+      <userDataIdKey>name</userDataIdKey>
       <apiCallParameters>access_token={ACCESS_TOKEN}</apiCallParameters>
     </identityProvider>
   </identityProviders>
