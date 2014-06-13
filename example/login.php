@@ -1,4 +1,3 @@
-<?if(!isset($_POST['state'])) header('Location: index.php'); ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -33,19 +32,15 @@
 			</div>
 			<div class="row">
 				<label>Estado:</label>
-				<span class="<?php echo $_POST['state'] ?>"><?php echo $_POST['state'] ?></span>
+				<span class="<?php echo $_POST['state'] ?>"><?php echo $_POST['state']; ?></span>
 			</div>
 			<?php if($_POST['state'] == 'success'){ ?>
 				<h2 class="hola">Hola <?php echo $_POST['user_identification'];?>!! Gracias por probar ESLIP!</h2> 
 				<h2>Recursos obtenidos:</h2>
-				<pre>
-					<?php print_r(json_decode($_POST['user'])); ?>
-				</pre>
+				<pre><?php print_r(json_decode($_POST['user'])); ?></pre>
 			<?php }else{ ?>
 				<h2>Datos del error</h2>
-				<pre>
-					<?php print_r(json_decode($_POST['error'])); ?>
-				</pre>
+				<pre><?php echo $_POST['error']; ?></pre>
 			<?php } ?>
 		</div>
 		<div class="footer">

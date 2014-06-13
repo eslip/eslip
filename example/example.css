@@ -95,3 +95,7 @@ h2.hola{
     padding: 10px 0;
     text-align: center;
 }
+
+pre{
+	overflow: auto;
+}
