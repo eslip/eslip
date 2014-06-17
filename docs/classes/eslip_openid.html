@@ -15,8 +15,8 @@
     <!--[if lt IE 9]>
     <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
     <![endif]-->
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
     <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="../js/jquery.smooth-scroll.js"></script>
     <script src="../js/prism.min.js"></script>
@@ -87,14 +87,7 @@
 
             <div class="nav-collapse">
                 <ul class="nav pull-right">
-                    <li class="dropdown">
-                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
-                            API Documentation <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                                                    </ul>
-                    </li>
-                    <li class="dropdown" id="charts-menu">
+                                        <li class="dropdown" id="charts-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             Charts <b class="caret"></b>
                         </a>
@@ -113,12 +106,17 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">12</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">7</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
                                 </a>
                             </li>
                         </ul>
@@ -138,23 +136,23 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1272894044"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1256806925"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1272894044" class="accordion-body collapse in">
+            <div id="namespace-1256806925" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
                     <ul>
                                                                                                     <li class="class"><a href="../classes/Eslip.html">Eslip</a></li>
+                                                    <li class="class"><a href="../classes/eslip_oauth.html">eslip_oauth</a></li>
+                                                    <li class="class"><a href="../classes/eslip_openid.html">eslip_openid</a></li>
+                                                    <li class="class"><a href="../classes/eslip_protocol.html">eslip_protocol</a></li>
+                                                    <li class="class"><a href="../classes/EslipException.html">EslipException</a></li>
+                                                    <li class="class"><a href="../classes/EslipServices.html">EslipServices</a></li>
                                                     <li class="class"><a href="../classes/EslipXMLApi.html">EslipXMLApi</a></li>
                                                     <li class="class"><a href="../classes/FrontendServiceApi.html">FrontendServiceApi</a></li>
-                                                    <li class="class"><a href="../classes/eslip_oauth.html">eslip_oauth</a></li>
                                                     <li class="class"><a href="../classes/OpenIDException.html">OpenIDException</a></li>
-                                                    <li class="class"><a href="../classes/eslip_openid.html">eslip_openid</a></li>
-                                                    <li class="class"><a href="../classes/EslipException.html">EslipException</a></li>
-                                                    <li class="class"><a href="../classes/eslip_protocol.html">eslip_protocol</a></li>
-                                                    <li class="class"><a href="../classes/EslipServices.html">EslipServices</a></li>
                                             </ul>
                 </div>
             </div>
@@ -261,7 +259,7 @@ OpenID. Soporta tanto las versiones 1.0 como la 2.0 del protocolo.</p>
                     
                     <dl>
                         <dt>File</dt>
-                            <dd><a href="../files/eslip_openid.php.html"><div class="path-wrapper">eslip_openid.php</div></a></dd>
+                            <dd><a href="../files/eslip_openid.html"><div class="path-wrapper">eslip_openid.php</div></a></dd>
                                                 <dt>Package</dt>
                             <dd><div class="namespace-wrapper">\Eslip</div></dd>
                                                 <dt>Class hierarchy</dt>
@@ -293,13 +291,6 @@ OpenID. Soporta tanto las versiones 1.0 como la 2.0 del protocolo.</p>
                             </th>
                             <td>
                                                                     <p><a href="http://opensource.org/licenses/mit-license.php">http://opensource.org/licenses/mit-license.php</a> The MIT License (MIT)</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                todo
-                            </th>
-                            <td>
                                                             </td>
                         </tr>
                                         </table>
@@ -334,13 +325,7 @@ OpenID. Soporta tanto las versiones 1.0 como la 2.0 del protocolo.</p>
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -364,13 +349,7 @@ OpenID. Soporta tanto las versiones 1.0 como la 2.0 del protocolo.</p>
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -395,13 +374,7 @@ respuesta del proveedor de identidad</em></p>
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -426,13 +399,7 @@ hora de pedir autenticacion</em></p>
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -456,13 +423,7 @@ hora de pedir autenticacion</em></p>
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -486,13 +447,7 @@ hora de pedir autenticacion</em></p>
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -516,13 +471,7 @@ hora de pedir autenticacion</em></p>
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -546,13 +495,7 @@ hora de pedir autenticacion</em></p>
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -577,13 +520,7 @@ pero aún no fue verificada.</em></p>
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -608,13 +545,7 @@ enviarle los parametros correspondientes para obtener los datos deseados del usu
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -639,13 +570,7 @@ enviarle los parametros correspondientes para obtener los datos deseados del usu
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -669,13 +594,7 @@ enviarle los parametros correspondientes para obtener los datos deseados del usu
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -699,13 +618,7 @@ enviarle los parametros correspondientes para obtener los datos deseados del usu
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -729,13 +642,7 @@ enviarle los parametros correspondientes para obtener los datos deseados del usu
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -759,13 +666,7 @@ enviarle los parametros correspondientes para obtener los datos deseados del usu
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -789,13 +690,7 @@ enviarle los parametros correspondientes para obtener los datos deseados del usu
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -821,25 +716,16 @@ enviarle los parametros correspondientes para obtener los datos deseados del usu
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td>object</td>
-                                <td>$eslip</td>
+                                <td>$eslip </td>
                                 <td><p>Instancia de la clase Eslip</p></td>
                             </tr>
                                                     <tr>
                                 <td>string</td>
-                                <td>$referer</td>
+                                <td>$referer </td>
                                 <td><p>URL de la cual proviene el llamado al plugin para luego ser enviado de vuelta</p></td>
                             </tr>
                                             </table>
                 
-                                    <h4>Throws</h4>
-                    <dl>
-                                                    <dt>\EslipException</dt>
-                            <dd><p>Si el constructor no recibe el parametro $eslip_data</p></dd>
-                                                    <dt>\EslipException</dt>
-                            <dd><p>Si el constructor no recibe el parametro $identity_provider</p></dd>
-                                                    <dt>\EslipException</dt>
-                            <dd><p>Si el constructor no recibe el parametro $site_url</p></dd>
-                                                                    </dl>
                 
                             </article>
         </div>
@@ -849,13 +735,7 @@ enviarle los parametros correspondientes para obtener los datos deseados del usu
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -882,13 +762,7 @@ cual postea los datos obtenidos del proveedor de identidad a la URL configurada.
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -924,13 +798,7 @@ la especificacion del protocolo OpenID</em></p>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -961,13 +829,7 @@ proveedor de identidad puede proporcionar toda la información que quiera.</p>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -987,7 +849,7 @@ como lo indica el protocolo OpenID</em></p>
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td>string</td>
-                                <td>$site_url</td>
+                                <td>$site_url </td>
                                 <td><p>URL que se quiere preparar</p></td>
                             </tr>
                                             </table>
@@ -1004,13 +866,7 @@ como lo indica el protocolo OpenID</em></p>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1039,13 +895,7 @@ en la sesion para que pueda ser utilizada correctamente como lo indica el protoc
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1074,13 +924,7 @@ esta presente en todos los mensajes de OpenID</em></p>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1100,27 +944,27 @@ por parametro.</p>
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td>string</td>
-                                <td>$url</td>
+                                <td>$url </td>
                                 <td><p>URL con la que nos queremos comunicar</p></td>
                             </tr>
                                                     <tr>
                                 <td>string</td>
-                                <td>$method</td>
+                                <td>$method </td>
                                 <td><p>Metodo HTTP que se va a utilizar para comunicarse con el destino</p></td>
                             </tr>
                                                     <tr>
                                 <td>array</td>
-                                <td>$params</td>
+                                <td>$params </td>
                                 <td><p>Parametros que se van a enviar en la petición</p></td>
                             </tr>
                                                     <tr>
                                 <td>boolean</td>
-                                <td>$update_claimed_id</td>
+                                <td>$update_claimed_id </td>
                                 <td><p>Determina si se debe actualizar la propiedad de la clase claimed_id</p></td>
                             </tr>
                                                     <tr>
                                 <td>boolean</td>
-                                <td>$includeHeader</td>
+                                <td>$includeHeader </td>
                                 <td><p>Determina si el servidor con el que nos comunicamos debe incluir la cabezera HTTP en la respuesta</p></td>
                             </tr>
                                             </table>
@@ -1137,13 +981,7 @@ por parametro.</p>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1162,27 +1000,27 @@ por parametro.</p>
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td>string</td>
-                                <td>$content</td>
+                                <td>$content </td>
                                 <td><p>Contenido HTML en el que se va a realizar la busqueda</p></td>
                             </tr>
                                                     <tr>
                                 <td>string</td>
-                                <td>$tag</td>
+                                <td>$tag </td>
                                 <td><p>Elemento HTML en el que se encuentra el Atributo que queremos saber su valor</p></td>
                             </tr>
                                                     <tr>
                                 <td>string</td>
-                                <td>$attrName</td>
+                                <td>$attrName </td>
                                 <td><p>Atributo selector por el que vamos a buscar el elemento</p></td>
                             </tr>
                                                     <tr>
                                 <td>string</td>
-                                <td>$attrValue</td>
+                                <td>$attrValue </td>
                                 <td><p>Valor que debe tener el atributo selector</p></td>
                             </tr>
                                                     <tr>
                                 <td>string</td>
-                                <td>$valueName</td>
+                                <td>$valueName </td>
                                 <td><p>Atributo del cual queremos saber su valor</p></td>
                             </tr>
                                             </table>
@@ -1199,13 +1037,7 @@ por parametro.</p>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1224,7 +1056,7 @@ por parametro.</p>
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td>mixed</td>
-                                <td>$url</td>
+                                <td>$url </td>
                                 <td><p>URL de identificacion OpenID que el usuario ingresa en el formulario</p></td>
                             </tr>
                                             </table>
@@ -1248,13 +1080,7 @@ por parametro.</p>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1284,13 +1110,7 @@ configurados previamente.</em></p>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1320,13 +1140,7 @@ configurados previamente.</em></p>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1355,13 +1169,7 @@ redirigir el navegador para que el proveedor de identidad confirme la identidad 
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1390,13 +1198,7 @@ redirigir el navegador para que el proveedor de identidad confirme la identidad 
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1425,13 +1227,7 @@ proveedor de identidad confirme la identidad reclamada</em></p>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1465,13 +1261,7 @@ en el proveedor de identidad.</em></p>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1500,13 +1290,7 @@ a recursos solicitados. Analiza los parametros referentes a la extension AX</em>
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1535,13 +1319,7 @@ a recursos solicitados. Analiza los parametros referentes a la extension SREG</e
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            todo
-                        </th>
-                        <td>
-                                                    </td>
-                    </tr>
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
                             </table>
         </aside>
     </div>
@@ -1595,7 +1373,7 @@ a recursos solicitados. Analiza los parametros referentes a la extension SREG</e
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on June 3rd, 2014 at 03:52.
+                    on June 17th, 2014 at 04:21.
                 </section>
             </section>
         </section>
