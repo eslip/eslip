@@ -1,5 +1,5 @@
-[ESLIP Plugin](http://eslip.com.ar/)
-====================================
+[ESLIP](http://eslip.com.ar/)
+=============================
 
 Easy Social Login Integration Plugin (ESLIP), en español Plugin Simple para Integración de Social Login, permite integrar fácilmente Social Login a un sitio web, tal como lo indica su nombre. El principal objetivo de esta herramienta es permitir a los desarrolladores web incorporar de forma sencilla un widget de inicio de sesión que ofrezca la posibilidad de que los usuarios se autentiquen en un sitio web por medio de las cuentas de redes sociales y servicios en línea más populares, como por ejemplo Facebook, Twitter, Google, entre otros.
 
