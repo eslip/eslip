@@ -21,7 +21,8 @@ var SERVICES = {
 	"getLanguages": "getLanguages",
 	"getWizardData": "getWizardData",
 	"saveConfiguration" : "saveConfiguration",
-	"getWizardEndData" : "getWizardEndData"
+	"getWizardEndData" : "getWizardEndData",
+	"saveGeneralConfig" : "saveGeneralConfig",
 };
 
 var $selectLanguageDialog;
@@ -278,6 +279,8 @@ function initWizardFormValidation(data){
 
 	$wizard.cards[data.labels.generalConfigs].on("validate", function(card) {
 	    if (card.el.find("form").valid()){
+	    	$("#siteUrl").val( formatUrl( $("#siteUrl").val() ) );
+			$("#pluginUrl").val( formatUrl( $("#pluginUrl").val() ) );
 			return true;
 		}else{
 			return false;
@@ -293,7 +296,7 @@ function initWizardFormValidation(data){
 	});
 
 	$wizard.cards[data.labels.loginWidget].on("validate", function(card) {
-	    if (card.el.find("form").valid()){
+	    if (card.el.find("form").valid()){	    	
 			return true;
 		}else{
 			return false;
@@ -377,6 +380,8 @@ function initLoginWidget(data){
 			data.identityProviders.push(data.openIdProvider);
 		}else{
 			var j = findWithAttr(data.idProviders, 'id', activeIds[i]);
+			var splittedLogoUrl = data.idProviders[j].styles.logo_url.split("frontend");
+			data.idProviders[j].styles.logo_url = $("#pluginUrl").val() + "frontend" + splittedLogoUrl[1];
 			data.identityProviders.push(data.idProviders[j]);
 		}
 	}
