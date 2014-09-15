@@ -74,14 +74,14 @@ Instalación y uso
 + Servidor web Apache
 + PHP >= 5.3
 
-#### Configuraciones necesarias del servidor web Apache:
+##### Configuraciones necesarias del servidor web Apache:
 
 + Tener activado el módulo 'mod_rewrite'.
 + En el VirtualHost correspondiente:
     + Permitir la reescritura estableciendo la opción 'AllowOverride' en 'All'.
     + Asegurarse de NO incluir la opción 'Multiviews'.
 
-#### Módulos necesarios de PHP
+##### Módulos necesarios de PHP
 
 + Módulo PHP SimpleXML
 + Módulo PHP CURL
@@ -128,18 +128,25 @@ Dichos recursos son enviados a la URL de retorno por POST pero también son alma
 
 Los recursos se le envían al desarrollador dentro de una estructura de arreglo. Dicho arreglo contiene la siguiente información:
 
-<b>'state':</b> 'success' | 'error'<br />
-<b>'referer':</b> URL de la página en la que estaba el usuario y desde donde proviene el intento de identificación<br />
-<b>'server':</b> Proveedor de identidad elegido por el usuario para identificarse
+<dl>
+    <dt>'state':</dt><dd>'success' | 'error'</dd>
+    <dt>'referer':</dt><dd>URL de la página en la que estaba el usuario y desde donde proviene el intento de identificación</dd>
+    <dt>'server':</dt><dd>Proveedor de identidad elegido por el usuario para identificarse</dd>
+</dl>
 
 Si la identificación es satisfactoria, es decir que el status es 'success' se incluye la siguiente información:
 
-<b>'user':</b> Recursos del usuario obtenidos del proveedor de identidad<br />
-<b>'user_identification':</b> Identificador del usuario. La llave del recurso que se considera identificador debe ser configurada en el administrador para cada proveedor de identidad
+<dl>
+    <dt>'user':</dt><dd>Recursos del usuario obtenidos del proveedor de identidad</dd>
+    <dt>'user_identification':</dt><dd>Identificador del usuario. La llave del recurso que se considera identificador debe ser configurada en el administrador para cada proveedor de identidad</dd>
+</dl>
 
 Si ocurre un error durante el proceso de identificación, es decir que el status es 'error' se incluye la siguiente información:
 
-<b>'error': </b> Descripción del error
+<dl>
+    <dt>'error': </dt><dd>Descripción del error</dd>
+</dl>
+
 
 Documentación completa
 ----------------------
